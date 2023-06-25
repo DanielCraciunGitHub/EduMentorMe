@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Providers } from './components/providers'
-import DarkModeButton from './components/DarkMode'
+import Navbar from './components/Navbar'
 
 export const metadata: Metadata = {
   title: 'Template',
@@ -13,9 +12,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <Providers>{children}</Providers>
+    <html lang="en">
+      <body className='bg-slate-900'>
+        <Navbar />
+        {children}
       </body>
     </html>
   )
