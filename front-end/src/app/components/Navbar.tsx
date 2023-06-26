@@ -20,6 +20,7 @@ export default function NavBar() {
     }
   }, [])
   return (
+    // conditional rendering of a mobile or desktop nav bar
     <nav>
       {isMobile ? (
         <div className="flex flex-col justify-center items-center py-2">
