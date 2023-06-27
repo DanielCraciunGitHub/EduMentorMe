@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import "@/app/globals.css"
-import { ThemeProvider } from "@/app/components/theme-provider"
+import { Provider } from "@/app/components/providers"
 
 import Navbar from "@/app/components/NavBar"
 import Footer from "@/app/components/Footer"
@@ -17,11 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <Provider attribute="class" defaultTheme="dark" enableSystem>
           <Navbar />
           <main className="flex-grow h-full flex">{children}</main>
           <Footer />
-        </ThemeProvider>
+        </Provider>
       </body>
     </html>
   )

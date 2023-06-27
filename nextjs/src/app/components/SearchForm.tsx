@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { useRouter } from "next/navigation"
+import { capitalizeWords } from "@/app/lib/stringFuncs"
 
 import { Button } from "@/app/components/ui/button"
 import {
@@ -20,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/components/ui/select"
+import { subjects } from "@/app/lib/constants"
 
 const FormSchema = z.object({
   subject: z.string({}),
@@ -54,13 +56,13 @@ export function SearchForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="a-level-physics">
-                    A Level Physics
-                  </SelectItem>
-                  <SelectItem value="a-level-maths">A Level Maths</SelectItem>
-                  <SelectItem value="a-level-computer-science">
-                    A Level Computer Science
-                  </SelectItem>
+                  {subjects.map((subject) => {
+                    return (
+                      <SelectItem value={subject} key={subject}>
+                        {capitalizeWords(subject)}
+                      </SelectItem>
+                    )
+                  })}
                 </SelectContent>
               </Select>
               <FormMessage />

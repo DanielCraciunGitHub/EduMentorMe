@@ -19,3 +19,7 @@ interface ApiResponse {
     }
   }
 }
+interface fileData {
+  fileName: string
+  pdfFile: Buffer
+}

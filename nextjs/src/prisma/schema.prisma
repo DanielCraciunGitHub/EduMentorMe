@@ -1,0 +1,14 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_DB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model files {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  fileName     String @unique
+  pdfFile      Bytes @unique
+}
