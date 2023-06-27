@@ -1,5 +1,5 @@
 export function nameToPath(name: string): string {
-  return name.toLowerCase().replaceAll(" ", "_")
+  return `/${name.toLowerCase().replaceAll(" ", "_")}`
 }
 export function capitalizeWords(str: string): string {
   const words = str.split("-")

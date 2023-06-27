@@ -28,47 +28,48 @@ export default function NavBar() {
       window.removeEventListener("resize", handleResize)
     }
   }, [])
+  return <nav>{isMobile ? <MobileBar /> : <DesktopBar />}</nav>
+}
+function MobileBar() {
   return (
-    // conditional rendering of a mobile or desktop nav bar
-    <nav>
-      {isMobile ? (
-        <div className="flex flex-col justify-center items-center py-2">
+    <div className="flex flex-col justify-center items-center py-2">
+      <Link href="/">
+        <Button variant="ghost" className="text-4xl">
+          CMT
+        </Button>
+      </Link>
+      {navPages.map((page) => (
+        <Link href={nameToPath(page)} key={page}>
+          <Button variant="ghost">{page}</Button>
+        </Link>
+      ))}
+    </div>
+  )
+}
+function DesktopBar() {
+  return (
+    <div>
+      <div className="mx-auto w-full p-4 py-6 lg:py-8 flex items-center justify-between">
+        <div className="flex items-center">
           <Link href="/">
             <Button variant="ghost" className="text-4xl">
               CMT
             </Button>
           </Link>
-          {navPages.map((page) => (
+          {navPages.slice(0, 3).map((page) => (
             <Link href={nameToPath(page)} key={page}>
               <Button variant="ghost">{page}</Button>
             </Link>
           ))}
         </div>
-      ) : (
-        <div>
-          <div className="mx-auto w-full p-4 py-6 lg:py-8 flex items-center justify-between">
-            <div className="flex items-center">
-              <Link href="/">
-                <Button variant="ghost" className="text-4xl">
-                  CMT
-                </Button>
-              </Link>
-              {navPages.slice(0, 3).map((page) => (
-                <Link href={nameToPath(page)} key={page}>
-                  <Button variant="ghost">{page}</Button>
-                </Link>
-              ))}
-            </div>
-            <div className="flex items-center">
-              {navPages.slice(3, 5).map((page) => (
-                <Link href={nameToPath(page)} key={page}>
-                  <Button variant="ghost">{page}</Button>
-                </Link>
-              ))}
-            </div>
-          </div>
+        <div className="flex items-center">
+          {navPages.slice(3, 5).map((page) => (
+            <Link href={nameToPath(page)} key={page}>
+              <Button variant="ghost">{page}</Button>
+            </Link>
+          ))}
         </div>
-      )}
-    </nav>
+      </div>
+    </div>
   )
 }

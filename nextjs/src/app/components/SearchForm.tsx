@@ -90,11 +90,7 @@ export function SearchForm() {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          variant="outline"
-          className="flex justify-center w-full"
-        >
+        <Button type="submit" variant="outline" className="flex w-full">
           Search 🔍
         </Button>
       </form>
