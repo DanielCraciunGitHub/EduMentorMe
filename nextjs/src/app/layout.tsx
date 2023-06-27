@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className="flex flex-col min-h-screen">
         <Provider attribute="class" defaultTheme="dark" enableSystem>
           <Navbar />
-          <main className="flex flex-grow">{children}</main>
+          <main className="flex flex-grow justify-center">{children}</main>
           <Footer />
         </Provider>
       </body>
