@@ -38,6 +38,7 @@ export const authConfig: NextAuthOptions = {
                 name,
                 email,
                 password: await bcrypt.hash(password, 10),
+                loginType: "credentials",
               },
             })
             .catch((error) => {
@@ -56,6 +57,36 @@ export const authConfig: NextAuthOptions = {
   callbacks: {
     async redirect({ baseUrl }) {
       return baseUrl
+    },
+    async session({ token, session }) {
+      if (token) {
+        session.user.name = token.name
+        session.user.role = token.role
+      }
+      return session
+    },
+    async jwt({ token }) {
+      const dbUser = await prisma.user.findFirst({
+        where: {
+          email: token.email as string,
+        },
+      })
+      if (!dbUser) {
+        await prisma.user.create({
+          data: {
+            name: token.name as string,
+            email: token.email as string,
+            loginType: "google",
+            password: "null",
+          },
+        })
+        return token
+      }
+      return {
+        name: dbUser.name,
+        email: dbUser.email,
+        role: dbUser.role,
+      }
     },
   },
 }
