@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaClient } from "@prisma/client"
+import bcrypt from "bcrypt"
 
 const prisma = new PrismaClient()
 
@@ -14,20 +15,35 @@ export const authConfig: NextAuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
+        name: { label: "Name", type: "text" },
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        console.log(req.body?.callbackUrl)
-        // const user = await prisma.user.findFirst({
-        //   where: { email: credentials?.email },
-        // })
-        const user = { id: "1" }
-        if (user) {
-          console.log("Success")
-          return user
+        const { name, email, password } = credentials as User
+
+        if (req.body?.callbackUrl.includes("login")) {
+          const user = await prisma.user.findFirst({
+            where: { email },
+          })
+          if (user && (await bcrypt.compare(password, user.password))) {
+            return user
+          } else {
+            throw new Error("404")
+          }
         } else {
-          throw new Error("404")
+          return await prisma.user
+            .create({
+              data: {
+                name,
+                email,
+                password: await bcrypt.hash(password, 10),
+              },
+            })
+            .catch((error) => {
+              console.log(error)
+              throw new Error("404")
+            })
         }
       },
     }),
@@ -35,5 +51,10 @@ export const authConfig: NextAuthOptions = {
   pages: {
     signIn: "/",
     newUser: "/",
+  },
+  callbacks: {
+    async redirect({ baseUrl }) {
+      return baseUrl
+    },
   },
 }
