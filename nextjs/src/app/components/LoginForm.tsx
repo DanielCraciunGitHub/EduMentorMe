@@ -73,6 +73,12 @@ export const LoginForm = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col space-y-8 w-1/2"
         >
+          <div className="space-y-2">
+            <h1 className="text-4xl">{type}</h1>
+            <p className="font-light">
+              Join a fast growing community of successful students
+            </p>
+          </div>
           {isError ? (
             <Alert variant="destructive">
               <AlertTitle>Error</AlertTitle>
@@ -131,7 +137,7 @@ export const LoginForm = ({
                   Must be at least 5 characters long
                 </FormDescription>
                 <FormControl>
-                  <Input placeholder="johndoe0!" {...field} />
+                  <Input placeholder="johndoe0!" type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

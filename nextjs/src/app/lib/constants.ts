@@ -3,3 +3,4 @@ export const subjects = [
   "a-level-physics",
   "a-level-computer-science",
 ]
+export const adminEmails = ["danielcracbusiness@gmail.com"]

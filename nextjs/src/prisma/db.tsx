@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-const addFile = async (fileName: string, pdfFile: Buffer) => {
+const addFile = async ({ fileName, pdfFile }: fileData) => {
   await prisma.files.create({
     data: {
       fileName,
