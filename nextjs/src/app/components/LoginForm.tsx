@@ -25,13 +25,10 @@ import { Separator } from "@/app/components/ui/separator"
 import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert"
 import { useRouter } from "next/navigation"
 
-export const LoginForm = ({
-  type = "Login",
-}: {
-  type: "Login" | "Sign up"
-}) => {
+export const LoginForm = ({ type }: { type: "Login" | "Sign up" }) => {
   const [isError, setIsError] = useState(false)
   const router = useRouter()
+
   let formSchema: any
 
   if (type === "Login") {

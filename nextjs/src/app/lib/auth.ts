@@ -51,6 +51,7 @@ export const authConfig: NextAuthOptions = {
   pages: {
     signIn: "/",
     newUser: "/",
+    signOut: "/",
   },
   callbacks: {
     async redirect({ baseUrl }) {
