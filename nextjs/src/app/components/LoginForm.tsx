@@ -58,7 +58,8 @@ export const LoginForm = ({ type }: { type: "Login" | "Sign up" }) => {
         setIsError(true)
       } else {
         setIsError(false)
-        router.push("/")
+        router.refresh()
+        router.replace("/")
       }
     })
   }

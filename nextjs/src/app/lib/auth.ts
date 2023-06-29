@@ -21,7 +21,6 @@ export const authConfig: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         const { name, email, password } = credentials as User
-
         if (req.body?.callbackUrl.includes("login")) {
           const user = await prisma.user.findFirst({
             where: { email },
@@ -41,8 +40,7 @@ export const authConfig: NextAuthOptions = {
                 loginType: "credentials",
               },
             })
-            .catch((error) => {
-              console.log(error)
+            .catch(() => {
               throw new Error("404")
             })
         }
@@ -51,21 +49,16 @@ export const authConfig: NextAuthOptions = {
   ],
   pages: {
     signIn: "/",
-    newUser: "/",
     signOut: "/",
   },
   callbacks: {
-    async redirect({ baseUrl }) {
-      return baseUrl
-    },
     async session({ token, session }) {
       if (token) {
-        session.user.name = token.name
         session.user.role = token.role
       }
       return session
     },
-    async jwt({ token }) {
+    async jwt({ token, account }) {
       const dbUser = await prisma.user.findFirst({
         where: {
           email: token.email as string,
@@ -76,7 +69,7 @@ export const authConfig: NextAuthOptions = {
           data: {
             name: token.name as string,
             email: token.email as string,
-            loginType: "google",
+            loginType: account?.provider as string,
             password: "null",
           },
         })

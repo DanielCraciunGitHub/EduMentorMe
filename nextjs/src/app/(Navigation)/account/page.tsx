@@ -7,7 +7,6 @@ import { FC } from "react"
 const page: FC = () => {
   const session = useSession()
 
-  console.log(session)
   return (
     <div className="flex flex-col items-center">
       {session.data?.user.role === "ADMIN" ? <div>ADMIN</div> : <div>USER</div>}
