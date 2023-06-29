@@ -1,16 +1,17 @@
 import { NextAuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/prisma/db"
 import bcrypt from "bcrypt"
-
-const prisma = new PrismaClient()
 
 export const authConfig: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      authorization: {
+        params: {},
+      },
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -50,6 +51,7 @@ export const authConfig: NextAuthOptions = {
   pages: {
     signIn: "/",
     signOut: "/",
+    error: "/auth/error",
   },
   callbacks: {
     async session({ token, session }) {

@@ -9,7 +9,11 @@ const page: FC = () => {
 
   return (
     <div className="flex flex-col items-center">
-      {session.data?.user.role === "ADMIN" ? <div>ADMIN</div> : <div>USER</div>}
+      {session.data?.user.role === "ADMIN" ? (
+        <div>ADMIN</div>
+      ) : (
+        <div>USER {session.data?.user.email}</div>
+      )}
       <Button variant="destructive" onClick={() => signOut()}>
         Sign out
       </Button>

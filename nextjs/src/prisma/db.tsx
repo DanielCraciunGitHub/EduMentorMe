@@ -1,14 +1,9 @@
 import { PrismaClient } from "@prisma/client"
 
-const prisma = new PrismaClient()
-
-const addFile = async ({ fileName, pdfFile }: fileData) => {
-  await prisma.files.create({
-    data: {
-      fileName,
-      pdfFile,
-    },
-  })
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined
 }
 
-export default addFile
+export const prisma = globalForPrisma.prisma ?? new PrismaClient()
+
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma

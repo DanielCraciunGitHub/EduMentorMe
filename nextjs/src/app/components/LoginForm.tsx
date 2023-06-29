@@ -59,7 +59,7 @@ export const LoginForm = ({ type }: { type: "Login" | "Sign up" }) => {
       } else {
         setIsError(false)
         router.refresh()
-        router.replace("/")
+        router.push("/")
       }
     })
   }
