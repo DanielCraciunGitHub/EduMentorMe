@@ -40,10 +40,7 @@ export function SearchForm() {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 w-[18rem]"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-1/4">
         <FormField
           control={form.control}
           name="subject"

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useStateRouter } from "@/app/components/hooks/useStateRouter"
 import Link from "next/link"
 
 import { signIn } from "next-auth/react"
@@ -23,11 +23,9 @@ import { Input } from "@/app/components/ui/input"
 import { Card } from "@/app/components/ui/card"
 import { Separator } from "@/app/components/ui/separator"
 import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert"
-import { useRouter } from "next/navigation"
 
 export const LoginForm = ({ type }: { type: "Login" | "Sign up" }) => {
-  const [isError, setIsError] = useState(false)
-  const router = useRouter()
+  const { router, isError, setIsError } = useStateRouter(false)
 
   let formSchema: any
 

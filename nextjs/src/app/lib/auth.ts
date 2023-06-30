@@ -9,9 +9,6 @@ export const authConfig: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      authorization: {
-        params: {},
-      },
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -51,32 +48,43 @@ export const authConfig: NextAuthOptions = {
   pages: {
     signIn: "/",
     signOut: "/",
-    error: "/auth/error",
+    error: "/api/auth/error",
   },
   callbacks: {
+    async signIn({ user, account }) {
+      const dbUser = await prisma.user.findFirst({
+        where: { email: user.email as string },
+      })
+      if (!dbUser) {
+        await prisma.user
+          .create({
+            data: {
+              name: user.name as string,
+              email: user.email as string,
+              password: "null" as string,
+              loginType: account?.provider as string,
+            },
+          })
+          .catch(() => false)
+        return true
+      }
+      return true
+    },
     async session({ token, session }) {
       if (token) {
         session.user.role = token.role
       }
       return session
     },
-    async jwt({ token, account }) {
-      const dbUser = await prisma.user.findFirst({
-        where: {
-          email: token.email as string,
-        },
-      })
-      if (!dbUser) {
-        await prisma.user.create({
-          data: {
-            name: token.name as string,
+    async jwt({ token }) {
+      const dbUser = await prisma.user
+        .findFirst({
+          where: {
             email: token.email as string,
-            loginType: account?.provider as string,
-            password: "null",
           },
         })
-        return token
-      }
+        .catch((err) => err)
+
       return {
         name: dbUser.name,
         email: dbUser.email,

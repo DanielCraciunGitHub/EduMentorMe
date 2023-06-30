@@ -1,23 +1,19 @@
 import { withAuth } from "next-auth/middleware"
-import { NextResponse } from "next/server"
 
-export default withAuth(
-  function middleware(req) {
-    NextResponse.rewrite(new URL(req.nextUrl.origin))
-  },
-  {
-    callbacks: {
-      authorized: ({ token, req }) => {
-        const path = req.nextUrl.pathname
-        if (!token && (path === "/login" || path === "/sign_up")) {
-          return true
-        } else if (token && path === "/account") {
-          return true
-        }
-        return false
-      },
+export default withAuth(function middleware() {}, {
+  callbacks: {
+    authorized: ({ token, req }) => {
+      const reqPath = req.nextUrl.pathname
+      if (!token && (reqPath === "/login" || reqPath === "/sign_up")) {
+        return true
+      } else if (token && reqPath === "/account") {
+        return true
+      }
+      return false
     },
-  }
-)
+  },
+})
 
-export const config = { matcher: ["/account", "/login", "/sign_up"] }
+export const config = {
+  matcher: ["/account", "/login", "/sign_up"],
+}
