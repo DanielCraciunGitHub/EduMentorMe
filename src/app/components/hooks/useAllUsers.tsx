@@ -9,12 +9,15 @@ export const useAllUsers = () => {
     const handleSetUsers = async () => {
       const allUsers = await getAllDataFromDb()
       if (allUsers) {
-        const users = allUsers.map((user) => ({
-          name: user.name,
-          email: user.email,
-          loginType: user.loginType,
-          role: user.role,
-        }))
+        const users = allUsers.map(
+          (user) =>
+            ({
+              name: user.name,
+              email: user.email,
+              loginType: user.loginType,
+              role: user.role,
+            } as User)
+        )
         setAllUsers(users)
       }
     }
