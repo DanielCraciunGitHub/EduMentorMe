@@ -10,7 +10,7 @@ export const useAllUsers = () => {
       const allUsers = await getAllDataFromDb()
       if (allUsers) {
         const users = allUsers.map(
-          (user) =>
+          (user: User) =>
             ({
               name: user.name,
               email: user.email,

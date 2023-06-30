@@ -85,19 +85,19 @@ export const authConfig: NextAuthOptions = {
     },
     // generates a token for the current user
     async jwt({ token }) {
-      const dbUser = await prisma.user
-        .findFirst({
-          where: {
-            email: token.email as string,
-          },
-        })
-        .catch((err) => err)
-
-      return {
-        name: dbUser.name,
-        email: dbUser.email,
-        role: dbUser.role,
+      const dbUser = await prisma.user.findFirst({
+        where: {
+          email: token.email as string,
+        },
+      })
+      if (dbUser) {
+        return {
+          name: dbUser.name,
+          email: dbUser.email,
+          role: dbUser.role,
+        }
       }
+      return token
     },
   },
 }
