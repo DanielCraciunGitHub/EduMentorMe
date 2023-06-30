@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { prisma } from "@/prisma/db"
 import bcrypt from "bcrypt"
+import { User } from "@/types/types"
 
 export const authConfig: NextAuthOptions = {
   providers: [
@@ -17,13 +18,17 @@ export const authConfig: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
+      // manages the user sign up and sign in via credentials method
       async authorize(credentials, req) {
         const { name, email, password } = credentials as User
         if (req.body?.callbackUrl.includes("login")) {
           const user = await prisma.user.findFirst({
             where: { email },
           })
-          if (user && (await bcrypt.compare(password, user.password))) {
+          if (
+            user &&
+            (await bcrypt.compare(password as string, user.password))
+          ) {
             return user
           } else {
             throw new Error("404")
@@ -34,7 +39,7 @@ export const authConfig: NextAuthOptions = {
               data: {
                 name,
                 email,
-                password: await bcrypt.hash(password, 10),
+                password: await bcrypt.hash(password as string, 10),
                 loginType: "credentials",
               },
             })
@@ -51,6 +56,7 @@ export const authConfig: NextAuthOptions = {
     error: "/api/auth/error",
   },
   callbacks: {
+    // handles sign up of google users
     async signIn({ user, account }) {
       const dbUser = await prisma.user.findFirst({
         where: { email: user.email as string },
@@ -70,12 +76,14 @@ export const authConfig: NextAuthOptions = {
       }
       return true
     },
+    // returns the role property from the token to the current user session
     async session({ token, session }) {
       if (token) {
         session.user.role = token.role
       }
       return session
     },
+    // generates a token for the current user
     async jwt({ token }) {
       const dbUser = await prisma.user
         .findFirst({
