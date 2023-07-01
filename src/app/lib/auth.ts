@@ -56,26 +56,4 @@ export const authConfig: NextAuthOptions = {
     signOut: "/",
     error: "/api/auth/error",
   },
-  callbacks: {
-    // handles sign up of google users
-    async signIn({ user, account }) {
-      const dbUser = await prisma.user.findFirst({
-        where: { email: user.email as string },
-      })
-      if (!dbUser) {
-        await prisma.user
-          .create({
-            data: {
-              name: user.name as string,
-              email: user.email as string,
-              password: "null" as string,
-              loginType: account?.provider as string,
-            },
-          })
-          .catch(() => false)
-        return true
-      }
-      return true
-    },
-  },
 }
