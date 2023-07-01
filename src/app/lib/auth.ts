@@ -77,28 +77,5 @@ export const authConfig: NextAuthOptions = {
       }
       return true
     },
-    // returns the role property from the token to the current user session
-    async session({ token, session }) {
-      if (token) {
-        session.user.role = token.role
-      }
-      return session
-    },
-    // generates a token for the current user
-    async jwt({ token }) {
-      const dbUser = await prisma.user.findFirst({
-        where: {
-          email: token.email as string,
-        },
-      })
-      if (dbUser) {
-        return {
-          name: dbUser.name,
-          email: dbUser.email,
-          role: dbUser.role,
-        }
-      }
-      return token
-    },
   },
 }
