@@ -144,7 +144,7 @@ export const LoginForm = ({ type }: { type: "Login" | "Sign up" }) => {
           <Button
             type="button"
             variant="outline"
-            onClick={() => signIn("google")}
+            onClick={() => signIn("google", { callbackUrl: "/" })}
           >
             {type} with Google
           </Button>
