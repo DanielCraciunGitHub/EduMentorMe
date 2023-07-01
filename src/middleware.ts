@@ -1,6 +1,6 @@
 import { withAuth } from "next-auth/middleware"
 
-export default withAuth(function middleware() {}, {
+export default withAuth({
   callbacks: {
     // redirects will only happen if false is returned from this function
     authorized: ({ token, req }) => {
