@@ -21,6 +21,9 @@ import {
 import { Input } from "@/app/components/ui/input"
 import { Card } from "@/app/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+
+import type { Database } from "@/types/supabase"
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid Email" }),
@@ -28,11 +31,36 @@ const formSchema = z.object({
 })
 
 const page: FC = () => {
+  const supabase = createClientComponentClient<Database>()
+
   const { router, isError, setIsError } = useStateRouter(false)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
-  async function onSubmit(values: z.infer<typeof formSchema>) {}
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { data } = await supabase
+      .from("users")
+      .select("email")
+      .eq("email", values.email)
+
+    if (data?.length === 0) {
+      setIsError(true)
+    } else {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: values.email,
+        password: values.password,
+      })
+      // error is null when successful
+      if (error) {
+        setIsError(true)
+      } else {
+        router.push("/")
+        router.refresh()
+      }
+    }
+  }
 
   return (
     <Card className="flex w-full items-center justify-center">
@@ -51,10 +79,8 @@ const page: FC = () => {
             <Alert variant="destructive">
               <AlertTitle>Error</AlertTitle>
               <AlertDescription>
-                This account cannot be found, consider{" "}
-                <Link href="/sign_up" className="underline text-blue-500">
-                  signing up
-                </Link>
+                1. Either Account doesn't exist <br />
+                2. Or password is incorrect
               </AlertDescription>
             </Alert>
           ) : null}

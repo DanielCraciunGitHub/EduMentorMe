@@ -32,8 +32,7 @@ const formSchema = z.object({
 
 const page: FC = () => {
   const supabase = createClientComponentClient<Database>()
-  // CHANGE THIS HOOK AS 'router' is no longer needed
-  const { router, isError, setIsError } = useStateRouter(false)
+  const { isError, setIsError } = useStateRouter(false)
   const [isEmailVerify, setIsEmailVerify] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,6 +49,7 @@ const page: FC = () => {
       await supabase.from("users").insert({
         name: values.name,
         email: values.email,
+        is_admin: false,
       })
       await supabase.auth.signUp({
         email: values.email,
