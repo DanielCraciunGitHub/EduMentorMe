@@ -3,8 +3,6 @@
 import { useStateRouter } from "@/app/components/hooks/useStateRouter"
 import Link from "next/link"
 
-import { signIn } from "next-auth/react"
-
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -21,7 +19,6 @@ import {
 } from "@/app/components/ui/form"
 import { Input } from "@/app/components/ui/input"
 import { Card } from "@/app/components/ui/card"
-import { Separator } from "@/app/components/ui/separator"
 import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert"
 
 export const LoginForm = ({ type }: { type: "Login" | "Sign up" }) => {
@@ -45,22 +42,7 @@ export const LoginForm = ({ type }: { type: "Login" | "Sign up" }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    await signIn("credentials", {
-      redirect: false,
-      name: values.name,
-      email: values.email,
-      password: values.password,
-    }).then((response) => {
-      if (response?.error === "404") {
-        setIsError(true)
-      } else {
-        setIsError(false)
-        router.refresh()
-        router.push("/")
-      }
-    })
-  }
+  async function onSubmit(values: z.infer<typeof formSchema>) {}
 
   return (
     <Card className="flex w-full items-center justify-center">
@@ -140,14 +122,6 @@ export const LoginForm = ({ type }: { type: "Login" | "Sign up" }) => {
             )}
           />
           <Button type="submit">{type}</Button>
-          <Separator />
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => signIn("google")}
-          >
-            {type} with Google
-          </Button>
         </form>
       </Form>
     </Card>
