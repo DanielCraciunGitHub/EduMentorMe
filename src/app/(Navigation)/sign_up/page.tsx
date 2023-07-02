@@ -1,6 +1,6 @@
 "use client"
 
-import { FC } from "react"
+import { FC, useState } from "react"
 import { useStateRouter } from "@/app/components/hooks/useStateRouter"
 import Link from "next/link"
 
@@ -21,6 +21,8 @@ import {
 import { Input } from "@/app/components/ui/input"
 import { Card } from "@/app/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import type { Database } from "@/types/supabase"
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Enter Your Name" }),
@@ -29,12 +31,40 @@ const formSchema = z.object({
 })
 
 const page: FC = () => {
+  const supabase = createClientComponentClient<Database>()
+  // CHANGE THIS HOOK AS 'router' is no longer needed
   const { router, isError, setIsError } = useStateRouter(false)
+  const [isEmailVerify, setIsEmailVerify] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
-  async function onSubmit(values: z.infer<typeof formSchema>) {}
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    // retrieves the record that corresponds with the input email if any
+    const { data } = await supabase
+      .from("users")
+      .select("email")
+      .eq("email", values.email)
+    // if no email present in database
+    if (data?.length === 0) {
+      await supabase.from("users").insert({
+        name: values.name,
+        email: values.email,
+      })
+      await supabase.auth.signUp({
+        email: values.email,
+        password: values.password,
+        options: {
+          emailRedirectTo:
+            process.env.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000/",
+        },
+      })
+      setIsError(false)
+      setIsEmailVerify(true)
+    } else {
+      setIsError(true)
+    }
+  }
 
   return (
     <Card className="flex w-full items-center justify-center">
@@ -57,6 +87,14 @@ const page: FC = () => {
                 <Link href="/login" className="underline text-blue-500">
                   logging in
                 </Link>
+              </AlertDescription>
+            </Alert>
+          ) : null}
+          {isEmailVerify ? (
+            <Alert variant="default" className="bg-green-500 dark:bg-green-700">
+              <AlertTitle>Success</AlertTitle>
+              <AlertDescription>
+                Check your email inbox to verify your account
               </AlertDescription>
             </Alert>
           ) : null}
