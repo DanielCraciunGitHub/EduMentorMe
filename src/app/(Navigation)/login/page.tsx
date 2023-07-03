@@ -40,12 +40,10 @@ const page: FC = () => {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const { data } = await supabase
-      .from("users")
-      .select("email")
-      .eq("email", values.email)
-
-    if (data?.length === 0) {
+    const { data: exists } = await supabase.rpc("email_exists", {
+      email_param: values.email,
+    })
+    if (!exists) {
       setIsError(true)
     } else {
       const { error } = await supabase.auth.signInWithPassword({

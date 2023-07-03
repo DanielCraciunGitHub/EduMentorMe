@@ -27,7 +27,7 @@ import type { Database } from "@/types/supabase"
 const formSchema = z.object({
   name: z.string().min(1, { message: "Enter Your Name" }),
   email: z.string().email({ message: "Invalid Email" }),
-  password: z.string().min(5, { message: "Invalid Password" }),
+  password: z.string().min(6, { message: "Invalid Password" }),
 })
 
 const page: FC = () => {
@@ -39,22 +39,20 @@ const page: FC = () => {
     resolver: zodResolver(formSchema),
   })
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // retrieves the record that corresponds with the input email if any
-    const { data } = await supabase
-      .from("users")
-      .select("email")
-      .eq("email", values.email)
+    // checks if an email exists in db
+    const { data: exists } = await supabase.rpc("email_exists", {
+      email_param: values.email,
+    })
     // if no email present in database
-    if (data?.length === 0) {
-      await supabase.from("users").insert({
-        name: values.name,
-        email: values.email,
-        is_admin: false,
-      })
+    if (!exists) {
+      // Takes around 1 second to complete due to advanced functions
       await supabase.auth.signUp({
         email: values.email,
         password: values.password,
         options: {
+          data: {
+            name: values.name,
+          },
           emailRedirectTo: `${location.origin}/auth/callback`,
         },
       })
@@ -130,7 +128,7 @@ const page: FC = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormDescription>
-                  Must be at least 5 characters long
+                  Must be at least 6 characters long
                 </FormDescription>
                 <FormControl>
                   <Input placeholder="johndoe0!" type="password" {...field} />
