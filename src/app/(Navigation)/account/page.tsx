@@ -6,11 +6,13 @@ import { useRouter } from "next/navigation"
 import { FC } from "react"
 
 import type { Database } from "@/types/supabase"
-import { getName } from "@/app/lib/stringFuncs"
+import { useUser } from "@/app/components/hooks/useUser"
 
 const page: FC = () => {
   const supabase = createClientComponentClient<Database>()
+
   const router = useRouter()
+  const { name, isAdmin } = useUser()
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -18,7 +20,7 @@ const page: FC = () => {
   }
   return (
     <div className="flex flex-col items-center">
-      <div>{getName()}</div>
+      <div>{name}</div>
       <div>
         <Button type="submit" onClick={handleSignOut}>
           Sign out

@@ -1,20 +1,15 @@
 "use client"
 
-import { Database, Row } from "@/types/supabase"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useEffect, useState } from "react"
 
 export function useUser() {
-  const supabase = createClientComponentClient<Database>()
-
-  const [user, setUser] = useState<Row | null>(null)
-
+  const [name, setName] = useState<string>("")
+  const [isAdmin, setIsAdmin] = useState<boolean>(false)
   useEffect(() => {
-    const handleSetUser = async () => {
-      const { data } = await supabase.from("users").select().single()
-      setUser(data)
-    }
-    handleSetUser()
+    const data = localStorage.getItem("local") as string
+    const parsedData = JSON.parse(data)
+    setName(parsedData["name"])
+    setIsAdmin(parsedData["is_admin"])
   }, [])
-  return { user }
+  return { name, isAdmin }
 }
