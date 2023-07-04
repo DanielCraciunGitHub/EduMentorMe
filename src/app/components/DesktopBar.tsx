@@ -1,6 +1,8 @@
 import { NavItem } from "@/app/components/NavItem"
+import { useUserStore } from "@/app/components/hooks/useUserStore"
 
 export function DesktopBar() {
+  const { authenticated } = useUserStore()
   return (
     <div className="w-full p-4 flex justify-between">
       <div className="flex items-center">
@@ -14,8 +16,14 @@ export function DesktopBar() {
         />
       </div>
       <div className="flex items-center">
-        <NavItem key="/login" page="/login" text="Login" />
-        <NavItem key="/sign_up" page="/sign_up" text="Sign Up" />
+        {authenticated ? (
+          <NavItem key="/account" page="/account" text="Account" />
+        ) : (
+          <>
+            <NavItem key="/login" page="/login" text="Login" />
+            <NavItem key="/sign_up" page="/sign_up" text="Sign Up" />
+          </>
+        )}
       </div>
     </div>
   )
