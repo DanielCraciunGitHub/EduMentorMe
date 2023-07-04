@@ -2,11 +2,11 @@ import { NavItem } from "@/app/components/NavItem"
 import { useUserStore } from "./hooks/useUserStore"
 
 export function MobileBar() {
-  const { authenticated } = useUserStore()
+  const { user } = useUserStore()
   return (
     <div className="flex flex-col items-center py-2">
       <NavItem key="CMT" page="/" text="CMT" className="text-4xl" />
-      {authenticated ? (
+      {user ? (
         <div className="flex flex-col items-center">
           <NavItem key="/about_us" page="/about_us" text="About Us" />
           <NavItem key="/contact_us" page="/contact_us" text="Contact Us" />

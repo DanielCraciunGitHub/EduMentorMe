@@ -20,7 +20,7 @@ const page: FC = () => {
   const supabase = createClientComponentClient<Database>()
 
   const router = useRouter()
-  const { name, isAdmin } = useUserStore()
+  const { user } = useUserStore()
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -33,7 +33,7 @@ const page: FC = () => {
   return (
     <div className="flex flex-col justify-between">
       <div className="flex flex-col items-center space-y-10">
-        <div className="text-3xl">Welcome, {name}</div>
+        <div className="text-3xl">Welcome, {user?.name}</div>
         <Button type="submit" onClick={handleSignOut}>
           Sign out
         </Button>

@@ -8,7 +8,6 @@ import { useUserStore } from "@/app/components/hooks/useUserStore"
 export function useUserListener() {
   const supabase = createClientComponentClient<Database>()
   const { setUser } = useUserStore()
-
   // A hook that acts as an event listener when defined in the root layout
   useEffect(() => {
     // 1. populates the state on page load/reload with local values
@@ -19,9 +18,9 @@ export function useUserListener() {
         .single()
       localStorage.setItem("local", JSON.stringify(data))
       if (data) {
-        setUser(data?.name, true, data?.is_admin)
+        setUser(data)
       } else {
-        setUser("", false, null)
+        setUser(null)
       }
     }
     init()
@@ -31,7 +30,7 @@ export function useUserListener() {
         init()
       } else if (event === "SIGNED_OUT") {
         localStorage.removeItem("local")
-        setUser("", false, null)
+        setUser(null)
       }
     })
     // 3. updates state and local storage based on realtime db updates
@@ -50,7 +49,7 @@ export function useUserListener() {
             is_admin: payload.new.is_admin,
           }
           localStorage.setItem("local", JSON.stringify(user))
-          setUser(user.name, true, user.is_admin)
+          setUser(user)
         }
       )
       .subscribe()
