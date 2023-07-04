@@ -4,8 +4,6 @@ import { Provider } from "@/app/components/providers"
 import Navbar from "@/app/components/NavBar"
 import Footer from "@/app/components/Footer"
 
-export const revalidate = 0
-
 export const metadata: Metadata = {
   title: "Computing And Maths Tutor",
 }
