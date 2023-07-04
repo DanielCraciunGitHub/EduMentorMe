@@ -11,7 +11,7 @@ export function useUserListener() {
 
   // A hook that acts as an event listener when defined in the root layout
   useEffect(() => {
-    // populates the state on page load/reload with local values
+    // 1. populates the state on page load/reload with local values
     const init = async () => {
       const { data } = await supabase
         .from("users")
@@ -25,7 +25,7 @@ export function useUserListener() {
       }
     }
     init()
-    // updates state and local storage depending on authentication level change
+    // 2. updates state and local storage depending on authentication level change
     supabase.auth.onAuthStateChange(async (event) => {
       if (event === "SIGNED_IN") {
         init()
@@ -34,7 +34,7 @@ export function useUserListener() {
         setUser("", false, null)
       }
     })
-    // updates state and local storage based on db changes
+    // 3. updates state and local storage based on realtime db updates
     const channel = supabase
       .channel("realtime data")
       .on(
@@ -42,11 +42,15 @@ export function useUserListener() {
         {
           event: "UPDATE",
           schema: "public",
-          table: "posts",
+          table: "users",
         },
         (payload) => {
-          localStorage.setItem("local", JSON.stringify(payload.new))
-          setUser(payload.new.name, true, payload.new.is_admin)
+          const user = {
+            name: payload.new.name,
+            is_admin: payload.new.is_admin,
+          }
+          localStorage.setItem("local", JSON.stringify(user))
+          setUser(user.name, true, user.is_admin)
         }
       )
       .subscribe()
