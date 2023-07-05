@@ -1,6 +1,7 @@
 "use client"
 
 import { FC, useEffect, useState } from "react"
+
 import Link from "next/link"
 import supabase from "@/app/lib/supabase"
 
@@ -29,26 +30,27 @@ const ResourceLinks: FC<ResourceLinksProps> = ({ names, path }) => {
       }
     }
     fetchFiles()
+    // clear urls on component unmount
+    return () => {
+      blobUrls.forEach((url) => URL.revokeObjectURL(url))
+    }
   }, [names, path])
   // renders all of the links in a list
   return (
-    <div>
-      <div className="flex text-3xl">Resources</div>
-      <ul className="list-disc list-inside flex flex-col space-y-3 flex-wrap">
-        {blobUrls.map((blobUrl, i) => (
-          <li key={i}>
-            <Link
-              key={i}
-              className="text-blue-600 underline"
-              target="_blank"
-              href={blobUrl}
-            >
-              {names[i]}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="grid grid-flow-row grid-cols-6 grid-rows-6 gap-4 list-disc">
+      {blobUrls.map((blobUrl, i) => (
+        <li key={i}>
+          <Link
+            key={i}
+            className="text-blue-600 underline"
+            target="_blank"
+            href={blobUrl}
+          >
+            {names[i]}
+          </Link>
+        </li>
+      ))}
+    </ul>
   )
 }
 

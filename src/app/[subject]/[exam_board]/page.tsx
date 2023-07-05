@@ -16,7 +16,7 @@ const page: FC<pageProps> = async ({ params }) => {
   // gets all of the files from the user's path
   const { data } = await supabase.storage.from("files").list(path)
 
-  if (data) {
+  if (data?.length) {
     // only look for pdf files
     const filteredData = data.filter(
       (file) => file.metadata.mimetype === "application/pdf"
@@ -25,7 +25,12 @@ const page: FC<pageProps> = async ({ params }) => {
     // with the path name for reference
     const names: string[] = filteredData.map((file) => file.name)
 
-    return <ResourceLinks names={names} path={path} />
+    return (
+      <div className="space-y-5 items-end">
+        <div className="flex text-3xl justify-center">Resources</div>
+        <ResourceLinks names={names} path={path} />
+      </div>
+    )
   } else {
     notFound()
   }

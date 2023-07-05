@@ -10,7 +10,7 @@ export function useUserListener() {
   const { setUser } = useUserStore()
   // A hook that acts as an event listener when defined in the root layout
   useEffect(() => {
-    // 1. populates the state on page load/reload with local values
+    // 1. populates the state on page load/reload with db values (for security reasons)
     const init = async () => {
       const { data } = await supabase
         .from("users")
