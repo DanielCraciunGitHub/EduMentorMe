@@ -1,8 +1,8 @@
 "use client"
 
 import { FC, useEffect, useState } from "react"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import Link from "next/link"
+import supabase from "@/app/lib/supabase"
 
 interface ResourceLinksProps {
   names: string[]
@@ -10,12 +10,12 @@ interface ResourceLinksProps {
 }
 
 const ResourceLinks: FC<ResourceLinksProps> = ({ names, path }) => {
-  const supabase = createClientComponentClient()
   const [blobUrls, setBlobUrls] = useState<string[]>([])
   // runs upon loading the page, downloads all files and stores blob urls in a state
   useEffect(() => {
     const fetchFiles = async () => {
       for (let i = 0; i < names.length; i++) {
+        // runs an IIFE, downloading each file at the path and extracting the blob urls
         ;(async function (index) {
           const { data } = await supabase.storage
             .from("files")
@@ -32,7 +32,8 @@ const ResourceLinks: FC<ResourceLinksProps> = ({ names, path }) => {
   }, [names, path])
   // renders all of the links in a list
   return (
-    <div className="w-screen h-[30rem] flex flex-wrap">
+    <div>
+      <div className="flex text-3xl">Resources</div>
       <ul className="list-disc list-inside flex flex-col space-y-3 flex-wrap">
         {blobUrls.map((blobUrl, i) => (
           <li key={i}>

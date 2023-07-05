@@ -1,45 +1,47 @@
 import { FC } from "react"
 import { examBoards, subjects } from "@/app/lib/constants"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { notFound } from "next/navigation"
-
 import ResourceLinks from "./ResourceLinks"
-import { cookies } from "next/headers"
+import supabase from "@/app/lib/supabase"
 
-export const dynamic = "force-dynamic"
+// caches the downloaded pages and requests new data every 20 seconds
+export const revalidate = 20
 
 interface pageProps {
   params: { subject: string; exam_board: string }
 }
 
 const page: FC<pageProps> = async ({ params }) => {
-  const supabase = createServerComponentClient({ cookies })
-
   const path = `${params.subject}/${params.exam_board}`
-
+  // gets all of the files from the user's path
   const { data } = await supabase.storage.from("files").list(path)
 
-  if (data?.length) {
+  if (data) {
+    // only look for pdf files
     const filteredData = data.filter(
       (file) => file.metadata.mimetype === "application/pdf"
     )
+    // create an array of the file names, and send this to a child component along
+    // with the path name for reference
     const names: string[] = filteredData.map((file) => file.name)
+
     return <ResourceLinks names={names} path={path} />
   } else {
     notFound()
   }
 }
-// export function generateStaticParams() {
-//   const combinations = []
+// NOTE: Make this an async function later on to not rely on /lib/constants.ts
+export function generateStaticParams() {
+  const combinations = []
 
-//   for (const subject of subjects) {
-//     for (const examBoard of examBoards) {
-//       combinations.push({
-//         subject: subject,
-//         exam_board: examBoard,
-//       })
-//     }
-//   }
-//   return combinations
-// }
+  for (const subject of subjects) {
+    for (const examBoard of examBoards) {
+      combinations.push({
+        subject: subject,
+        exam_board: examBoard,
+      })
+    }
+  }
+  return combinations
+}
 export default page
