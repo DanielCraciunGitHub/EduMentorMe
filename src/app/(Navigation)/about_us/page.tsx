@@ -1,9 +1,11 @@
 import { FC } from "react"
+import { TypePageSkeleton } from "@/types/contentful"
+import ContentPage from "@/app/(Navigation)/ContentPage"
 
-interface pageProps {}
-
-const page: FC<pageProps> = () => {
-  return <div>page</div>
+const page: FC = () => {
+  return (
+    <ContentPage key="6Rmpximi4o9imiP5xaJCX3" id="6Rmpximi4o9imiP5xaJCX3" />
+  )
 }
 
 export default page

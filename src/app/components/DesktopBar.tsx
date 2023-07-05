@@ -6,7 +6,7 @@ export function DesktopBar() {
   return (
     <div className="w-full p-4 flex justify-between">
       <div className="flex items-center">
-        <NavItem key="CMT" page="/" text="CMT" className="text-4xl" />
+        <NavItem key="EMM" page="/" text="EMM" className="text-4xl" />
         <NavItem key="/about_us" page="/about_us" text="About Us" />
         <NavItem key="/contact_us" page="/contact_us" text="Contact Us" />
         <NavItem

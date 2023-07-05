@@ -3,10 +3,12 @@ import "@/app/globals.css"
 import { Provider } from "@/app/components/providers"
 import Navbar from "@/app/components/NavBar"
 import Footer from "@/app/components/Footer"
+import { Inter } from "next/font/google"
 
 export const metadata: Metadata = {
   title: "Computing And Maths Tutor",
 }
+const inter = Inter({ subsets: ["latin"] })
 
 export default function RootLayout({
   children,
@@ -14,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.className}>
       <body className="flex flex-col min-h-screen">
         <Provider attribute="class" defaultTheme="dark" enableSystem>
           <Navbar />

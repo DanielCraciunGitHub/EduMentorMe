@@ -9,7 +9,7 @@ interface NavItemProps extends ButtonProps {
 export function NavItem(props: NavItemProps) {
   const { page, text, ...restProps } = props
   return (
-    <Link href={page}>
+    <Link href={page} className="text-black dark:text-white">
       <Button variant="ghost" {...restProps}>
         {text}
       </Button>

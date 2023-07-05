@@ -5,7 +5,7 @@ export function MobileBar() {
   const { user } = useUserStore()
   return (
     <div className="flex flex-col items-center py-2">
-      <NavItem key="CMT" page="/" text="CMT" className="text-4xl" />
+      <NavItem key="EMM" page="/" text="EMM" className="text-4xl" />
       {user ? (
         <div className="flex flex-col items-center">
           <NavItem key="/about_us" page="/about_us" text="About Us" />
