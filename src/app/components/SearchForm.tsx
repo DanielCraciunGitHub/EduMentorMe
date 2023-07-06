@@ -40,7 +40,7 @@ export function SearchForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-1/4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-1/3">
         <FormField
           control={form.control}
           name="subject"
@@ -87,7 +87,7 @@ export function SearchForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" variant="outline" className="flex w-full">
+        <Button type="submit" variant="outline" className="w-full">
           Search 🔍
         </Button>
       </form>

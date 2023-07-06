@@ -4,9 +4,12 @@ import { Provider } from "@/app/components/providers"
 import Navbar from "@/app/components/NavBar"
 import Footer from "@/app/components/Footer"
 import { Inter } from "next/font/google"
+import ScrollToTopButton from "./components/ScrollToTopButton"
 
 export const metadata: Metadata = {
-  title: "Computing And Maths Tutor",
+  title: "Edu Mentor Me",
+  description: "Learn GCSEs and A-Levels with us for free",
+  icons: "/emm.jpeg",
 }
 const inter = Inter({ subsets: ["latin"] })
 

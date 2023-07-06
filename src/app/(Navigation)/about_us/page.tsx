@@ -1,5 +1,4 @@
 import { FC } from "react"
-import { TypePageSkeleton } from "@/types/contentful"
 import ContentPage from "@/app/(Navigation)/ContentPage"
 
 const page: FC = () => {
