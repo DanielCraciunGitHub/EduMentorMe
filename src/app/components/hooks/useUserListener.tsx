@@ -16,8 +16,9 @@ export function useUserListener() {
         .from("users")
         .select("name, is_admin")
         .single()
-      localStorage.setItem("local", JSON.stringify(data))
+
       if (data) {
+        localStorage.setItem("local", JSON.stringify(data))
         setUser(data)
       } else {
         setUser(null)
