@@ -27,6 +27,7 @@ const page: FC = () => {
     router.refresh()
   }
   const handleDeleteAccount = async () => {
+    // runs custom made postgres function
     await supabase.rpc("delete_user")
     router.refresh()
   }

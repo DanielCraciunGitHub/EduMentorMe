@@ -1,7 +1,7 @@
 "use client"
 
 import { FC } from "react"
-import { useStateRouter } from "@/app/components/hooks/useStateRouter"
+import { useAuthState } from "@/app/components/hooks/useAuthState"
 
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -32,13 +32,14 @@ const formSchema = z.object({
 const page: FC = () => {
   const supabase = createClientComponentClient<Database>()
 
-  const { router, isError, setIsError } = useStateRouter(false)
+  const { router, isError, setIsError } = useAuthState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    // runs custom made postgres function that returns a boolean value
     const { data: exists } = await supabase.rpc("email_exists", {
       email_param: values.email,
     })
@@ -49,7 +50,7 @@ const page: FC = () => {
         email: values.email,
         password: values.password,
       })
-      // error is null when successful
+
       if (error) {
         setIsError(true)
       } else {

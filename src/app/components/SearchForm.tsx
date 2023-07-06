@@ -21,9 +21,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/app/components/ui/select"
-import { subjects } from "@/app/lib/constants"
+import { subjects, examBoards, levels } from "@/app/lib/constants"
 
 const FormSchema = z.object({
+  level: z.string({}),
   subject: z.string({}),
   examboard: z.string({}),
 })
@@ -35,12 +36,35 @@ export function SearchForm() {
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    router.push(`/${data.subject}/${data.examboard}`)
+    router.push(`${data.level}/${data.subject}/${data.examboard}`)
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-1/3">
+        <FormField
+          control={form.control}
+          name="level"
+          render={({ field }) => (
+            <FormItem>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Level" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {levels.map((level) => (
+                    <SelectItem value={level} key={level}>
+                      {capitalizeWords(level)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="subject"
@@ -53,13 +77,11 @@ export function SearchForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {subjects.map((subject) => {
-                    return (
-                      <SelectItem value={subject} key={subject}>
-                        {capitalizeWords(subject)}
-                      </SelectItem>
-                    )
-                  })}
+                  {subjects.map((subject) => (
+                    <SelectItem value={subject} key={subject}>
+                      {capitalizeWords(subject)}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -78,9 +100,11 @@ export function SearchForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="aqa">AQA</SelectItem>
-                  <SelectItem value="ocr">OCR</SelectItem>
-                  <SelectItem value="edexcel">EDEXCEL</SelectItem>
+                  {examBoards.map((examboard) => (
+                    <SelectItem value={examboard} key={examboard}>
+                      {capitalizeWords(examboard.toUpperCase())}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />

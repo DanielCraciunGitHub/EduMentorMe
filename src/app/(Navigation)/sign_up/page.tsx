@@ -1,7 +1,7 @@
 "use client"
 
-import { FC, useState } from "react"
-import { useStateRouter } from "@/app/components/hooks/useStateRouter"
+import { FC } from "react"
+import { useAuthState } from "@/app/components/hooks/useAuthState"
 import Link from "next/link"
 
 import { useForm } from "react-hook-form"
@@ -32,8 +32,8 @@ const formSchema = z.object({
 
 const page: FC = () => {
   const supabase = createClientComponentClient<Database>()
-  const { isError, setIsError } = useStateRouter(false)
-  const [isEmailVerify, setIsEmailVerify] = useState(false)
+  const { isError, setIsError, isEmailVerify, setIsEmailVerify } =
+    useAuthState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
