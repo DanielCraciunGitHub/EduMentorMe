@@ -4,4 +4,7 @@ export const subjects = [
   "a-level-computer-science",
   "a-level-economics",
 ]
+
 export const examBoards = ["aqa", "ocr", "edexcel"]
+
+export const level = ["gcse", "a-level"]

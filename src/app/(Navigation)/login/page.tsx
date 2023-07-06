@@ -26,7 +26,7 @@ import type { Database } from "@/types/supabase"
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid Email" }),
-  password: z.string().min(5, { message: "Invalid Password" }),
+  password: z.string().min(6, { message: "Invalid Password" }),
 })
 
 const page: FC = () => {
