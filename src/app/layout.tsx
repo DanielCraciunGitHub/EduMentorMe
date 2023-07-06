@@ -4,7 +4,6 @@ import { Provider } from "@/app/components/providers"
 import Navbar from "@/app/components/NavBar"
 import Footer from "@/app/components/Footer"
 import { Inter } from "next/font/google"
-import ScrollToTopButton from "./components/ScrollToTopButton"
 
 export const metadata: Metadata = {
   title: "Edu Mentor Me",
