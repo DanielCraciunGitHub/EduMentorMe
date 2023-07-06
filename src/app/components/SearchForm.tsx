@@ -111,7 +111,11 @@ export function SearchForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" variant="outline" className="w-full">
+        <Button
+          type="submit"
+          variant="outline"
+          className="w-full transition-none"
+        >
           Search 🔍
         </Button>
       </form>
