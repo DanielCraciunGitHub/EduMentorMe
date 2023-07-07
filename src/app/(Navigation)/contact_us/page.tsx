@@ -17,7 +17,8 @@ import { Input } from "@/app/components/ui/input"
 import { Textarea } from "@/app/components/ui/textarea"
 
 import ReCAPTCHA from "react-google-recaptcha"
-import axios, { formToJSON } from "axios"
+import axios from "axios"
+import supabase from "@/app/lib/supabase"
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid Email" }),
@@ -45,8 +46,11 @@ const page: FC = () => {
       })
   }
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // receiving feedback logic here
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    await supabase
+      .from("feedback")
+      .insert({ email: values.email, body: values.body })
+
     recaptchaRef.current?.reset()
     form.reset({ email: "", body: "" })
     setIsverified(false)
