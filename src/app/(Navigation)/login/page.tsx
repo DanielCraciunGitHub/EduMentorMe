@@ -102,7 +102,7 @@ const page: FC = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormDescription>
-                  Must be at least 5 characters long
+                  Must be at least 6 characters long
                 </FormDescription>
                 <FormControl>
                   <Input placeholder="johndoe0!" type="password" {...field} />

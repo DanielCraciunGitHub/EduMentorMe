@@ -1,6 +1,6 @@
 "use client"
 
-import { FC } from "react"
+import { FC, useRef, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -16,17 +16,38 @@ import {
 import { Input } from "@/app/components/ui/input"
 import { Textarea } from "@/app/components/ui/textarea"
 
+import ReCAPTCHA from "react-google-recaptcha"
+import axios from "axios"
+
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid Email" }),
   body: z.string().min(20, { message: "Enter at least 20 characters" }),
 })
 
 const page: FC = () => {
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
+  const [isVerified, setIsverified] = useState<boolean>(false)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
+  // once the captcha is submitted by the user, run this
+  async function handleCaptchaSubmission(token: string | null) {
+    await axios
+      .post(`${location.origin}/auth/captcha`, { token })
+      .then(() => {
+        setIsverified(true)
+      })
+      .catch(() => {
+        setIsverified(false)
+      })
+  }
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {}
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // receiving feedback logic here
+    recaptchaRef.current?.reset()
+    setIsverified(false)
+  }
 
   return (
     <div className="grid grid-cols-2 w-full">
@@ -67,7 +88,14 @@ const page: FC = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit feedback</Button>
+            <ReCAPTCHA
+              sitekey="6Ld5XQInAAAAACYww0-PP9RfeIXOxj2T4NarpXjj"
+              ref={recaptchaRef}
+              onChange={handleCaptchaSubmission}
+            />
+            <Button type="submit" disabled={!isVerified}>
+              Submit feedback
+            </Button>
           </form>
         </Form>
       </div>
