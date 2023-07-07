@@ -17,7 +17,7 @@ import { Input } from "@/app/components/ui/input"
 import { Textarea } from "@/app/components/ui/textarea"
 
 import ReCAPTCHA from "react-google-recaptcha"
-import axios from "axios"
+import axios, { formToJSON } from "axios"
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid Email" }),
@@ -33,6 +33,8 @@ const page: FC = () => {
   })
   // once the captcha is submitted by the user, run this
   async function handleCaptchaSubmission(token: string | null) {
+    // sends a post request to a defined api route with the token as
+    // the payload to verify request
     await axios
       .post(`${location.origin}/auth/captcha`, { token })
       .then(() => {
@@ -46,6 +48,7 @@ const page: FC = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // receiving feedback logic here
     recaptchaRef.current?.reset()
+    form.reset({ email: "", body: "" })
     setIsverified(false)
   }
 

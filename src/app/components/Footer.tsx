@@ -12,7 +12,7 @@ const Footer: FC = () => {
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex space-x-5 items-center">
             <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-              © 2023 (CMT) EduMentorMe™. All Rights Reserved
+              © 2023 (EMM) EduMentorMe™. All Rights Reserved
             </span>
             <Button variant="outline" size="icon">
               <Link href="/">
