@@ -109,8 +109,8 @@ const page: FC = () => {
               >
                 <AlertTitle>Success</AlertTitle>
                 <AlertDescription>
-                  We appreciate taking your time to fill in this form, we will
-                  get back to you shortly
+                  We appreciate you taking your time to fill in this form, we
+                  will get back to you shortly.
                 </AlertDescription>
               </Alert>
             ) : null}
