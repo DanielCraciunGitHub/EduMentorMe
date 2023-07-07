@@ -17,8 +17,8 @@ import { Input } from "@/app/components/ui/input"
 import { Textarea } from "@/app/components/ui/textarea"
 
 import ReCAPTCHA from "react-google-recaptcha"
-import axios from "axios"
 import supabase from "@/app/lib/supabase"
+import { verifyCaptcha } from "@/app/auth/ServerActions"
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid Email" }),
@@ -34,16 +34,9 @@ const page: FC = () => {
   })
   // once the captcha is submitted by the user, run this
   async function handleCaptchaSubmission(token: string | null) {
-    // sends a post request to a defined api route with the token as
-    // the payload to verify request
-    await axios
-      .post(`${location.origin}/auth/captcha`, { token })
-      .then(() => {
-        setIsverified(true)
-      })
-      .catch(() => {
-        setIsverified(false)
-      })
+    await verifyCaptcha(token)
+      .then(() => setIsverified(true))
+      .catch(() => setIsverified(false))
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
