@@ -17,7 +17,9 @@ import { Input } from "@/app/components/ui/input"
 import { Textarea } from "@/app/components/ui/textarea"
 
 import ReCAPTCHA from "react-google-recaptcha"
-import axios, { formToJSON } from "axios"
+import supabase from "@/app/lib/supabase"
+import { verifyCaptcha } from "@/app/auth/ServerActions"
+import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert"
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid Email" }),
@@ -27,28 +29,28 @@ const formSchema = z.object({
 const page: FC = () => {
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const [isVerified, setIsverified] = useState<boolean>(false)
+  const [isFeedbackSent, setIsFeedbackSent] = useState<boolean>(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
   // once the captcha is submitted by the user, run this
   async function handleCaptchaSubmission(token: string | null) {
-    // sends a post request to a defined api route with the token as
-    // the payload to verify request
-    await axios
-      .post(`${location.origin}/auth/captcha`, { token })
-      .then(() => {
-        setIsverified(true)
-      })
-      .catch(() => {
-        setIsverified(false)
-      })
+    await verifyCaptcha(token)
+      .then(() => setIsverified(true))
+      .catch(() => setIsverified(false))
   }
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // receiving feedback logic here
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    // send feedback to the server
+    await supabase
+      .from("feedback")
+      .insert({ email: values.email, body: values.body })
+
+    // reset the form state to allow for new submissions
     recaptchaRef.current?.reset()
     form.reset({ email: "", body: "" })
+    setIsFeedbackSent(true)
     setIsverified(false)
   }
 
@@ -91,6 +93,7 @@ const page: FC = () => {
                 </FormItem>
               )}
             />
+
             <ReCAPTCHA
               sitekey="6Ld5XQInAAAAACYww0-PP9RfeIXOxj2T4NarpXjj"
               ref={recaptchaRef}
@@ -99,6 +102,18 @@ const page: FC = () => {
             <Button type="submit" disabled={!isVerified}>
               Submit feedback
             </Button>
+            {isFeedbackSent ? (
+              <Alert
+                variant="default"
+                className="bg-green-500 dark:bg-green-700"
+              >
+                <AlertTitle>Success</AlertTitle>
+                <AlertDescription>
+                  We appreciate you taking your time to fill in this form, we
+                  will get back to you shortly.
+                </AlertDescription>
+              </Alert>
+            ) : null}
           </form>
         </Form>
       </div>
