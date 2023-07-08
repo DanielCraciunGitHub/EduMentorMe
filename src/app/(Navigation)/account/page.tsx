@@ -1,19 +1,12 @@
-"use client"
-
-import { FC } from "react"
-
-import { useUserStore } from "@/app/components/hooks/useUserStore"
-
 import DeleteAccountButton from "./DeleteAccountButton"
 import SignOutButton from "./SignOutButton"
+import WelcomeUser from "./WelcomeUser"
 
-const page: FC = () => {
-  const { user } = useUserStore()
-
+const page = () => {
   return (
     <div className="flex flex-col justify-between">
       <div className="flex flex-col items-center space-y-10">
-        <div className="text-3xl">Welcome, {user?.name}</div>
+        <WelcomeUser />
         <SignOutButton />
       </div>
       <div className="flex justify-center">
