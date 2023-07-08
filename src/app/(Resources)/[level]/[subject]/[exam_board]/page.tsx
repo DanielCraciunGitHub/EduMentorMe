@@ -25,10 +25,20 @@ const page: FC<pageProps> = async ({ params }) => {
     // with the path name for reference
     const names: string[] = filteredData.map((file) => file.name)
 
+    // from all of the names, organise into three categories, worksheets, answers, extra
+    const worksheets: string[] = names.filter((name) =>
+      name.includes("worksheet")
+    )
+    const answers: string[] = names.filter((name) => name.includes("answer"))
+    const extra: string[] = names.filter(
+      (name) => !name.includes("worksheet") && !name.includes("answer")
+    )
+
     return (
-      <div className="space-y-5 items-end">
-        <div className="flex text-3xl justify-center">Resources</div>
-        <ResourceLinks names={names} path={path} />
+      <div className="md:grid md:grid-cols-3 md:gap-8 md:items-end flex flex-col space-y-4 items-center">
+        <ResourceLinks names={worksheets} path={path} title="Worksheets" />
+        <ResourceLinks names={answers} path={path} title="Answers" />
+        <ResourceLinks names={extra} path={path} title="Extra Links" />
       </div>
     )
   } else {
