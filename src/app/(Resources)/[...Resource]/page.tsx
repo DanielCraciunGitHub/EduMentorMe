@@ -3,12 +3,37 @@ import { notFound } from "next/navigation"
 import { examBoards, subjects, levels } from "@/app/lib/constants"
 import supabase from "@/app/lib/supabase"
 import ResourceLinks from "./ResourceLinks"
+import { Metadata } from "next"
 
 // caches the downloaded pages and requests new data every 20 seconds
 export const revalidate = 20
 
 interface pageProps {
   params: { Resource: string[] }
+}
+
+export async function generateMetadata({
+  params,
+}: pageProps): Promise<Metadata> {
+  const path = params.Resource.join("/")
+  const { data } = await supabase.storage.from("files").list(path)
+  // if there is no data at this page
+  if (!data?.length) {
+    return {
+      title: "Not Found",
+      description: "This resource is not available at the moment",
+    }
+  }
+  // if the page is available
+  return {
+    title:
+      params.Resource[0] +
+      " | " +
+      params.Resource[1] +
+      " | " +
+      params.Resource[2],
+    description: `This is a resource for ${params.Resource[0]} ${params.Resource[1]} and the exam board is ${params.Resource[2]}`,
+  }
 }
 
 const page: FC<pageProps> = async ({ params }) => {

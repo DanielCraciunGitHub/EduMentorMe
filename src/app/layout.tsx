@@ -8,6 +8,7 @@ import { Inter } from "next/font/google"
 export const metadata: Metadata = {
   title: "Edu Mentor Me",
   description: "Learn GCSEs and A-Levels with us for free",
+  keywords: ["tutoring", "tutor", "a level", "gcse"],
   icons: "/emm.jpeg",
 }
 const inter = Inter({ subsets: ["latin"] })
