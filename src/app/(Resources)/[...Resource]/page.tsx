@@ -13,7 +13,7 @@ interface pageProps {
 
 const page: FC<pageProps> = async ({ params }) => {
   const path = params.Resource.join("/")
-  // gets all of the files from the user's path
+  // gets all of the files from the user's requested path
   const { data } = await supabase.storage.from("files").list(path)
 
   if (data?.length) {
