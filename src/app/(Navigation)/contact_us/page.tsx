@@ -95,7 +95,7 @@ const page: FC = () => {
             />
 
             <ReCAPTCHA
-              sitekey="6Ld5XQInAAAAACYww0-PP9RfeIXOxj2T4NarpXjj"
+              sitekey="6LcLLQcnAAAAAMfvKjD_lKxykZMYpvQh7-2Pi7hH"
               ref={recaptchaRef}
               onChange={handleCaptchaSubmission}
             />
