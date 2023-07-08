@@ -8,11 +8,11 @@ import ResourceLinks from "./ResourceLinks"
 export const revalidate = 20
 
 interface pageProps {
-  params: { level: string; subject: string; exam_board: string }
+  params: { Resource: string[] }
 }
 
 const page: FC<pageProps> = async ({ params }) => {
-  const path = `${params.level}/${params.subject}/${params.exam_board}`
+  const path = params.Resource.join("/")
   // gets all of the files from the user's path
   const { data } = await supabase.storage.from("files").list(path)
 
@@ -52,11 +52,7 @@ export function generateStaticParams() {
   for (const level of levels) {
     for (const subject of subjects) {
       for (const examBoard of examBoards) {
-        combinations.push({
-          level: level,
-          subject: subject,
-          exam_board: examBoard,
-        })
+        combinations.push({ Resource: [level, subject, examBoard] })
       }
     }
   }

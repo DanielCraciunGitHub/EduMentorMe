@@ -6,7 +6,6 @@ export async function verifyCaptcha(token: string | null) {
   const res = await axios.post(
     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`
   )
-  console.log(res.data)
   if (res.data.success) {
     return "success!"
   } else {
