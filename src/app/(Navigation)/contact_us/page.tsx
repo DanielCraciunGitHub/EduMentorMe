@@ -36,6 +36,7 @@ const page: FC = () => {
   })
   // once the captcha is submitted by the user, run this
   async function handleCaptchaSubmission(token: string | null) {
+    // Server function to verify captcha
     await verifyCaptcha(token)
       .then(() => setIsverified(true))
       .catch(() => setIsverified(false))
@@ -55,8 +56,7 @@ const page: FC = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 w-full">
-      <div>Contact us page content here...</div>
+    <div className="w-full">
       <div className="flex w-full justify-center">
         <Form {...form}>
           <form
