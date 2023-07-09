@@ -53,7 +53,7 @@ const ContactForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col space-y-8 w-2/3 md:w-1/2 lg:w-1/3"
       >
-        <h1>Contact us</h1>
+        <h1>Contact Us</h1>
         <InputField
           name="email"
           label="Email"

@@ -1,25 +1,18 @@
 "use client"
 
 import { useAuthState } from "@/app/components/hooks/useAuthState"
-import Link from "next/link"
 
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Button } from "@/app/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/app/components/ui/form"
-import { Input } from "@/app/components/ui/input"
-import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert"
+import { Form } from "@/app/components/ui/form"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+
+import InputField from "@/app/components/InputField"
+import Alert from "@/app/components/Alert"
+
 import type { Database } from "@/types/supabase"
 
 const formSchema = z.object({
@@ -72,66 +65,38 @@ const SignUpForm = () => {
             Join a fast growing community of successful students
           </p>
         </div>
-        {isError ? (
-          <Alert variant="destructive">
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>
-              An account is already registered to this email, consider{" "}
-              <Link href="/login" className="underline text-blue-500">
-                logging in
-              </Link>
-            </AlertDescription>
-          </Alert>
-        ) : null}
-        {isEmailVerify ? (
-          <Alert variant="default" className="bg-green-500 dark:bg-green-700">
-            <AlertTitle>Success</AlertTitle>
-            <AlertDescription>
-              Check your email inbox to verify your account
-            </AlertDescription>
-          </Alert>
-        ) : null}
-        <FormField
-          control={form.control}
+        {isError && (
+          <Alert
+            name="Error"
+            description="An account is already registered to this email, consider logging in."
+            variant="destructive"
+          />
+        )}
+        {isEmailVerify && (
+          <Alert
+            name="Success"
+            description="Check your email inbox to verify your account"
+          />
+        )}
+        <InputField
           name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="john doe" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
+          label="Name"
+          placeholder="John Doe"
           control={form.control}
+        />
+        <InputField
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="johndoe@gmail.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
+          label="Email"
+          placeholder="johndoe@gmail.com"
           control={form.control}
+        />
+        <InputField
           name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormDescription>
-                Must be at least 6 characters long
-              </FormDescription>
-              <FormControl>
-                <Input placeholder="johndoe0!" type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Password"
+          type="password"
+          description="Must be at least 6 characters long"
+          placeholder="johndoe0!"
+          control={form.control}
         />
         <Button type="submit">Sign Up</Button>
       </form>

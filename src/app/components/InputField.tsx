@@ -2,6 +2,7 @@ import { FC } from "react"
 import { Control } from "react-hook-form"
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -13,6 +14,7 @@ import { Textarea } from "@/app/components/ui/textarea"
 interface FormFieldProps {
   name: string
   label: string
+  description?: string
   placeholder?: string
   type?: "text" | "password" | "textarea"
   control: Control<any>
@@ -21,6 +23,7 @@ interface FormFieldProps {
 const GenericFormField: FC<FormFieldProps> = ({
   name,
   label,
+  description,
   placeholder,
   type = "text",
   control,
@@ -32,6 +35,7 @@ const GenericFormField: FC<FormFieldProps> = ({
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
+          <FormDescription>{description}</FormDescription>
           <FormControl>
             {type === "textarea" ? (
               <Textarea placeholder={placeholder} {...field} />

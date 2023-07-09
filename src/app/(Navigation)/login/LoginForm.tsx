@@ -5,18 +5,11 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/app/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/app/components/ui/form"
-import { Input } from "@/app/components/ui/input"
-import { Alert, AlertDescription, AlertTitle } from "@/app/components/ui/alert"
+import { Form } from "@/app/components/ui/form"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+
+import InputField from "@/app/components/InputField"
+import Alert from "@/app/components/Alert"
 
 import type { Database } from "@/types/supabase"
 
@@ -59,43 +52,27 @@ const LoginForm = () => {
             Join a fast growing community of successful students
           </p>
         </div>
-        {isError ? (
-          <Alert variant="destructive">
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>
-              1. Either Account doesn't exist <br />
-              2. Or password is incorrect
-            </AlertDescription>
-          </Alert>
-        ) : null}
-        <FormField
-          control={form.control}
+        {isError && (
+          <Alert
+            name="Error"
+            variant="destructive"
+            description="Either this account doesn't exist or the password is incorrect."
+          />
+        )}
+
+        <InputField
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="johndoe@gmail.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
+          label="Email"
+          placeholder="johndoe@gmail.com"
           control={form.control}
+        />
+        <InputField
           name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormDescription>
-                Must be at least 6 characters long
-              </FormDescription>
-              <FormControl>
-                <Input placeholder="johndoe0!" type="password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label="Password"
+          type="password"
+          description="Must be at least 6 characters long"
+          placeholder="johndoe0!"
+          control={form.control}
         />
         <Button type="submit">Login</Button>
       </form>
