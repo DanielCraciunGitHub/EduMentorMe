@@ -9,7 +9,7 @@ import { Form } from "@/app/components/ui/form"
 
 import ReCAPTCHA from "react-google-recaptcha"
 import supabase from "@/app/lib/supabase"
-import { verifyCaptcha } from "@/app/auth/ServerActions"
+import { verifyCaptcha } from "@/app/api/auth/ServerActions"
 
 import InputField from "@/app/components/InputField"
 import SuccessAlert from "@/app/components/Alert"

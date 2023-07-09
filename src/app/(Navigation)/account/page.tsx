@@ -1,6 +1,12 @@
 import DeleteAccountButton from "./DeleteAccountButton"
 import SignOutButton from "./SignOutButton"
 import WelcomeUser from "./WelcomeUser"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "EduMentorMe | Account",
+  description: "Account page for EduMentorMe",
+}
 
 const page = () => {
   return (

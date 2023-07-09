@@ -43,7 +43,7 @@ const SignUpForm = () => {
           data: {
             name: values.name,
           },
-          emailRedirectTo: `${location.origin}/auth/callback`,
+          emailRedirectTo: `${location.origin}/api/auth/callback`,
         },
       })
       setIsError(false)
