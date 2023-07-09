@@ -1,9 +1,9 @@
 import { FC } from "react"
-import { notFound } from "next/navigation"
 import { examBoards, subjects, levels } from "@/app/lib/constants"
 import supabase from "@/app/lib/supabase"
 import ResourceLinks from "./ResourceLinks"
 import { Metadata } from "next"
+import ErrorPage from "./ErrorPage"
 
 // caches the downloaded pages and requests new data every 20 seconds
 export const revalidate = 20
@@ -67,7 +67,7 @@ const page: FC<pageProps> = async ({ params }) => {
       </div>
     )
   } else {
-    notFound()
+    return <ErrorPage />
   }
 }
 // NOTE: Make this an async function later on to not rely on /lib/constants.ts
