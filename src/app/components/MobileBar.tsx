@@ -11,7 +11,7 @@ import {
 export function MobileBar() {
   const { user } = useUserStore()
   return (
-    <div className="flex flex-col items-center py-2">
+    <div className="flex flex-col items-center py-2 md:hidden">
       <NavItem key="EMM" page="/" text="EMM" className="text-4xl" />
       <Sheet>
         <SheetTrigger className="flex w-full justify-end p-2">

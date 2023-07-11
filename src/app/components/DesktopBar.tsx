@@ -4,7 +4,7 @@ import { useUserStore } from "@/app/components/hooks/useUserStore"
 export function DesktopBar() {
   const { user } = useUserStore()
   return (
-    <div className="w-full p-6 flex justify-between">
+    <div className="md:w-full md:p-6 md:flex md:justify-between hidden">
       <div className="flex items-center">
         <NavItem key="EMM" page="/" text="EMM" className="text-4xl" />
         <NavItem key="/about_us" page="/about_us" text="About Us" />
