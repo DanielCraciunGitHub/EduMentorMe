@@ -8,6 +8,7 @@ import type {
 
 export interface TypePageFields {
   title: EntryFieldTypes.Symbol
+  bannerImage?: EntryFieldTypes.AssetLink
   body: EntryFieldTypes.RichText
 }
 
