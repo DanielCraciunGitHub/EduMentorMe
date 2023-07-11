@@ -1,8 +1,8 @@
 import { NavItem } from "@/app/components/NavItem"
-import { useUserStore } from "@/app/components/hooks/useUserStore"
+import { getUser } from "../lib/getUser"
 
-export function DesktopBar() {
-  const { user } = useUserStore()
+export async function DesktopBar() {
+  const { user } = await getUser()
   return (
     <div className="md:w-full md:p-6 md:flex md:justify-between hidden">
       <div className="flex items-center">

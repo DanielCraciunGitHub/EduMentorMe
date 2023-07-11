@@ -1,5 +1,3 @@
-"use client"
-
 import { MobileBar } from "@/app/components/MobileBar"
 import { DesktopBar } from "@/app/components/DesktopBar"
 

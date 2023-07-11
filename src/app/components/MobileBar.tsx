@@ -1,5 +1,4 @@
 import { NavItem } from "@/app/components/NavItem"
-import { useUserStore } from "./hooks/useUserStore"
 import { PanelRight } from "lucide-react"
 import {
   Sheet,
@@ -7,9 +6,10 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/app/components/ui/sheet"
+import { getUser } from "../lib/getUser"
 
-export function MobileBar() {
-  const { user } = useUserStore()
+export async function MobileBar() {
+  const { user } = await getUser()
   return (
     <div className="flex flex-col items-center py-2 md:hidden">
       <NavItem key="EMM" page="/" text="EMM" className="text-4xl" />
