@@ -9,13 +9,14 @@ import ErrorPage from "./ErrorPage"
 export const revalidate = 20
 
 interface pageProps {
-  params: { Resource: string[] }
+  params: { level: string; subject: string; examBoard: string }
 }
 
 export async function generateMetadata({
   params,
 }: pageProps): Promise<Metadata> {
-  const path = params.Resource.join("/")
+  const { level, subject, examBoard } = params
+  const path = `${level}/${subject}/${examBoard}`
   const { data } = await supabase.storage.from("files").list(path)
   // if there is no data at this page
   if (!data?.length) {
@@ -26,18 +27,14 @@ export async function generateMetadata({
   }
   // if the page is available
   return {
-    title:
-      params.Resource[0] +
-      " | " +
-      params.Resource[1] +
-      " | " +
-      params.Resource[2],
-    description: `This is a resource for ${params.Resource[0]} ${params.Resource[1]} and the exam board is ${params.Resource[2]}`,
+    title: level + " | " + subject + " | " + examBoard,
+    description: `This is a resource for ${level} ${subject} and the exam board is ${examBoard}`,
   }
 }
 
 const page: FC<pageProps> = async ({ params }) => {
-  const path = params.Resource.join("/")
+  const { level, subject, examBoard } = params
+  const path = `${level}/${subject}/${examBoard}`
   // gets all of the files from the user's requested path
   const { data } = await supabase.storage.from("files").list(path)
 
@@ -77,7 +74,11 @@ export function generateStaticParams() {
   for (const level of levels) {
     for (const subject of subjects) {
       for (const examBoard of examBoards) {
-        combinations.push({ Resource: [level, subject, examBoard] })
+        combinations.push({
+          level,
+          subject,
+          examBoard,
+        })
       }
     }
   }
