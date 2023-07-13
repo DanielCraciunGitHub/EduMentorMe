@@ -1,18 +1,18 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Button } from "@/app/components/ui/button"
 import { Form } from "@/app/components/ui/form"
 
-import ReCAPTCHA from "react-google-recaptcha"
 import supabase from "@/app/lib/supabase"
-import { verifyCaptcha } from "@/app/api/auth/ServerActions"
 
 import InputField from "@/app/components/InputField"
 import SuccessAlert from "@/app/components/Alert"
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
+import { verifyCaptcha } from "@/app/api/auth/ServerActions"
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid Email" }),
@@ -20,32 +20,31 @@ const formSchema = z.object({
 })
 
 const ContactForm = () => {
-  const recaptchaRef = useRef<ReCAPTCHA>(null)
-  const [isVerified, setIsverified] = useState<boolean>(false)
+  const { executeRecaptcha } = useGoogleReCaptcha()
   const [isFeedbackSent, setIsFeedbackSent] = useState<boolean>(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   })
-  // once the captcha is submitted by the user, run this
-  async function handleCaptchaSubmission(token: string | null) {
-    // Server function to verify captcha
-    await verifyCaptcha(token)
-      .then(() => setIsverified(true))
-      .catch(() => setIsverified(false))
-  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // send feedback to the server
-    await supabase
-      .from("feedback")
-      .insert({ email: values.email, body: values.feedback })
+    if (!executeRecaptcha) {
+      return
+    }
+    // captcha verification
+    const token = await executeRecaptcha("onSubmit")
+    const verified = await verifyCaptcha(token)
 
-    // reset the form state to allow for new submissions
-    recaptchaRef.current?.reset()
-    form.reset({ email: "", feedback: "" })
-    setIsFeedbackSent(true)
-    setIsverified(false)
+    if (verified) {
+      // send feedback to the server
+      await supabase
+        .from("feedback")
+        .insert({ email: values.email, body: values.feedback })
+
+      // reset the form state to allow for new submissions
+      form.reset({ email: "", feedback: "" })
+      setIsFeedbackSent(true)
+    }
   }
   return (
     <Form {...form}>
@@ -67,14 +66,13 @@ const ContactForm = () => {
           placeholder="Share your thoughts and suggestions here..."
           control={form.control}
         />
-        <ReCAPTCHA
-          sitekey="6LcLLQcnAAAAAMfvKjD_lKxykZMYpvQh7-2Pi7hH"
-          ref={recaptchaRef}
-          onChange={handleCaptchaSubmission}
-        />
-        <Button type="submit" disabled={!isVerified}>
-          Submit feedback
-        </Button>
+        <div>
+          This site is protected by reCAPTCHA and the Google{" "}
+          <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
+          <a href="https://policies.google.com/terms">Terms of Service</a>{" "}
+          apply.
+        </div>
+        <Button type="submit">Submit feedback</Button>
         {isFeedbackSent && (
           <SuccessAlert
             name="Success"
