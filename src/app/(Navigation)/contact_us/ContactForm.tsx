@@ -3,31 +3,32 @@
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
-
 import supabase from "@/lib/supabase"
-
 import InputField from "@/components/InputField"
 import SuccessAlert from "@/components/Alert"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { verifyCaptchaAction } from "@/app/_actions/Captcha"
+import { contactFormSchema } from "@/lib/validations/form"
 
-const formSchema = z.object({
-  email: z.string().email({ message: "Invalid Email" }),
-  feedback: z.string().min(20, { message: "Enter at least 20 characters" }),
-})
+import type { z } from "zod"
+
+type Inputs = z.infer<typeof contactFormSchema>
 
 const ContactForm = () => {
   const { executeRecaptcha } = useGoogleReCaptcha()
   const [isFeedbackSent, setIsFeedbackSent] = useState<boolean>(false)
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<Inputs>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      email: "",
+      feedback: "",
+    },
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: Inputs) {
     if (!executeRecaptcha) {
       return
     }
@@ -42,7 +43,7 @@ const ContactForm = () => {
         .insert({ email: values.email, body: values.feedback })
 
       // reset the form state to allow for new submissions
-      form.reset({ email: "", feedback: "" })
+      form.reset()
       setIsFeedbackSent(true)
     }
   }

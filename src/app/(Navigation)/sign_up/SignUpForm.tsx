@@ -1,9 +1,8 @@
 "use client"
 
 import { useAuthState } from "@/hooks/useAuthState"
-
+import { signUpFormSchema } from "@/lib/validations/form"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Button } from "@/components/ui/button"
@@ -14,22 +13,24 @@ import InputField from "@/components/InputField"
 import Alert from "@/components/Alert"
 
 import type { Database } from "@/types/supabase"
+import type { z } from "zod"
 
-const formSchema = z.object({
-  name: z.string().min(1, { message: "Enter Your Name" }),
-  email: z.string().email({ message: "Invalid Email" }),
-  password: z.string().min(6, { message: "Invalid Password" }),
-})
+type Inputs = z.infer<typeof signUpFormSchema>
 
 const SignUpForm = () => {
   const supabase = createClientComponentClient<Database>()
   const { isError, setIsError, isEmailVerify, setIsEmailVerify } =
     useAuthState(false)
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<Inputs>({
+    resolver: zodResolver(signUpFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
   })
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: Inputs) {
     // checks if an email exists in db
     const { data: exists } = await supabase.rpc("email_exists", {
       email_param: values.email,

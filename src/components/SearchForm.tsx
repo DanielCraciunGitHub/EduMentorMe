@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { useRouter } from "next/navigation"
 import { capitalizeWords } from "@/lib/stringFuncs"
 
@@ -22,20 +21,19 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { subjects, examBoards, levels } from "@/lib/constants"
+import { searchFormSchema } from "@/lib/validations/form"
 
-const FormSchema = z.object({
-  level: z.string({}),
-  subject: z.string({}),
-  examboard: z.string({}),
-})
+import type { z } from "zod"
+
+type Inputs = z.infer<typeof searchFormSchema>
 
 export function SearchForm() {
   const router = useRouter()
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<Inputs>({
+    resolver: zodResolver(searchFormSchema),
   })
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: Inputs) {
     router.push(`${data.level}/${data.subject}/${data.examboard}`)
   }
 

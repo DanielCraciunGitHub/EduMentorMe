@@ -1,8 +1,8 @@
 "use client"
 
+import { loginFormSchema } from "@/lib/validations/form"
 import { useAuthState } from "@/hooks/useAuthState"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
@@ -12,22 +12,24 @@ import InputField from "@/components/InputField"
 import Alert from "@/components/Alert"
 
 import type { Database } from "@/types/supabase"
+import type { z } from "zod"
 
-const formSchema = z.object({
-  email: z.string().email({ message: "Invalid Email" }),
-  password: z.string().min(6, { message: "Invalid Password" }),
-})
+type Inputs = z.infer<typeof loginFormSchema>
 
 const LoginForm = () => {
   const supabase = createClientComponentClient<Database>()
 
   const { router, isError, setIsError } = useAuthState(false)
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<Inputs>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: Inputs) {
     const { error } = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
