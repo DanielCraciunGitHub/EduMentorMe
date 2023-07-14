@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { ChevronUp } from "lucide-react"
 
 const ScrollToTopButton = () => {
@@ -34,7 +34,7 @@ const ScrollToTopButton = () => {
 
   return (
     <button
-      className={`fixed bottom-32 right-4 z-50 p-2 rounded-full bg-orange-500 text-white shadow-md transition-opacity duration-300 ${
+      className={`fixed bottom-32 right-4 z-50 rounded-full bg-orange-500 p-2 text-white shadow-md transition-opacity duration-300 ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
       onClick={scrollToTop}

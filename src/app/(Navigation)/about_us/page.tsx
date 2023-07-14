@@ -1,7 +1,7 @@
 import { FC } from "react"
-import ContentPage from "@/components/ContentPage"
-
 import { Metadata } from "next"
+
+import ContentPage from "@/components/ContentPage"
 
 export const metadata: Metadata = {
   title: "EduMentorMe | About Us",

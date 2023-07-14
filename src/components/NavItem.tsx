@@ -1,4 +1,5 @@
 import Link from "next/link"
+
 import { Button, ButtonProps } from "@/components/ui/button"
 
 interface NavItemProps extends ButtonProps {
@@ -11,7 +12,7 @@ export function NavItem(props: NavItemProps) {
   return (
     <Link
       href={page}
-      className="text-black dark:text-white hover:bg-orange-500 rounded hover:transition hover:ease-linear"
+      className="rounded text-black hover:bg-orange-500 hover:transition hover:ease-linear dark:text-white"
     >
       <Button variant="ghost" {...restProps}>
         {text}

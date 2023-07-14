@@ -1,12 +1,12 @@
 "use client"
 
-import { NavItem } from "@/components/NavItem"
 import { useUserStore } from "@/hooks/useUserStore"
+import { NavItem } from "@/components/NavItem"
 
 export function DesktopBar() {
   const { user } = useUserStore()
   return (
-    <div className="md:w-full md:p-6 md:flex md:justify-between hidden">
+    <div className="hidden md:flex md:w-full md:justify-between md:p-6">
       <div className="flex items-center">
         <NavItem key="EMM" page="/" text="EMM" className="text-4xl" />
         <NavItem key="/about_us" page="/about_us" text="About Us" />

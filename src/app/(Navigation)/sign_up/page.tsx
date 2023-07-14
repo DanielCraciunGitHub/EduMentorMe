@@ -1,5 +1,6 @@
-import SignUpForm from "./SignUpForm"
 import { Metadata } from "next"
+
+import SignUpForm from "./SignUpForm"
 
 export const metadata: Metadata = {
   title: "EduMentorMe | Sign Up",

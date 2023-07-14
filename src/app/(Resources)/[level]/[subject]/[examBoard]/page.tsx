@@ -1,9 +1,11 @@
 import { FC } from "react"
-import { examBoards, subjects, levels } from "@/lib/constants"
-import supabase from "@/lib/supabase"
-import ResourceLinks from "./ResourceLinks"
 import { Metadata } from "next"
+
+import { examBoards, levels, subjects } from "@/lib/constants"
+import supabase from "@/lib/supabase"
+
 import ErrorPage from "./ErrorPage"
+import ResourceLinks from "./ResourceLinks"
 
 // caches the downloaded pages and requests new data every 20 seconds
 export const revalidate = 20
@@ -57,7 +59,7 @@ const page: FC<pageProps> = async ({ params }) => {
     )
 
     return (
-      <div className="md:grid md:grid-cols-3 md:gap-8 md:items-end flex flex-col space-y-4 items-center">
+      <div className="flex flex-col items-center space-y-4 md:grid md:grid-cols-3 md:items-end md:gap-8">
         <ResourceLinks names={worksheets} path={path} title="Worksheets" />
         <ResourceLinks names={answers} path={path} title="Answers" />
         <ResourceLinks names={extra} path={path} title="Extra Links" />

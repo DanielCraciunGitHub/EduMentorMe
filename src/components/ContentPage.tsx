@@ -1,10 +1,11 @@
 import { FC } from "react"
-import { client } from "@/lib/contentful"
-import { TypePageSkeleton } from "@/types/contentful"
+import Image from "next/image"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { Document } from "@contentful/rich-text-types"
-import Image from "next/image"
 import { Asset } from "contentful"
+
+import { TypePageSkeleton } from "@/types/contentful"
+import { client } from "@/lib/contentful"
 
 interface ContentPageProps {
   id: string
@@ -21,7 +22,7 @@ const ContentPage: FC<ContentPageProps> = async ({ id }) => {
   const { body, title, bannerImage } = page.fields as pageFields
   // rendering the data in the correct format
   return (
-    <div className="flex flex-col space-y-7 items-center">
+    <div className="flex flex-col items-center space-y-7">
       <div className="text-5xl">{title}</div>
       {bannerImage && (
         <Image

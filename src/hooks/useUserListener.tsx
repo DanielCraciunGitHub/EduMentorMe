@@ -1,8 +1,9 @@
 "use client"
 
-import { Database } from "@/types/supabase"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useEffect } from "react"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+
+import { Database } from "@/types/supabase"
 import { useUserStore } from "@/hooks/useUserStore"
 
 export function useUserListener() {

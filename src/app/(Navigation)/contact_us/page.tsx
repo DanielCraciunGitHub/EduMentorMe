@@ -1,5 +1,6 @@
-import ContactForm from "./ContactForm"
 import { Metadata } from "next"
+
+import ContactForm from "./ContactForm"
 
 export const metadata: Metadata = {
   title: "EduMentorMe | Contact Us",

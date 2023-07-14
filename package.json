@@ -32,6 +32,7 @@
     "contentful": "^10.3.1",
     "encoding": "^0.1.13",
     "lucide-react": "^0.252.0",
+    "my-app": "link:",
     "next": "^13.4.9",
     "next-themes": "^0.2.1",
     "postcss": "8.4.24",
@@ -46,5 +47,10 @@
     "typescript": "5.1.6",
     "zod": "^3.21.4",
     "zustand": "^4.3.9"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.4.1"
   }
 }

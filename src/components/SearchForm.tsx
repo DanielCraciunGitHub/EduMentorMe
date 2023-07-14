@@ -1,10 +1,13 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { useRouter } from "next/navigation"
-import { capitalizeWords } from "@/lib/stringFuncs"
+import type { z } from "zod"
 
+import { examBoards, levels, subjects } from "@/lib/constants"
+import { capitalizeWords } from "@/lib/stringFuncs"
+import { searchFormSchema } from "@/lib/validations/form"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -20,10 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { subjects, examBoards, levels } from "@/lib/constants"
-import { searchFormSchema } from "@/lib/validations/form"
-
-import type { z } from "zod"
 
 type Inputs = z.infer<typeof searchFormSchema>
 
@@ -39,7 +38,7 @@ export function SearchForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-1/3">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-1/3 space-y-8">
         <FormField
           control={form.control}
           name="level"

@@ -1,6 +1,6 @@
 import { FC } from "react"
-
 import Link from "next/link"
+
 import supabase from "@/lib/supabase"
 
 interface ResourceLinksProps {

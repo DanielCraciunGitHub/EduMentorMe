@@ -1,7 +1,9 @@
 import { Metadata } from "next"
-import SubCard from "./SubCard"
-import { Separator } from "@/components/ui/separator"
 import { Crown, Rocket, Sun } from "lucide-react"
+
+import { Separator } from "@/components/ui/separator"
+
+import SubCard from "./SubCard"
 
 export const metadata: Metadata = {
   title: "EduMentorMe | Products And Services",
@@ -11,10 +13,10 @@ export const metadata: Metadata = {
 
 function page() {
   return (
-    <div className="flex flex-col space-y-8 items-center">
+    <div className="flex flex-col items-center space-y-8">
       <div className="text-3xl">Products & Services</div>
       <Separator />
-      <div className="flex flex-col md:flex-row justify-center items-center gap-5 flex-wrap">
+      <div className="flex flex-col flex-wrap items-center justify-center gap-5 md:flex-row">
         <SubCard
           icon={<Sun className="text-yellow-500" />}
           theme="green"

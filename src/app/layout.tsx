@@ -1,9 +1,12 @@
 import type { Metadata } from "next"
+
 import "@/styles/globals.css"
-import { Provider } from "@/components/providers"
-import Navbar from "@/components/NavBar"
-import Footer from "@/components/Footer"
+
 import { Inter } from "next/font/google"
+
+import Footer from "@/components/Footer"
+import Navbar from "@/components/NavBar"
+import { Provider } from "@/components/providers"
 
 export const metadata: Metadata = {
   title: "Edu Mentor Me",
@@ -20,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
-      <body className="flex flex-col min-h-screen">
+      <body className="flex min-h-screen flex-col">
         <Provider attribute="class" defaultTheme="dark" enableSystem>
           <Navbar />
           <main className="flex flex-grow justify-center">{children}</main>

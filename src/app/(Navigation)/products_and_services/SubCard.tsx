@@ -1,3 +1,6 @@
+import { FC } from "react"
+import { CheckCircle } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -7,10 +10,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-
-import { CheckCircle } from "lucide-react"
-
-import { FC } from "react"
 
 interface SubCardProps {
   title: string
@@ -22,7 +21,7 @@ interface SubCardProps {
 
 const SubCard: FC<SubCardProps> = ({ title, features, price, icon, theme }) => {
   return (
-    <Card className="w-[20rem] flex flex-col flex-grow space-y-2">
+    <Card className="flex w-[20rem] flex-grow flex-col space-y-2">
       <CardHeader className="space-y-4">
         <div className="flex flex-row justify-between">
           <CardTitle className="flex justify-center">{title}</CardTitle>
@@ -34,8 +33,8 @@ const SubCard: FC<SubCardProps> = ({ title, features, price, icon, theme }) => {
       </CardHeader>
       <CardContent className="space-y-3">
         {features.map((feature) => (
-          <div key={feature} className="space-x-5 flex">
-            <CheckCircle className="text-lime-400 flex-none" />
+          <div key={feature} className="flex space-x-5">
+            <CheckCircle className="flex-none text-lime-400" />
             <div>{feature}</div>
           </div>
         ))}

@@ -1,18 +1,17 @@
 "use client"
 
-import { loginFormSchema } from "@/lib/validations/form"
-import { useAuthState } from "@/hooks/useAuthState"
-import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
-
-import InputField from "@/components/InputField"
-import Alert from "@/components/Alert"
+import { useForm } from "react-hook-form"
+import type { z } from "zod"
 
 import type { Database } from "@/types/supabase"
-import type { z } from "zod"
+import { loginFormSchema } from "@/lib/validations/form"
+import { useAuthState } from "@/hooks/useAuthState"
+import { Button } from "@/components/ui/button"
+import { Form } from "@/components/ui/form"
+import Alert from "@/components/Alert"
+import InputField from "@/components/InputField"
 
 type Inputs = z.infer<typeof loginFormSchema>
 
@@ -46,7 +45,7 @@ const LoginForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col space-y-8 w-1/2 md:w-1/3 justify-center"
+        className="flex w-1/2 flex-col justify-center space-y-8 md:w-1/3"
       >
         <div className="space-y-2">
           <h1 className="text-4xl">Login</h1>

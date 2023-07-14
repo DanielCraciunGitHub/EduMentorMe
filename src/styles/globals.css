@@ -37,7 +37,7 @@
     @apply list-decimal;
   }
   a {
-    @apply underline text-blue-600;
+    @apply text-blue-600 underline;
   }
   p {
     @apply text-slate-800 dark:text-slate-200;

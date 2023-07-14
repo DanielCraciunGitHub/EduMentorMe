@@ -2,17 +2,17 @@
 
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { useForm } from "react-hook-form"
+import type { z } from "zod"
+
+import supabase from "@/lib/supabase"
+import { contactFormSchema } from "@/lib/validations/form"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
-import supabase from "@/lib/supabase"
-import InputField from "@/components/InputField"
 import SuccessAlert from "@/components/Alert"
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
+import InputField from "@/components/InputField"
 import { verifyCaptchaAction } from "@/app/_actions/Captcha"
-import { contactFormSchema } from "@/lib/validations/form"
-
-import type { z } from "zod"
 
 type Inputs = z.infer<typeof contactFormSchema>
 
@@ -51,7 +51,7 @@ const ContactForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col space-y-8 w-2/3 md:w-1/2 lg:w-1/3"
+        className="flex w-2/3 flex-col space-y-8 md:w-1/2 lg:w-1/3"
       >
         <h1>Contact Us</h1>
         <InputField

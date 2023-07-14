@@ -1,5 +1,9 @@
 "use client"
 
+import { useRouter } from "next/navigation"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+
+import type { Database } from "@/types/supabase"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -9,9 +13,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
-import { useRouter } from "next/navigation"
-import { type Database } from "@/types/supabase"
 
 export default function DeleteAccountButton() {
   const supabase = createClientComponentClient<Database>()

@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next"
+
 import { examBoards, levels, subjects } from "@/lib/constants"
 
 export default function sitemap(): MetadataRoute.Sitemap {
