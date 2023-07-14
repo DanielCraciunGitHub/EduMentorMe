@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { client } from "@/app/lib/contentful"
+import { client } from "@/lib/contentful"
 import { TypePageSkeleton } from "@/types/contentful"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { Document } from "@contentful/rich-text-types"

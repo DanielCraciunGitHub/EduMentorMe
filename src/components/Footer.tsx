@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { DarkModeButton } from "@/app/components/DarkModeButton"
+import { DarkModeButton } from "@/components/DarkModeButton"
 import { Facebook, Twitter } from "lucide-react"
 import { Button } from "./ui/button"
 import Link from "next/link"

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Button, ButtonProps } from "@/app/components/ui/button"
+import { Button, ButtonProps } from "@/components/ui/button"
 
 interface NavItemProps extends ButtonProps {
   page: string

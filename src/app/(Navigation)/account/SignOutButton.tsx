@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/app/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useRouter } from "next/navigation"
 import { type Database } from "@/types/supabase"

@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
-import "@/app/globals.css"
-import { Provider } from "@/app/components/providers"
-import Navbar from "@/app/components/NavBar"
-import Footer from "@/app/components/Footer"
+import "@/styles/globals.css"
+import { Provider } from "@/components/providers"
+import Navbar from "@/components/NavBar"
+import Footer from "@/components/Footer"
 import { Inter } from "next/font/google"
 
 export const metadata: Metadata = {

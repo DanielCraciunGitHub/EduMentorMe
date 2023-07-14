@@ -3,7 +3,7 @@
 import { Database } from "@/types/supabase"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useEffect } from "react"
-import { useUserStore } from "@/app/components/hooks/useUserStore"
+import { useUserStore } from "@/hooks/useUserStore"
 
 export function useUserListener() {
   const supabase = createClientComponentClient<Database>()

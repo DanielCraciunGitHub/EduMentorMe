@@ -1,6 +1,6 @@
 "use client"
 
-import { useUserStore } from "@/app/components/hooks/useUserStore"
+import { useUserStore } from "@/hooks/useUserStore"
 
 const WelcomeUser = () => {
   const { user } = useUserStore()

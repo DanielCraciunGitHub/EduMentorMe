@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import SubCard from "./SubCard"
-import { Separator } from "@/app/components/ui/separator"
+import { Separator } from "@/components/ui/separator"
 import { Crown, Rocket, Sun } from "lucide-react"
 
 export const metadata: Metadata = {

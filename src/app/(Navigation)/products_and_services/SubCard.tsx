@@ -1,12 +1,12 @@
-import { Button } from "@/app/components/ui/button"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/app/components/ui/card"
-import { Separator } from "@/app/components/ui/separator"
+} from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 
 import { CheckCircle } from "lucide-react"
 

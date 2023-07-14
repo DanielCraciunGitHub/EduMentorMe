@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { Alert, AlertDescription, AlertTitle } from "./ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 interface AlertProps {
   name: string

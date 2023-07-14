@@ -4,24 +4,24 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { useRouter } from "next/navigation"
-import { capitalizeWords } from "@/app/lib/stringFuncs"
+import { capitalizeWords } from "@/lib/stringFuncs"
 
-import { Button } from "@/app/components/ui/button"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/app/components/ui/form"
+} from "@/components/ui/form"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/app/components/ui/select"
-import { subjects, examBoards, levels } from "@/app/lib/constants"
+} from "@/components/ui/select"
+import { subjects, examBoards, levels } from "@/lib/constants"
 
 const FormSchema = z.object({
   level: z.string({}),

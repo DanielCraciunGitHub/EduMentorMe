@@ -1,14 +1,14 @@
 "use client"
 
-import { NavItem } from "@/app/components/NavItem"
-import { useUserStore } from "./hooks/useUserStore"
+import { NavItem } from "@/components/NavItem"
+import { useUserStore } from "@/hooks/useUserStore"
 import { PanelRight } from "lucide-react"
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTrigger,
-} from "@/app/components/ui/sheet"
+} from "@/components/ui/sheet"
 
 export function MobileBar() {
   const { user } = useUserStore()

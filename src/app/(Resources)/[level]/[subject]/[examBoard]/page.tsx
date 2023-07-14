@@ -1,6 +1,6 @@
 import { FC } from "react"
-import { examBoards, subjects, levels } from "@/app/lib/constants"
-import supabase from "@/app/lib/supabase"
+import { examBoards, subjects, levels } from "@/lib/constants"
+import supabase from "@/lib/supabase"
 import ResourceLinks from "./ResourceLinks"
 import { Metadata } from "next"
 import ErrorPage from "./ErrorPage"

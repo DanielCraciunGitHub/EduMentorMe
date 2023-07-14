@@ -1,15 +1,15 @@
 "use client"
 
-import { useAuthState } from "@/app/components/hooks/useAuthState"
+import { useAuthState } from "@/hooks/useAuthState"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button } from "@/app/components/ui/button"
-import { Form } from "@/app/components/ui/form"
+import { Button } from "@/components/ui/button"
+import { Form } from "@/components/ui/form"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
-import InputField from "@/app/components/InputField"
-import Alert from "@/app/components/Alert"
+import InputField from "@/components/InputField"
+import Alert from "@/components/Alert"
 
 import type { Database } from "@/types/supabase"
 

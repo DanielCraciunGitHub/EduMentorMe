@@ -1,7 +1,7 @@
 "use client"
 
-import { NavItem } from "@/app/components/NavItem"
-import { useUserStore } from "@/app/components/hooks/useUserStore"
+import { NavItem } from "@/components/NavItem"
+import { useUserStore } from "@/hooks/useUserStore"
 
 export function DesktopBar() {
   const { user } = useUserStore()

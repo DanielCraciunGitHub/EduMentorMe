@@ -1,5 +1,5 @@
 import { FC } from "react"
-import ContentPage from "@/app/(Navigation)/ContentPage"
+import ContentPage from "@/components/ContentPage"
 
 import { Metadata } from "next"
 

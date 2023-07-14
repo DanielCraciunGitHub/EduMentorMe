@@ -4,15 +4,15 @@ import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { Button } from "@/app/components/ui/button"
-import { Form } from "@/app/components/ui/form"
+import { Button } from "@/components/ui/button"
+import { Form } from "@/components/ui/form"
 
-import supabase from "@/app/lib/supabase"
+import supabase from "@/lib/supabase"
 
-import InputField from "@/app/components/InputField"
-import SuccessAlert from "@/app/components/Alert"
+import InputField from "@/components/InputField"
+import SuccessAlert from "@/components/Alert"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
-import { verifyCaptcha } from "@/app/api/auth/ServerActions"
+import { verifyCaptchaAction } from "@/app/_actions/Captcha"
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid Email" }),
@@ -33,7 +33,7 @@ const ContactForm = () => {
     }
     // captcha verification
     const token = await executeRecaptcha("onSubmit")
-    const verified = await verifyCaptcha(token)
+    const verified = await verifyCaptchaAction(token)
 
     if (verified) {
       // send feedback to the server
