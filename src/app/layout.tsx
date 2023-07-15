@@ -4,8 +4,6 @@ import "@/styles/globals.css"
 
 import { Inter } from "next/font/google"
 
-import Footer from "@/components/Footer"
-import Navbar from "@/components/NavBar"
 import { Provider } from "@/components/providers"
 
 export const metadata: Metadata = {
@@ -25,9 +23,7 @@ export default function RootLayout({
     <html lang="en" className={inter.className}>
       <body className="flex min-h-screen flex-col">
         <Provider attribute="class" defaultTheme="dark" enableSystem>
-          <Navbar />
-          <main className="flex flex-grow justify-center">{children}</main>
-          <Footer />
+          {children}
         </Provider>
       </body>
     </html>
