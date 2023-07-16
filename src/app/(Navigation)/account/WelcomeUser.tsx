@@ -1,9 +1,7 @@
-"use client"
+import { getCurrentUser } from "@/lib/getCurrentUser"
 
-import { useUserStore } from "@/hooks/useUserStore"
-
-const WelcomeUser = () => {
-  const { user } = useUserStore()
+const WelcomeUser = async () => {
+  const user = await getCurrentUser()
 
   return <div className="text-3xl">Welcome, {user?.name}</div>
 }
