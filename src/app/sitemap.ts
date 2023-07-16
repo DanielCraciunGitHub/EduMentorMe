@@ -1,9 +1,10 @@
 import { MetadataRoute } from "next"
 
-import { examBoards, levels, subjects } from "@/lib/constants"
+import { resourcesConfig } from "@/config/site"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://edumentorme.com"
+  const { levels, subjects, examBoards } = resourcesConfig
   const combinations = []
 
   for (const level of levels) {

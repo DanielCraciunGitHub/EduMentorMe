@@ -1,4 +1,4 @@
-import type { FooterButton, NavItem } from "@/types"
+import type { FooterButton, NavItem, resources } from "@/types"
 
 const links = {}
 
@@ -41,3 +41,9 @@ export const siteConfig = {
     },
   ],
 }
+// Make sure to use lower casing and separate words using a dash
+export const resourcesConfig = {
+  levels: ["a-level", "gcse"],
+  subjects: ["computer-science", "chemistry", "economics", "maths", "physics"],
+  examBoards: ["aqa", "edexcel", "ocr"],
+} satisfies resources

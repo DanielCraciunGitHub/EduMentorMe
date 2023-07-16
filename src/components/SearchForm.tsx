@@ -1,12 +1,12 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { resources } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
-import { examBoards, levels, subjects } from "@/lib/constants"
-import { capitalizeWords } from "@/lib/stringFuncs"
+import { capitalizeWords } from "@/lib/utils"
 import { searchFormSchema } from "@/lib/validations/form"
 import { Button } from "@/components/ui/button"
 import {
@@ -26,7 +26,11 @@ import {
 
 type Inputs = z.infer<typeof searchFormSchema>
 
-export function SearchForm() {
+interface SearchFormProps {
+  resources: resources
+}
+
+export function SearchForm({ resources }: SearchFormProps) {
   const router = useRouter()
   const form = useForm<Inputs>({
     resolver: zodResolver(searchFormSchema),
@@ -51,7 +55,7 @@ export function SearchForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {levels.map((level) => (
+                  {resources.levels.map((level) => (
                     <SelectItem value={level} key={level}>
                       {capitalizeWords(level)}
                     </SelectItem>
@@ -74,7 +78,7 @@ export function SearchForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {subjects.map((subject) => (
+                  {resources.subjects.map((subject) => (
                     <SelectItem value={subject} key={subject}>
                       {capitalizeWords(subject)}
                     </SelectItem>
@@ -97,7 +101,7 @@ export function SearchForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {examBoards.map((examboard) => (
+                  {resources.examBoards.map((examboard) => (
                     <SelectItem value={examboard} key={examboard}>
                       {capitalizeWords(examboard.toUpperCase())}
                     </SelectItem>

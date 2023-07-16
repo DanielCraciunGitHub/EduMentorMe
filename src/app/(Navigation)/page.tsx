@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 
+import { resourcesConfig } from "@/config/site"
 import { SearchForm } from "@/components/SearchForm"
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <div className="flex flex-grow flex-col items-center justify-center space-y-4 overflow-y-auto">
-      <SearchForm />
+      <SearchForm resources={resourcesConfig} />
     </div>
   )
 }

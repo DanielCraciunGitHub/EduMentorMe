@@ -1,7 +1,3 @@
-import { z } from "zod"
-
-import { userPrivateMetadataSchema } from "@/lib/validations/auth"
-
 export interface NavItem {
   name: string
   href: string
@@ -11,4 +7,8 @@ export interface FooterButton {
   href: string
 }
 
-type User = z.infer<typeof userPrivateMetadataSchema>
+export interface resources {
+  levels: string[]
+  subjects: string[]
+  examBoards: string[]
+}

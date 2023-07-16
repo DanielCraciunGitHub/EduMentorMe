@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Metadata } from "next"
 
-import { examBoards, levels, subjects } from "@/lib/constants"
+import { resourcesConfig } from "@/config/site"
 import supabase from "@/lib/supabase"
 
 import ErrorPage from "./ErrorPage"
@@ -71,6 +71,7 @@ const page: FC<pageProps> = async ({ params }) => {
 }
 // NOTE: Make this an async function later on to not rely on /lib/constants.ts
 export function generateStaticParams() {
+  const { levels, subjects, examBoards } = resourcesConfig
   const combinations = []
 
   for (const level of levels) {
