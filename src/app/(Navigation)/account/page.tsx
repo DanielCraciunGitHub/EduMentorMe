@@ -4,6 +4,8 @@ import DeleteAccountButton from "./DeleteAccountButton"
 import SignOutButton from "./SignOutButton"
 import WelcomeUser from "./WelcomeUser"
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "EduMentorMe | Account",
   description: "Account page for EduMentorMe",
