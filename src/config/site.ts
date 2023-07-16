@@ -26,6 +26,12 @@ export const siteConfig = {
       href: "/products_and_services",
     },
     {
+      name: "Account",
+      href: "/account",
+    },
+  ] satisfies NavItem[],
+  auth: [
+    {
       name: "Login",
       href: "/login",
     },
@@ -33,5 +39,5 @@ export const siteConfig = {
       name: "Sign Up",
       href: "/sign_up",
     },
-  ] satisfies NavItem[],
+  ],
 }

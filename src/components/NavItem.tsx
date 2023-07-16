@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 
 import { Button, ButtonProps } from "@/components/ui/button"

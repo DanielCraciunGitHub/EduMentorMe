@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useForm } from "react-hook-form"
@@ -97,6 +98,9 @@ const SignUpForm = () => {
           placeholder="johndoe0!"
           control={form.control}
         />
+        <div>
+          Already have an account? Login <Link href="/login">here</Link>
+        </div>
         <Button type="submit">Sign Up</Button>
       </form>
     </Form>

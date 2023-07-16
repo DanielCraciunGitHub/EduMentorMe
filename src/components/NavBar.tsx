@@ -1,11 +1,16 @@
+import { NavItem } from "@/types"
+
 import { DesktopBar } from "@/components/DesktopBar"
 import { MobileBar } from "@/components/MobileBar"
 
-export default function NavBar() {
+interface NavBarProps {
+  items: NavItem[]
+}
+export default function NavBar({ items }: NavBarProps) {
   return (
     <nav>
-      <MobileBar />
-      <DesktopBar />
+      <MobileBar items={items} />
+      <DesktopBar items={items} />
     </nav>
   )
 }
