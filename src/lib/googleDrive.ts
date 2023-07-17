@@ -46,8 +46,7 @@ export const getFiles = async (
       })
     }
     return files
-  } catch (err: any) {
-    console.error("Error: ", err.message)
+  } catch {
     return null
   }
 }
