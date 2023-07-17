@@ -1,11 +1,11 @@
 import { Files } from "@/types"
 import { google } from "googleapis"
 
-// Authorizes the service account to be used
 const private_key = process.env.GOOGLE_DRIVE_API_PRIVATE_KEY?.split(
   String.raw`\n`
 ).join("\n")
 
+// Authorizes the service account to be used
 const auth = new google.auth.GoogleAuth({
   credentials: {
     client_email: process.env.SERVICE_ACCOUNT_EMAIL,
