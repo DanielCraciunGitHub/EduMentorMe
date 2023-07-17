@@ -43,11 +43,6 @@
     @apply text-slate-800 dark:text-slate-200;
   }
 }
-@layer components {
-  .footerIcon {
-    @apply scale-100 transition-all;
-  }
-}
 .grecaptcha-badge {
   visibility: hidden;
 }

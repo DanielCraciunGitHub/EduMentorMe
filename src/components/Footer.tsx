@@ -1,34 +1,31 @@
-import { FC } from "react"
-import Link from "next/link"
-import { Facebook, Twitter } from "lucide-react"
-
+import { siteConfig } from "@/config/site"
+import { Separator } from "@/components/ui/separator"
 import { DarkModeButton } from "@/components/DarkModeButton"
 
-import { Button } from "./ui/button"
+import FooterItem from "./FooterItem"
 
-const Footer: FC = () => {
+const Footer = () => {
   return (
     <footer>
-      <div className="mx-auto w-full p-4 py-6 lg:py-6">
-        <hr className=" my-4 border-gray-200 dark:border-gray-700 sm:mx-auto lg:my-8" />
+      <div className="p-4 py-6">
+        <Separator className="my-4 bg-gray-300 dark:bg-gray-700" />
         <div className="sm:flex sm:items-center sm:justify-between">
-          <div className="flex items-center space-x-5">
-            <span className="text-sm text-gray-500 dark:text-gray-400 sm:text-center">
+          <div className="flex w-full flex-col space-y-3">
+            <div className="flex justify-between">
+              <div className="space-x-3">
+                {siteConfig.footer.map((footerItem) => (
+                  <FooterItem
+                    key={footerItem.href}
+                    href={footerItem.href}
+                    icon={footerItem.icon}
+                  />
+                ))}
+              </div>
+              <DarkModeButton />
+            </div>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
               © 2023 (EMM) EduMentorMe™. All Rights Reserved
             </span>
-            <Button variant="outline" size="icon">
-              <Link href="/">
-                <Facebook className="footerIcon" />
-              </Link>
-            </Button>
-            <Button variant="outline" size="icon">
-              <Link href="/">
-                <Twitter className="footerIcon" />
-              </Link>
-            </Button>
-          </div>
-          <div>
-            <DarkModeButton />
           </div>
         </div>
       </div>

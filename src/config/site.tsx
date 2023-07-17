@@ -1,8 +1,10 @@
 import type { FooterButton, NavItem, resources } from "@/types"
+import { Facebook, Twitter } from "lucide-react"
 
-const links = {}
-
-export type SiteConfig = typeof siteConfig
+const links = {
+  twitter: "https://twitter.com",
+  facebook: "https://facebook.com",
+}
 
 export const siteConfig = {
   name: "Edu Mentor Me",
@@ -30,16 +32,16 @@ export const siteConfig = {
       href: "/account",
     },
   ] satisfies NavItem[],
-  auth: [
+  footer: [
     {
-      name: "Login",
-      href: "/login",
+      href: links.facebook,
+      icon: <Facebook />,
     },
     {
-      name: "Sign Up",
-      href: "/sign_up",
+      href: links.twitter,
+      icon: <Twitter />,
     },
-  ],
+  ] satisfies FooterButton[],
 }
 // Make sure to use lower casing and separate words using a dash
 export const resourcesConfig = {
@@ -58,3 +60,5 @@ export const resourcesConfig = {
   ],
   examBoards: ["aqa", "edexcel", "ocr"],
 } satisfies resources
+
+export type SiteConfig = typeof siteConfig

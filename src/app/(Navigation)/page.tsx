@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div className="flex flex-grow flex-col items-center justify-center space-y-4 overflow-y-auto">
+    <div className="flex flex-grow items-center justify-center">
       <SearchForm resources={resourcesConfig} />
     </div>
   )
