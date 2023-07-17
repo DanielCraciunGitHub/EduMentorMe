@@ -43,7 +43,18 @@ export const siteConfig = {
 }
 // Make sure to use lower casing and separate words using a dash
 export const resourcesConfig = {
-  levels: ["a-level", "gcse"],
-  subjects: ["computer-science", "chemistry", "economics", "maths", "physics"],
+  levels: ["gcse", "a-level", "further-a-level"],
+  subjects: [
+    "computer-science",
+    "chemistry",
+    "economics",
+    "maths",
+    "physics",
+    "english-literature",
+    "english-language",
+    "biology",
+    "psychology",
+    "geography",
+  ],
   examBoards: ["aqa", "edexcel", "ocr"],
 } satisfies resources
