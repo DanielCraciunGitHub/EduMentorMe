@@ -8,7 +8,6 @@ import { getFiles } from "@/lib/googleDrive"
 import ErrorPage from "./ErrorPage"
 import ResourceLinks from "./ResourceLinks"
 
-// caches the downloaded pages and requests new data every 20 seconds
 export const revalidate = 69
 
 interface pageProps {
@@ -49,7 +48,7 @@ const page: FC<pageProps> = async ({ params }) => {
     )
 
     return (
-      <div className="flex flex-col items-center space-y-4 md:grid md:grid-cols-3 md:items-end md:gap-8">
+      <div className="grid w-full md:grid-cols-3">
         <ResourceLinks files={worksheets} title="Worksheets" />
         <ResourceLinks files={answers} title="Answers" />
         <ResourceLinks files={extra} title="Extra Links" />

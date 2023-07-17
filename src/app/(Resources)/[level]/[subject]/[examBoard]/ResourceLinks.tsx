@@ -8,11 +8,11 @@ interface ResourceLinksProps {
 
 const ResourceLinks = ({ files, title }: ResourceLinksProps) => {
   return (
-    <div className="flex flex-col items-center space-y-5">
+    <div className="flex flex-col items-center space-y-5 rounded outline outline-orange-500">
       <h1>{title}</h1>
-      <ul>
+      <ul className="flex w-3/4 flex-col space-y-2">
         {files.map((file) => (
-          <li key={file.link}>
+          <li key={file.link} className="break-all">
             <Link
               key={file.link}
               className="text-blue-600 underline"

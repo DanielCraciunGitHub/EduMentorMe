@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <NavBar items={siteConfig.mainNav} />
-      <main className="flex flex-grow justify-center">{children}</main>
+      <main className="flex flex-grow">{children}</main>
       <Footer />
       <ScrollToTopButton />
     </>
