@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 
-import { resourcesConfig, siteConfig } from "@/config/site"
+import { resourcesConfig } from "@/config/resources"
+import { siteConfig } from "@/config/site"
 import { SearchForm } from "@/components/SearchForm"
 
 export const metadata: Metadata = {

@@ -1,34 +1,19 @@
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types"
-import type { FooterButton, NavItem, resources } from "@/types"
+import type { FooterButton, NavItem } from "@/types"
 import { Facebook, Twitter } from "lucide-react"
+
+import { resourcesConfig } from "./resources"
 
 const links = {
   twitter: "https://twitter.com",
   facebook: "https://facebook.com",
 }
 
-// Make sure to use lower casing and separate words using a dash
-export const resourcesConfig = {
-  levels: ["gcse", "a-level", "further-a-level"],
-  subjects: [
-    "biology",
-    "chemistry",
-    "computer-science",
-    "economics",
-    "english-language",
-    "english-literature",
-    "geography",
-    "maths",
-    "psychology",
-    "physics",
-  ],
-  examBoards: ["aqa", "edexcel", "ocr"],
-} satisfies resources
-
 export const siteConfig = {
   name: "Edu Mentor Me",
   url: "https://edumentorme.com",
   description: "Learn GCSEs and A-Levels with us for free today!",
+  favicon: "/emm.jpeg",
   keywords: [
     ...resourcesConfig.levels,
     ...resourcesConfig.subjects,
@@ -37,8 +22,21 @@ export const siteConfig = {
     "Mentoring",
     "Tutor",
     "Mentor",
-  ],
-  favicon: "/emm.jpeg",
+  ] satisfies string[],
+  openGraph: {
+    title: "Edu Mentor Me",
+    url: "https://edumentorme.com",
+    description: "Learn GCSEs and A-Levels with us for free today!",
+    type: "website",
+    images: [
+      {
+        url: "https://edumentorme.com/emm.jpeg",
+        width: 1200,
+        height: 600,
+        alt: "EMM",
+      },
+    ],
+  } satisfies OpenGraph,
   mainNav: [
     {
       name: "EMM",

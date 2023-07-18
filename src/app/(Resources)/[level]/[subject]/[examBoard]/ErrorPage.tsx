@@ -2,7 +2,7 @@ import Link from "next/link"
 
 const ErrorPage = () => {
   return (
-    <div className="flex h-full flex-col justify-between">
+    <div className="flex w-full flex-col items-center justify-center">
       <div className="flex justify-center space-y-10 p-4 text-4xl">
         Error 😔
       </div>

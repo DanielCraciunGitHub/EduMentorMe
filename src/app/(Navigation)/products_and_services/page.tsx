@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import { Crown, Rocket, Sun } from "lucide-react"
 
+import { siteConfig } from "@/config/site"
 import { Separator } from "@/components/ui/separator"
 
 import SubCard from "./SubCard"
@@ -9,6 +10,13 @@ export const metadata: Metadata = {
   title: "EduMentorMe | Products And Services",
   description:
     "View details about any additional services to boost your exam grades",
+  openGraph: {
+    ...siteConfig.openGraph,
+    url: siteConfig.url + "/products_and_services",
+    title: "EduMentorMe | Products And Services",
+    description:
+      "View details about any additional services to boost your exam grades",
+  },
 }
 
 function page() {

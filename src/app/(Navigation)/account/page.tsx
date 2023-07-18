@@ -1,5 +1,7 @@
 import { Metadata } from "next"
 
+import { siteConfig } from "@/config/site"
+
 import DeleteAccountButton from "./DeleteAccountButton"
 import SignOutButton from "./SignOutButton"
 import WelcomeUser from "./WelcomeUser"
@@ -9,6 +11,12 @@ export const dynamic = "force-dynamic"
 export const metadata: Metadata = {
   title: "EduMentorMe | Account",
   description: "Account page for EduMentorMe",
+  openGraph: {
+    ...siteConfig.openGraph,
+    url: siteConfig.url + "/account",
+    title: "EduMentorMe | Account",
+    description: "Account page for EduMentorMe",
+  },
 }
 
 const page = () => {

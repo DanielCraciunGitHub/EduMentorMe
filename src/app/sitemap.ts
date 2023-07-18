@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next"
 
-import { resourcesConfig, siteConfig } from "@/config/site"
+import { resourcesConfig } from "@/config/resources"
+import { siteConfig } from "@/config/site"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const { levels, subjects, examBoards } = resourcesConfig
