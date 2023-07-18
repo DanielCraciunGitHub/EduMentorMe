@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { Metadata } from "next"
 
 import ContentPage from "@/components/ContentPage"
@@ -9,7 +8,7 @@ export const metadata: Metadata = {
     "A tutoring platform that provides A Level and GCSE revision resources",
 }
 
-const page: FC = () => {
+const page = () => {
   return <ContentPage id="6Rmpximi4o9imiP5xaJCX3" />
 }
 

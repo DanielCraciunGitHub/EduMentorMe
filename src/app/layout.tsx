@@ -4,13 +4,14 @@ import "@/styles/globals.css"
 
 import { Inter } from "next/font/google"
 
+import { siteConfig } from "@/config/site"
 import { Provider } from "@/components/providers"
 
 export const metadata: Metadata = {
-  title: "Edu Mentor Me",
-  description: "Learn GCSEs and A-Levels with us for free",
-  keywords: ["tutoring", "tutor", "a level", "gcse"],
-  icons: "/emm.jpeg",
+  title: siteConfig.name,
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  icons: siteConfig.favicon,
 }
 const inter = Inter({ subsets: ["latin"] })
 

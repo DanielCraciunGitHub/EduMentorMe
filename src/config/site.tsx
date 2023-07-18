@@ -6,10 +6,38 @@ const links = {
   facebook: "https://facebook.com",
 }
 
+// Make sure to use lower casing and separate words using a dash
+export const resourcesConfig = {
+  levels: ["gcse", "a-level", "further-a-level"],
+  subjects: [
+    "biology",
+    "chemistry",
+    "computer-science",
+    "economics",
+    "english-language",
+    "english-literature",
+    "geography",
+    "maths",
+    "psychology",
+    "physics",
+  ],
+  examBoards: ["aqa", "edexcel", "ocr"],
+} satisfies resources
+
 export const siteConfig = {
   name: "Edu Mentor Me",
-  description: "Learn GCSEs and A-Levels with us for free",
   url: "https://edumentorme.com",
+  description: "Learn GCSEs and A-Levels with us for free",
+  keywords: [
+    ...resourcesConfig.levels,
+    ...resourcesConfig.subjects,
+    ...resourcesConfig.examBoards,
+    "Tutoring",
+    "Mentoring",
+    "Tutor",
+    "Mentor",
+  ],
+  favicon: "/emm.jpeg",
   mainNav: [
     {
       name: "EMM",
@@ -31,6 +59,14 @@ export const siteConfig = {
       name: "Account",
       href: "/account",
     },
+    {
+      name: "Login",
+      href: "/login",
+    },
+    {
+      name: "Sign Up",
+      href: "/sign_up",
+    },
   ] satisfies NavItem[],
   footer: [
     {
@@ -43,22 +79,5 @@ export const siteConfig = {
     },
   ] satisfies FooterButton[],
 }
-// Make sure to use lower casing and separate words using a dash
-export const resourcesConfig = {
-  levels: ["gcse", "a-level", "further-a-level"],
-  subjects: [
-    "biology",
-    "chemistry",
-    "computer-science",
-    "economics",
-    "english-language",
-    "english-literature",
-    "geography",
-    "maths",
-    "psychology",
-    "physics",
-  ],
-  examBoards: ["aqa", "edexcel", "ocr"],
-} satisfies resources
 
 export type SiteConfig = typeof siteConfig

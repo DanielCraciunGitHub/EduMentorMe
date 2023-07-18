@@ -1,9 +1,8 @@
 import { MetadataRoute } from "next"
 
-import { resourcesConfig } from "@/config/site"
+import { resourcesConfig, siteConfig } from "@/config/site"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://edumentorme.com"
   const { levels, subjects, examBoards } = resourcesConfig
   const combinations = []
 
@@ -14,31 +13,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }
     }
   }
-  const urls: { url: string; lastModified: Date }[] = combinations.map(
-    (url) => ({ url: baseUrl + url, lastModified: new Date() })
+  const resourceUrls: { url: string; lastModified: Date }[] = combinations.map(
+    (url) => ({ url: siteConfig.url + url, lastModified: new Date() })
   )
 
   return [
-    {
-      url: baseUrl + "/about_us",
+    ...siteConfig.mainNav.map((page) => ({
+      url: siteConfig.url + page.href,
       lastModified: new Date(),
-    },
-    {
-      url: baseUrl + "/account",
-      lastModified: new Date(),
-    },
-    {
-      url: baseUrl + "/contact_us",
-      lastModified: new Date(),
-    },
-    {
-      url: baseUrl + "/login",
-      lastModified: new Date(),
-    },
-    {
-      url: baseUrl + "/sign_up",
-      lastModified: new Date(),
-    },
-    ...urls,
+    })),
+    ...resourceUrls,
   ]
 }

@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { Control } from "react-hook-form"
 
 import {
@@ -21,14 +20,14 @@ interface FormFieldProps {
   control: Control<any>
 }
 
-const GenericFormField: FC<FormFieldProps> = ({
+const GenericFormField = ({
   name,
   label,
   description,
   placeholder,
   type = "text",
   control,
-}) => {
+}: FormFieldProps) => {
   return (
     <FormField
       control={control}

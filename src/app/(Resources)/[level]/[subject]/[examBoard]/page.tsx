@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { Metadata } from "next"
 import { Files } from "@/types"
 
@@ -33,7 +32,7 @@ export async function generateMetadata({
   }
 }
 
-const page: FC<pageProps> = async ({ params }) => {
+const page = async ({ params }: pageProps) => {
   const { level, subject, examBoard } = params
   const files = await getFiles(level, subject, examBoard)
 

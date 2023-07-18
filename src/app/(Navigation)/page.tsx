@@ -1,13 +1,13 @@
 import { Metadata } from "next"
 
-import { resourcesConfig } from "@/config/site"
+import { resourcesConfig, siteConfig } from "@/config/site"
 import { SearchForm } from "@/components/SearchForm"
 
 export const metadata: Metadata = {
-  title: "Edu Mentor Me",
-  description: "Start learning with us today!",
-  keywords: ["tutoring", "tutor", "a level", "gcse"],
-  icons: "/emm.jpeg",
+  title: siteConfig.name,
+  description: siteConfig.description,
+  keywords: siteConfig.keywords,
+  icons: siteConfig.favicon,
 }
 
 const page = () => {

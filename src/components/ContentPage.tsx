@@ -1,4 +1,3 @@
-import { FC } from "react"
 import Image from "next/image"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { Document } from "@contentful/rich-text-types"
@@ -16,7 +15,7 @@ interface pageFields {
   bannerImage?: Asset<undefined, string>
 }
 
-const ContentPage: FC<ContentPageProps> = async ({ id }) => {
+const ContentPage = async ({ id }: ContentPageProps) => {
   // consuming the contentful api, getting the page properties
   const page = await client.getEntry<TypePageSkeleton>(id)
   const { body, title, bannerImage } = page.fields as pageFields

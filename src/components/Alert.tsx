@@ -1,5 +1,3 @@
-import { FC } from "react"
-
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 interface AlertProps {
@@ -8,11 +6,11 @@ interface AlertProps {
   variant?: "default" | "destructive"
 }
 
-const GenericAlert: FC<AlertProps> = ({
+const GenericAlert = ({
   name,
   description,
   variant = "default",
-}) =>
+}: AlertProps) =>
   variant === "default" ? (
     <Alert variant="default" className="bg-green-500 dark:bg-green-700">
       <AlertTitle>{name}</AlertTitle>

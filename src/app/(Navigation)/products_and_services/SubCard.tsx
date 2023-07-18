@@ -1,4 +1,3 @@
-import { FC } from "react"
 import { CheckCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -19,7 +18,7 @@ interface SubCardProps {
   icon: React.ReactNode
 }
 
-const SubCard: FC<SubCardProps> = ({ title, features, price, icon, theme }) => {
+const SubCard = ({ title, features, price, icon, theme }: SubCardProps) => {
   return (
     <Card className="flex w-[20rem] flex-grow flex-col space-y-2">
       <CardHeader className="space-y-4">
