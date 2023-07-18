@@ -1,3 +1,4 @@
+import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types"
 import type { FooterButton, NavItem, resources } from "@/types"
 import { Facebook, Twitter } from "lucide-react"
 
@@ -27,7 +28,7 @@ export const resourcesConfig = {
 export const siteConfig = {
   name: "Edu Mentor Me",
   url: "https://edumentorme.com",
-  description: "Learn GCSEs and A-Levels with us for free",
+  description: "Learn GCSEs and A-Levels with us for free today!",
   keywords: [
     ...resourcesConfig.levels,
     ...resourcesConfig.subjects,

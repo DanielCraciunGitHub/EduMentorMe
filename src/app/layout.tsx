@@ -12,6 +12,19 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   icons: siteConfig.favicon,
+  openGraph: {
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.url + siteConfig.favicon,
+        alt: "EMM",
+      },
+    ],
+  },
+  metadataBase: new URL(siteConfig.url),
 }
 const inter = Inter({ subsets: ["latin"] })
 
