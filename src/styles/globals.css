@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
   h1 {
     @apply text-4xl;
   }

@@ -8,7 +8,9 @@ interface FooterItemProps extends FooterButton {}
 const FooterItem = ({ href, icon }: FooterItemProps) => {
   return (
     <Button key={href} variant="outline" size="icon">
-      <Link href={href}>{icon}</Link>
+      <Link href={href} rel="noopener noreferrer" target="_blank">
+        {icon}
+      </Link>
     </Button>
   )
 }
