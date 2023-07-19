@@ -1,6 +1,7 @@
 import { Files } from "@/types"
 import { google } from "googleapis"
 
+// Parse the key into a suitable format
 const private_key = process.env.GOOGLE_DRIVE_API_PRIVATE_KEY?.split(
   String.raw`\n`
 ).join("\n")

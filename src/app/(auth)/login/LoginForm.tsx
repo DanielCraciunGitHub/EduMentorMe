@@ -38,7 +38,6 @@ const LoginForm = () => {
     if (error) {
       setIsError(true)
     } else {
-      router.push("/")
       router.refresh()
     }
   }

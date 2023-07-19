@@ -23,6 +23,7 @@ export default function DeleteAccountButton() {
     await supabase.rpc("delete_user")
     await supabase.auth.signOut()
     router.refresh()
+    router.replace("/login")
   }
   return (
     <Dialog>

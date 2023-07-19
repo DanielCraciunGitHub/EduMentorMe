@@ -1,19 +1,10 @@
 import { Metadata } from "next"
 
-import { siteConfig } from "@/config/site"
+import { staticMetadata } from "@/config/meta"
 import ContentPage from "@/components/ContentPage"
 
 export const metadata: Metadata = {
-  title: "EduMentorMe | About Us",
-  description:
-    "A tutoring platform that provides A Level and GCSE revision resources",
-  openGraph: {
-    ...siteConfig.openGraph,
-    url: siteConfig.url + "/about_us",
-    title: "EduMentorMe | About Us",
-    description:
-      "A tutoring platform that provides A Level and GCSE revision resources",
-  },
+  ...staticMetadata.about_us,
 }
 
 const page = () => {

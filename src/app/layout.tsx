@@ -4,16 +4,11 @@ import "@/styles/globals.css"
 
 import { Inter } from "next/font/google"
 
-import { siteConfig } from "@/config/site"
+import { baseMetadata } from "@/config/meta"
 import { Provider } from "@/components/providers"
 
 export const metadata: Metadata = {
-  title: siteConfig.name,
-  description: siteConfig.description,
-  keywords: siteConfig.keywords,
-  icons: siteConfig.favicon,
-  openGraph: siteConfig.openGraph,
-  metadataBase: new URL(siteConfig.url),
+  ...baseMetadata,
 }
 const inter = Inter({ subsets: ["latin"] })
 

@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 import { Files } from "@/types"
 
+import { baseMetadata } from "@/config/meta"
 import { resourcesConfig } from "@/config/resources"
-import { siteConfig } from "@/config/site"
 import { getFiles } from "@/lib/googleDrive"
 
 import ErrorPage from "./ErrorPage"
@@ -25,8 +25,8 @@ export async function generateMetadata({
       title: "Not Found",
       description: "This resource is not available at the moment",
       openGraph: {
-        ...siteConfig.openGraph,
-        url: siteConfig.url + `/${level}/${subject}/${examBoard}`,
+        ...baseMetadata.openGraph,
+        url: `/${level}/${subject}/${examBoard}`,
         title: "Not Found",
         description: "This resource is not available at the moment",
       },
@@ -34,12 +34,12 @@ export async function generateMetadata({
   }
   // if the page is available
   return {
-    title: level + " | " + subject + " | " + examBoard,
+    title: level + "/" + subject + "/" + examBoard,
     description: `This is a resource page for ${level} ${subject} and the exam board is ${examBoard}`,
     openGraph: {
-      ...siteConfig.openGraph,
-      url: siteConfig.url + `/${level}/${subject}/${examBoard}`,
-      title: level + " | " + subject + " | " + examBoard,
+      ...baseMetadata.openGraph,
+      url: `/${level}/${subject}/${examBoard}`,
+      title: level + "/" + subject + "/" + examBoard,
       description: `This is a resource page for ${level} ${subject} and the exam board is ${examBoard}`,
     },
   }

@@ -1,22 +1,13 @@
 import { Metadata } from "next"
 import { Crown, Rocket, Sun } from "lucide-react"
 
-import { siteConfig } from "@/config/site"
+import { staticMetadata } from "@/config/meta"
 import { Separator } from "@/components/ui/separator"
 
 import SubCard from "./SubCard"
 
 export const metadata: Metadata = {
-  title: "EduMentorMe | Products And Services",
-  description:
-    "View details about any additional services to boost your exam grades",
-  openGraph: {
-    ...siteConfig.openGraph,
-    url: siteConfig.url + "/products_and_services",
-    title: "EduMentorMe | Products And Services",
-    description:
-      "View details about any additional services to boost your exam grades",
-  },
+  ...staticMetadata.products_and_services,
 }
 
 function page() {
@@ -51,5 +42,3 @@ function page() {
   )
 }
 export default page
-
-// separator style: className="h-[5px] w-1/4 bg-red-500 dark:bg-red-500 rounded"

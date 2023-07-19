@@ -2,11 +2,12 @@
 
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
-import supabase from "@/lib/supabase"
+import { Database } from "@/types/supabase"
 import { contactFormSchema } from "@/lib/validations/form"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
@@ -17,6 +18,7 @@ import { verifyCaptchaAction } from "@/app/_actions/Captcha"
 type Inputs = z.infer<typeof contactFormSchema>
 
 const ContactForm = () => {
+  const supabase = createClientComponentClient<Database>()
   const { executeRecaptcha } = useGoogleReCaptcha()
   const [isFeedbackSent, setIsFeedbackSent] = useState<boolean>(false)
 

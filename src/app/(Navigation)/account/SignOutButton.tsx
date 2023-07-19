@@ -13,6 +13,7 @@ const SignOutButton = () => {
   const handleSignOut = async () => {
     await supabase.auth.signOut()
     router.refresh()
+    router.push("/login")
   }
   return (
     <Button type="submit" onClick={handleSignOut}>
