@@ -1,11 +1,15 @@
 import { Metadata } from "next"
 
 import { resourcesConfig } from "./resources"
+import { siteConfig } from "./site"
 
 export const baseMetadata: Metadata = {
   title: { default: "EduMentorMe", template: "%s | EduMentorMe" },
   description: "Learn GCSEs and A-Levels with us for free today!",
-  icons: "/emm.jpeg",
+  icons: {
+    icon: "/emm.jpg",
+  },
+  creator: "Daniel Craciun",
   keywords: [
     ...resourcesConfig.levels,
     ...resourcesConfig.subjects,
@@ -15,21 +19,51 @@ export const baseMetadata: Metadata = {
     "Tutor",
     "Mentor",
   ],
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
+  manifest: `${siteConfig.url}/site.webmanifest`,
+  themeColor: [
+    {
+      media: "(prefers-color-scheme: light)",
+      color: "white",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      color: "black",
+    },
+  ],
   openGraph: {
     title: { default: "EduMentorMe", template: "%s | EduMentorMe" },
-    url: "https://edumentorme.com",
+    url: siteConfig.url,
     description: "Learn GCSEs and A-Levels with us for free today!",
     type: "website",
     images: [
       {
-        url: "https://edumentorme.com/emm-og.jpg",
+        url: `${siteConfig.url}/emm-og.jpg`,
+        type: "image/jpg",
         width: 1200,
         height: 630,
         alt: "EMM",
       },
     ],
   },
-  metadataBase: new URL("https://edumentorme.com"),
+  twitter: {
+    card: "summary_large_image",
+    title: { default: "EduMentorMe", template: "%s | EduMentorMe" },
+    description: "Learn GCSEs and A-Levels with us for free today!",
+    images: [
+      {
+        url: `${siteConfig.url}/emm-og.jpg`,
+        type: "image/jpg",
+        width: 1200,
+        height: 630,
+        alt: "EMM",
+      },
+    ],
+  },
+  metadataBase: new URL(siteConfig.url),
 }
 
 export const staticMetadata = {
@@ -40,6 +74,12 @@ export const staticMetadata = {
     openGraph: {
       ...baseMetadata.openGraph,
       url: "/login",
+      title: "Login",
+      description:
+        "Login to gain exclusive access to GCSE and A Level Resources",
+    },
+    twitter: {
+      ...baseMetadata.twitter,
       title: "Login",
       description:
         "Login to gain exclusive access to GCSE and A Level Resources",
@@ -56,6 +96,12 @@ export const staticMetadata = {
       description:
         "Sign Up to gain exclusive access to GCSE and A Level Resources",
     },
+    twitter: {
+      ...baseMetadata.twitter,
+      title: "Sign Up",
+      description:
+        "Sign Up to gain exclusive access to GCSE and A Level Resources",
+    },
   } satisfies Metadata,
   about_us: {
     title: "About Us",
@@ -68,6 +114,12 @@ export const staticMetadata = {
       description:
         "A tutoring platform that provides A Level and GCSE revision resources",
     },
+    twitter: {
+      ...baseMetadata.twitter,
+      title: "About Us",
+      description:
+        "A tutoring platform that provides A Level and GCSE revision resources",
+    },
   } satisfies Metadata,
   account: {
     title: "Account",
@@ -75,6 +127,11 @@ export const staticMetadata = {
     openGraph: {
       ...baseMetadata.openGraph,
       url: "/account",
+      title: "Account",
+      description: "Account page for EduMentorMe",
+    },
+    twitter: {
+      ...baseMetadata.twitter,
       title: "Account",
       description: "Account page for EduMentorMe",
     },
@@ -90,6 +147,12 @@ export const staticMetadata = {
       description:
         "Contact Us about any questions or concerns related to our tutoring services or GCSE/A Level Resources.",
     },
+    twitter: {
+      ...baseMetadata.twitter,
+      title: "Contact Us",
+      description:
+        "Contact Us about any questions or concerns related to our tutoring services or GCSE/A Level Resources.",
+    },
   } satisfies Metadata,
   products_and_services: {
     title: "Products And Services",
@@ -98,6 +161,12 @@ export const staticMetadata = {
     openGraph: {
       ...baseMetadata.openGraph,
       url: "/products_and_services",
+      title: "Products And Services",
+      description:
+        "View details about any additional services to boost your exam grades",
+    },
+    twitter: {
+      ...baseMetadata.twitter,
       title: "Products And Services",
       description:
         "View details about any additional services to boost your exam grades",

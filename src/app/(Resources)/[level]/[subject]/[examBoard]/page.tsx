@@ -31,6 +31,11 @@ export async function generateMetadata({
         title: "Not Found",
         description: "This resource is not available at the moment",
       },
+      twitter: {
+        ...baseMetadata.twitter,
+        title: "Not Found",
+        description: "This resource is not available at the moment",
+      },
     }
   }
   // if the page is available
@@ -40,6 +45,11 @@ export async function generateMetadata({
     openGraph: {
       ...baseMetadata.openGraph,
       url: `/${level}/${subject}/${examBoard}`,
+      title: level + "/" + subject + "/" + examBoard,
+      description: `This is a resource page for ${level} ${subject} and the exam board is ${examBoard}`,
+    },
+    twitter: {
+      ...baseMetadata.twitter,
       title: level + "/" + subject + "/" + examBoard,
       description: `This is a resource page for ${level} ${subject} and the exam board is ${examBoard}`,
     },
