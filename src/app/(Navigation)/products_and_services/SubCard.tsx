@@ -16,10 +16,10 @@ import { Separator } from "@/components/ui/separator"
 const subCardVariants = cva("", {
   variants: {
     theme: {
-      green: "dark:bg-green-500 bg-green-500 text-green-500",
-      orange: "bg-orange-500 dark:bg-orange-500 text-orange-500",
-      red: "bg-red-500 dark:bg-red-500 text-red-500",
-      blue: "bg-blue-500 dark:bg-blue-500 text-blue-500",
+      green: "dark:bg-green-500 bg-green-500",
+      orange: "bg-orange-500 dark:bg-orange-500",
+      red: "bg-red-500 dark:bg-red-500",
+      blue: "bg-blue-500 dark:bg-blue-500",
     },
   },
 })

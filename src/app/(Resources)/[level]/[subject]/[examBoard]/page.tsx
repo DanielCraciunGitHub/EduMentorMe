@@ -3,6 +3,7 @@ import { Files } from "@/types"
 
 import { baseMetadata } from "@/config/meta"
 import { resourcesConfig } from "@/config/resources"
+import { siteConfig } from "@/config/site"
 import { getFiles } from "@/lib/googleDrive"
 
 import ErrorPage from "./ErrorPage"
@@ -41,6 +42,9 @@ export async function generateMetadata({
       url: `/${level}/${subject}/${examBoard}`,
       title: level + "/" + subject + "/" + examBoard,
       description: `This is a resource page for ${level} ${subject} and the exam board is ${examBoard}`,
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/${level}/${subject}/${examBoard}`,
     },
   }
 }

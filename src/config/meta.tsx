@@ -22,9 +22,9 @@ export const baseMetadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://edumentorme.com/emm.jpeg",
+        url: "https://edumentorme.com/emm-og.jpg",
         width: 1200,
-        height: 1200,
+        height: 630,
         alt: "EMM",
       },
     ],
