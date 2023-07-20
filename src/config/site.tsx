@@ -7,7 +7,7 @@ const links = {
 }
 
 export const siteConfig = {
-  url: "https://edumentorme.com",
+  url: "https://www.edumentorme.com",
   mainNav: [
     {
       name: "EMM",
