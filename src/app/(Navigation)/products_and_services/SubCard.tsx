@@ -21,6 +21,12 @@ const subCardVariants = cva("", {
       red: "bg-red-500 dark:bg-red-500",
       blue: "bg-blue-500 dark:bg-blue-500",
     },
+    text: {
+      green: "text-green-500",
+      orange: "text-orange-500",
+      red: "text-red-500",
+      blue: "text-blue-500",
+    },
   },
 })
 interface SubCardProps
@@ -32,7 +38,14 @@ interface SubCardProps
   icon: React.ReactNode
 }
 
-const SubCard = ({ title, features, price, icon, theme }: SubCardProps) => {
+const SubCard = ({
+  title,
+  features,
+  price,
+  icon,
+  theme,
+  text = theme,
+}: SubCardProps) => {
   return (
     <Card className="flex w-[20rem] flex-col space-y-2">
       <CardHeader className="space-y-4">
@@ -54,13 +67,10 @@ const SubCard = ({ title, features, price, icon, theme }: SubCardProps) => {
       </CardContent>
       <CardFooter className="flex flex-col space-y-4">
         <div className="flex flex-row items-end">
-          <h1 className={`text-${theme}-500`}>{price}</h1>
+          <h1 className={subCardVariants({ text })}>{price}</h1>
           <p className="text-xs">/Month</p>
         </div>
-        <Button
-          type="submit"
-          className={`bg-${theme}-500 dark:bg-${theme}-500`}
-        >
+        <Button type="submit" className={subCardVariants({ theme })}>
           Purchase
         </Button>
       </CardFooter>
