@@ -1,6 +1,7 @@
+import { env } from "@/env.mjs"
 import { createClient } from "contentful"
 
 export const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID!,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
+  space: env.CONTENTFUL_SPACE_ID,
+  accessToken: env.CONTENTFUL_ACCESS_TOKEN,
 })

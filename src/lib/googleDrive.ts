@@ -1,15 +1,16 @@
+import { env } from "@/env.mjs"
 import { Files } from "@/types"
 import { google } from "googleapis"
 
 // Parse the key into a suitable format
-const private_key = process.env.GOOGLE_DRIVE_API_PRIVATE_KEY?.split(
+const private_key = env.GOOGLE_DRIVE_API_PRIVATE_KEY?.split(
   String.raw`\n`
 ).join("\n")
 
 // Authorizes the service account to be used
 const auth = new google.auth.GoogleAuth({
   credentials: {
-    client_email: process.env.SERVICE_ACCOUNT_EMAIL,
+    client_email: env.SERVICE_ACCOUNT_EMAIL,
     private_key,
   },
   scopes: ["https://www.googleapis.com/auth/drive"],
