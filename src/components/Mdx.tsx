@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import Image from "next/image"
 import { useMDXComponent } from "next-contentlayer/hooks"
@@ -17,7 +19,7 @@ const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        "mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0",
+        "mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0 dark:border-gray-700",
         className
       )}
       {...props}
@@ -148,7 +150,7 @@ const components = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn(
-        "relative rounded border border-gray-500 px-[0.3rem] py-[0.2rem] font-mono text-sm",
+        "relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm dark:border-gray-700",
         className
       )}
       {...props}

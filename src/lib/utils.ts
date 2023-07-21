@@ -1,4 +1,6 @@
+import { notFound } from "next/navigation"
 import { clsx, type ClassValue } from "clsx"
+import { allDocs } from "contentlayer/generated"
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -13,4 +15,12 @@ export function capitalizeWords(str: string): string {
     (word) => word.charAt(0).toUpperCase() + word.slice(1)
   )
   return capitalizedWords.join(" ")
+}
+export async function getDocFromParams(slug: string) {
+  const doc = allDocs.find((doc) => doc.slugAsParams === slug)
+
+  if (!doc) {
+    notFound()
+  }
+  return doc
 }
