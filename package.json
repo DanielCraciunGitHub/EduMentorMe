@@ -8,6 +8,17 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "pnpm": {
+    "overrides": {
+      "@opentelemetry/api": "1.4.1",
+      "@opentelemetry/core": "1.13.0",
+      "@opentelemetry/exporter-trace-otlp-grpc": "0.39.1",
+      "@opentelemetry/resources": "1.13.0",
+      "@opentelemetry/sdk-trace-base": "1.13.0",
+      "@opentelemetry/sdk-trace-node": "1.13.0",
+      "@opentelemetry/semantic-conventions": "1.13.0"
+    }
+  },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.17.0",
     "@contentful/rich-text-types": "^16.2.0",
@@ -29,11 +40,13 @@
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
     "contentful": "^10.3.6",
+    "contentlayer": "^0.3.4",
     "encoding": "^0.1.13",
     "googleapis": "^122.0.0",
     "lucide-react": "^0.252.0",
     "my-app": "link:",
     "next": "^13.4.11",
+    "next-contentlayer": "^0.3.4",
     "next-themes": "^0.2.1",
     "postcss": "8.4.24",
     "react": "^18.2.0",
@@ -52,6 +65,10 @@
     "eslint-config-next": "13.4.11",
     "husky": "^8.0.3",
     "prettier": "^3.0.0",
-    "prettier-plugin-tailwindcss": "^0.4.1"
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "rehype-autolink-headings": "^6.1.1",
+    "rehype-pretty-code": "^0.10.0",
+    "rehype-slug": "^5.1.0",
+    "remark-gfm": "^3.0.1"
   }
 }
