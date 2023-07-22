@@ -17,6 +17,28 @@ import { verifyCaptchaAction } from "@/app/_actions/Captcha"
 
 type Inputs = z.infer<typeof contactFormSchema>
 
+const GoogleNotice = () => {
+  return (
+    <div>
+      This site is protected by reCAPTCHA and the Google{" "}
+      <a
+        href="https://policies.google.com/privacy"
+        className="text-blue-600 underline"
+      >
+        Privacy Policy
+      </a>{" "}
+      and{" "}
+      <a
+        href="https://policies.google.com/terms"
+        className="text-blue-600 underline"
+      >
+        Terms of Service
+      </a>{" "}
+      apply.
+    </div>
+  )
+}
+
 const ContactForm = () => {
   const supabase = createClientComponentClient<Database>()
   const { executeRecaptcha } = useGoogleReCaptcha()
@@ -68,12 +90,7 @@ const ContactForm = () => {
           placeholder="Share your thoughts and suggestions here..."
           control={form.control}
         />
-        <div>
-          This site is protected by reCAPTCHA and the Google{" "}
-          <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
-          <a href="https://policies.google.com/terms">Terms of Service</a>{" "}
-          apply.
-        </div>
+        <GoogleNotice />
         <Button type="submit">Submit feedback</Button>
         {isFeedbackSent && (
           <SuccessAlert

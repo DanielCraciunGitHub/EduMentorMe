@@ -67,7 +67,7 @@ const SubCard = ({
       </CardContent>
       <CardFooter className="flex flex-col space-y-4">
         <div className="flex flex-row items-end">
-          <h1 className={subCardVariants({ text })}>{price}</h1>
+          <h1 className={cn(subCardVariants({ text }), "text-4xl")}>{price}</h1>
           <p className="text-xs">/Month</p>
         </div>
         <Button type="submit" className={subCardVariants({ theme })}>

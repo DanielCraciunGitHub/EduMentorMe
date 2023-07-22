@@ -8,18 +8,17 @@ import type { z } from "zod"
 
 import type { Database } from "@/types/supabase"
 import { signUpFormSchema } from "@/lib/validations/form"
-import { useAuthState } from "@/hooks/useAuthState"
+import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
-import Alert from "@/components/Alert"
 import InputField from "@/components/InputField"
 
 type Inputs = z.infer<typeof signUpFormSchema>
 
 const SignUpForm = () => {
+  const { toast } = useToast()
+
   const supabase = createClientComponentClient<Database>()
-  const { isError, setIsError, isEmailVerify, setIsEmailVerify } =
-    useAuthState(false)
 
   const form = useForm<Inputs>({
     resolver: zodResolver(signUpFormSchema),
@@ -46,10 +45,18 @@ const SignUpForm = () => {
           emailRedirectTo: `${location.origin}/api/auth/callback`,
         },
       })
-      setIsError(false)
-      setIsEmailVerify(true)
+      toast({
+        title: "Success",
+        description: "Check your email inbox to verify your account.",
+        variant: "constructive",
+      })
     } else {
-      setIsError(true)
+      toast({
+        title: "Error",
+        description:
+          "An account is already registered to this email, consider logging in.",
+        variant: "destructive",
+      })
     }
   }
 
@@ -65,19 +72,6 @@ const SignUpForm = () => {
             Join a fast growing community of successful students
           </p>
         </div>
-        {isError && (
-          <Alert
-            name="Error"
-            description="An account is already registered to this email, consider logging in."
-            variant="destructive"
-          />
-        )}
-        {isEmailVerify && (
-          <Alert
-            name="Success"
-            description="Check your email inbox to verify your account"
-          />
-        )}
         <InputField
           name="name"
           label="Name"
@@ -99,7 +93,10 @@ const SignUpForm = () => {
           control={form.control}
         />
         <div>
-          Already have an account? Login <Link href="/login">here</Link>
+          Already have an account? Login{" "}
+          <Link href="/login" className="text-blue-600 underline">
+            here
+          </Link>
         </div>
         <Button type="submit">Sign Up</Button>
       </form>

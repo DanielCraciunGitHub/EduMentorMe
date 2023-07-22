@@ -41,11 +41,11 @@ export const siteConfig = {
   footer: [
     {
       href: links.facebook,
-      icon: <Facebook />,
+      icon: <Facebook className="text-blue-600" />,
     },
     {
       href: links.twitter,
-      icon: <Twitter />,
+      icon: <Twitter className="text-blue-600" />,
     },
   ] satisfies FooterButton[],
 }

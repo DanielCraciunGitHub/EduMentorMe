@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useForm } from "react-hook-form"
@@ -8,18 +9,18 @@ import type { z } from "zod"
 
 import type { Database } from "@/types/supabase"
 import { loginFormSchema } from "@/lib/validations/form"
-import { useAuthState } from "@/hooks/useAuthState"
+import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
-import Alert from "@/components/Alert"
 import InputField from "@/components/InputField"
 
 type Inputs = z.infer<typeof loginFormSchema>
 
 const LoginForm = () => {
   const supabase = createClientComponentClient<Database>()
+  const { toast } = useToast()
 
-  const { router, isError, setIsError } = useAuthState(false)
+  const router = useRouter()
 
   const form = useForm<Inputs>({
     resolver: zodResolver(loginFormSchema),
@@ -36,7 +37,12 @@ const LoginForm = () => {
     })
 
     if (error) {
-      setIsError(true)
+      toast({
+        title: "Error",
+        description:
+          "Either this account doesn't exist or the password is incorrect.",
+        variant: "destructive",
+      })
     } else {
       router.refresh()
     }
@@ -53,14 +59,6 @@ const LoginForm = () => {
             Join a fast growing community of successful students
           </p>
         </div>
-        {isError && (
-          <Alert
-            name="Error"
-            variant="destructive"
-            description="Either this account doesn't exist or the password is incorrect."
-          />
-        )}
-
         <InputField
           name="email"
           label="Email"
@@ -76,7 +74,10 @@ const LoginForm = () => {
           control={form.control}
         />
         <div>
-          Don't have an account? Sign up <Link href="/sign_up">here</Link>
+          Don't have an account? Sign up{" "}
+          <Link href="/sign_up" className="text-blue-600 underline">
+            here
+          </Link>
         </div>
         <Button type="submit">Login</Button>
       </form>
