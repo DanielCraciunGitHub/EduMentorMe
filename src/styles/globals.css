@@ -6,6 +6,45 @@
   html {
     -webkit-tap-highlight-color: transparent;
   }
+  h1 {
+    @apply text-4xl;
+  }
+  h2 {
+    @apply text-3xl;
+  }
+  h3 {
+    @apply text-2xl;
+  }
+  h4 {
+    @apply text-xl;
+  }
+  h5 {
+    @apply text-lg;
+  }
+  h6 {
+    @apply text-base;
+  }
+  b {
+    @apply font-bold;
+  }
+  i {
+    @apply italic;
+  }
+  u {
+    @apply underline;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+  }
+  a {
+    @apply text-blue-600 underline;
+  }
+  p {
+    @apply text-slate-800 dark:text-slate-200;
+  }
 }
 .grecaptcha-badge {
   visibility: hidden;
