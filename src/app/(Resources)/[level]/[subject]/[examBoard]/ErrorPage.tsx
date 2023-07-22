@@ -8,7 +8,9 @@ const ErrorPage = () => {
       </div>
       <div className="flex flex-col items-center justify-center space-y-4 text-xl">
         No Resources Found | Try Again Later <br />
-        <Link href="/">Home</Link>
+        <Link href="/" className="text-blue-600 underline">
+          Home
+        </Link>
       </div>
     </div>
   )

@@ -9,12 +9,6 @@ export const env = createEnv({
     NEXT_PUBLIC_RECAPTCHA_SITE_KEY: z.string().min(1),
   },
   server: {
-    CONTENTFUL_ACCESS_TOKEN: z.string().min(1),
-    CONTENTFUL_PREVIEW_ACCESS_TOKEN: z.string().min(1),
-    CONTENTFUL_PREVIEW_SECRET: z.string().min(1),
-    CONTENTFUL_MANAGEMENT_TOKEN: z.string().min(1),
-    CONTENTFUL_SPACE_ID: z.string().min(1),
-
     RECAPTCHA_SECRET_KEY: z.string().min(1),
 
     NEXT_PRIVATE_SERVICE_ROLE_KEY: z.string().min(1),
