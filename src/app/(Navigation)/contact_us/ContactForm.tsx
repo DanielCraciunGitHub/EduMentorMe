@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
@@ -9,9 +8,9 @@ import type { z } from "zod"
 
 import { Database } from "@/types/supabase"
 import { contactFormSchema } from "@/lib/validations/form"
+import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
-import SuccessAlert from "@/components/Alert"
 import InputField from "@/components/InputField"
 import { verifyCaptchaAction } from "@/app/_actions/Captcha"
 
@@ -41,8 +40,8 @@ const GoogleNotice = () => {
 
 const ContactForm = () => {
   const supabase = createClientComponentClient<Database>()
+  const { toast } = useToast()
   const { executeRecaptcha } = useGoogleReCaptcha()
-  const [isFeedbackSent, setIsFeedbackSent] = useState<boolean>(false)
 
   const form = useForm<Inputs>({
     resolver: zodResolver(contactFormSchema),
@@ -68,7 +67,12 @@ const ContactForm = () => {
 
       // reset the form state to allow for new submissions
       form.reset()
-      setIsFeedbackSent(true)
+      toast({
+        title: "Success",
+        description:
+          "We appreciate you taking your time to fill in this form, we will get back to you shortly.",
+        variant: "constructive",
+      })
     }
   }
   return (
@@ -92,13 +96,6 @@ const ContactForm = () => {
         />
         <GoogleNotice />
         <Button type="submit">Submit feedback</Button>
-        {isFeedbackSent && (
-          <SuccessAlert
-            name="Success"
-            description="We appreciate you taking your time to fill in this form, we will
-              get back to you shortly."
-          />
-        )}
       </form>
     </Form>
   )
