@@ -1,7 +1,9 @@
 "use client"
 
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { Loader2 } from "lucide-react"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
@@ -40,6 +42,8 @@ const GoogleNotice = () => {
 
 const ContactForm = () => {
   const supabase = createClientComponentClient<Database>()
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+
   const { toast } = useToast()
   const { executeRecaptcha } = useGoogleReCaptcha()
 
@@ -52,6 +56,8 @@ const ContactForm = () => {
   })
 
   async function onSubmit(values: Inputs) {
+    setIsSubmitting(true)
+
     if (!executeRecaptcha) {
       return
     }
@@ -74,6 +80,7 @@ const ContactForm = () => {
         variant: "constructive",
       })
     }
+    setIsSubmitting(false)
   }
   return (
     <Form {...form}>
@@ -95,7 +102,13 @@ const ContactForm = () => {
           control={form.control}
         />
         <GoogleNotice />
-        <Button type="submit">Submit feedback</Button>
+        <Button type="submit">
+          {isSubmitting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <span>Submit Feedback</span>
+          )}
+        </Button>
       </form>
     </Form>
   )

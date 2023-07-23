@@ -1,8 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
@@ -17,6 +19,7 @@ type Inputs = z.infer<typeof signUpFormSchema>
 
 const SignUpForm = () => {
   const { toast } = useToast()
+  const [isSigningUp, setIsSigningUp] = useState<boolean>(false)
 
   const supabase = createClientComponentClient<Database>()
 
@@ -29,12 +32,13 @@ const SignUpForm = () => {
     },
   })
   async function onSubmit(values: Inputs) {
-    // checks if an email exists in db
-    const { data: exists } = await supabase.rpc("email_exists", {
+    setIsSigningUp(true)
+
+    const { data: emailExists } = await supabase.rpc("email_exists", {
       email_param: values.email,
     })
-    // if no email present in database
-    if (!exists) {
+
+    if (!emailExists) {
       await supabase.auth.signUp({
         email: values.email,
         password: values.password,
@@ -58,6 +62,7 @@ const SignUpForm = () => {
         variant: "destructive",
       })
     }
+    setIsSigningUp(false)
   }
 
   return (
@@ -98,7 +103,13 @@ const SignUpForm = () => {
             here
           </Link>
         </div>
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit">
+          {isSigningUp ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <span>Sign Up</span>
+          )}
+        </Button>
       </form>
     </Form>
   )

@@ -1,9 +1,11 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
@@ -18,6 +20,7 @@ type Inputs = z.infer<typeof loginFormSchema>
 
 const LoginForm = () => {
   const supabase = createClientComponentClient<Database>()
+  const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false)
   const { toast } = useToast()
 
   const router = useRouter()
@@ -31,6 +34,8 @@ const LoginForm = () => {
   })
 
   async function onSubmit(values: Inputs) {
+    setIsLoggingIn(true)
+
     const { error } = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
@@ -43,6 +48,7 @@ const LoginForm = () => {
           "Either this account doesn't exist or the password is incorrect.",
         variant: "destructive",
       })
+      setIsLoggingIn(false)
     } else {
       router.refresh()
     }
@@ -79,7 +85,13 @@ const LoginForm = () => {
             here
           </Link>
         </div>
-        <Button type="submit">Login</Button>
+        <Button type="submit">
+          {isLoggingIn ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <span>Login</span>
+          )}
+        </Button>
       </form>
     </Form>
   )
