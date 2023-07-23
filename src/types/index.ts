@@ -8,6 +8,7 @@ export interface NavItem {
   href: string
 }
 export interface FooterButton {
+  name: string
   icon: React.ReactNode
   href: string
 }

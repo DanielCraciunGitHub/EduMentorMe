@@ -53,7 +53,7 @@ export function SearchForm({ resources }: SearchFormProps) {
             <FormItem>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger title="Combobox Level">
                     <SelectValue placeholder="Level" />
                   </SelectTrigger>
                 </FormControl>
@@ -76,7 +76,7 @@ export function SearchForm({ resources }: SearchFormProps) {
             <FormItem>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger title="Combobox Subject">
                     <SelectValue placeholder="Subject" />
                   </SelectTrigger>
                 </FormControl>
@@ -99,7 +99,7 @@ export function SearchForm({ resources }: SearchFormProps) {
             <FormItem>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger title="Combobox Exam Board">
                     <SelectValue placeholder="Exam Board" />
                   </SelectTrigger>
                 </FormControl>

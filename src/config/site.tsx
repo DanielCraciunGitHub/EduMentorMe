@@ -40,10 +40,12 @@ export const siteConfig = {
   ] satisfies NavItem[],
   footer: [
     {
+      name: "Facebook",
       href: links.facebook,
       icon: <Facebook className="text-blue-600" />,
     },
     {
+      name: "Twitter",
       href: links.twitter,
       icon: <Twitter className="text-blue-600" />,
     },

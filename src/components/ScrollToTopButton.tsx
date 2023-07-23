@@ -39,6 +39,7 @@ const ScrollToTopButton = () => {
       onClick={scrollToTop}
     >
       <ChevronUp />
+      <span className="sr-only">Scroll to top button</span>
     </Button>
   )
 }

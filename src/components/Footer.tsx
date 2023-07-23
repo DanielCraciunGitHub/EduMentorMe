@@ -16,6 +16,7 @@ const Footer = () => {
                 {siteConfig.footer.map((footerItem) => (
                   <FooterItem
                     key={footerItem.href}
+                    name={footerItem.name}
                     href={footerItem.href}
                     icon={footerItem.icon}
                   />

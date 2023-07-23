@@ -5,7 +5,7 @@ import { buttonVariants } from "@/components/ui/button"
 
 interface FooterItemProps extends FooterButton {}
 
-const FooterItem = ({ href, icon }: FooterItemProps) => {
+const FooterItem = ({ href, icon, name }: FooterItemProps) => {
   return (
     <Link
       href={href}
@@ -14,6 +14,7 @@ const FooterItem = ({ href, icon }: FooterItemProps) => {
       className={buttonVariants({ size: "icon", variant: "outline" })}
     >
       {icon}
+      <span className="sr-only">{name}</span>
     </Link>
   )
 }

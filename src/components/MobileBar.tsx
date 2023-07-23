@@ -24,6 +24,7 @@ export function MobileBar({ items }: MobileBarProps) {
       <Sheet>
         <SheetTrigger className="flex w-full justify-end p-2">
           <PanelRight className="dark:text-slate-300" />
+          <span className="sr-only">Open Mobile Menu</span>
         </SheetTrigger>
         <SheetContent className="flex flex-col items-center" side="right">
           {items.slice(1, 5).map((item) => (
