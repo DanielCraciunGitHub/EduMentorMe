@@ -79,6 +79,12 @@ const ContactForm = () => {
           "We appreciate you taking your time to fill in this form, we will get back to you shortly.",
         variant: "constructive",
       })
+    } else {
+      toast({
+        title: "Error",
+        description: "Something went wrong! Please try again later.",
+        variant: "destructive",
+      })
     }
     setIsSubmitting(false)
   }

@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import Image from "next/image"
+import { notFound } from "next/navigation"
 
 import { staticMetadata } from "@/config/meta"
 import { getDocFromParams } from "@/lib/utils"
@@ -11,6 +12,11 @@ export const metadata: Metadata = {
 
 const page = async () => {
   const doc = await getDocFromParams("about_us")
+
+  if (!doc) {
+    return notFound()
+  }
+
   return (
     <article className="container relative max-w-3xl py-6 lg:py-10">
       <h1 className="inline-block text-4xl leading-tight lg:text-5xl">

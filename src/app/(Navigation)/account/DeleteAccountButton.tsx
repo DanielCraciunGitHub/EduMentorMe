@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Loader2 } from "lucide-react"
@@ -19,15 +19,24 @@ import {
 export default function DeleteAccountButton() {
   const supabase = createClientComponentClient<Database>()
   const [isDeletingAccount, setIsDeletingAccount] = useState<boolean>(false)
-
+  const [isError, setIsError] = useState<boolean>(false)
   const router = useRouter()
+
+  useEffect(() => {
+    if (isError) {
+      throw new Error("Account Deletion Failure | Please try again later.")
+    }
+  }, [isError])
 
   const handleDeleteAccount = async () => {
     setIsDeletingAccount(true)
-    // runs custom made postgres function
-    await supabase.rpc("delete_user")
-    router.refresh()
-    router.replace("/login")
+    try {
+      await supabase.rpc("delete_user")
+      router.refresh()
+      router.replace("/login")
+    } catch {
+      setIsError(true)
+    }
   }
   return (
     <Dialog>

@@ -34,11 +34,11 @@ const SignUpForm = () => {
   async function onSubmit(values: Inputs) {
     setIsSigningUp(true)
 
-    const { data: emailExists } = await supabase.rpc("email_exists", {
+    const { data: emailExists, error } = await supabase.rpc("email_exists", {
       email_param: values.email,
     })
 
-    if (!emailExists) {
+    if (!emailExists && !error) {
       await supabase.auth.signUp({
         email: values.email,
         password: values.password,
