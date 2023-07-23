@@ -1,7 +1,9 @@
 "use client"
 
 import Link from "next/link"
+import { useSelectedLayoutSegment } from "next/navigation"
 
+import { cn } from "@/lib/utils"
 import { Button, ButtonProps } from "@/components/ui/button"
 
 interface NavItemProps extends ButtonProps {
@@ -10,13 +12,20 @@ interface NavItemProps extends ButtonProps {
 }
 
 export function NavItem(props: NavItemProps) {
-  const { page, text, ...restProps } = props
+  const segment = useSelectedLayoutSegment()
+
+  const { page, text, className, ...restProps } = props
   return (
-    <Link
-      href={page}
-      className="rounded text-black hover:bg-orange-500 hover:transition hover:ease-linear dark:text-white"
-    >
-      <Button variant="ghost" {...restProps}>
+    <Link href={page}>
+      <Button
+        variant="ghost"
+        className={cn(
+          "rounded text-slate-500 hover:bg-orange-500 hover:transition hover:ease-linear dark:text-gray-400",
+          page.startsWith(`/${segment}`) ? "text-black dark:text-white" : "",
+          className
+        )}
+        {...restProps}
+      >
         {text}
       </Button>
     </Link>

@@ -1,4 +1,3 @@
-
 import { NavItem as navItem } from "@/types"
 import { PanelRight } from "lucide-react"
 
@@ -20,7 +19,7 @@ export function MobileBar({ items }: MobileBarProps) {
         key={items[0].name}
         page={items[0].href}
         text={items[0].name}
-        className="text-4xl"
+        className="text-4xl text-black dark:text-white"
       />
       <Sheet>
         <SheetTrigger className="flex w-full justify-end p-2">

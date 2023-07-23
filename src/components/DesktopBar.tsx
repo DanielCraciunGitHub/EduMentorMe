@@ -14,7 +14,7 @@ export function DesktopBar({ items }: DesktopBarProps) {
           key={items[0].name}
           page={items[0].href}
           text={items[0].name}
-          className="text-4xl"
+          className="text-4xl text-black dark:text-white"
         />
         {items.slice(1, 4).map((item) => (
           <NavItem key={item.name} page={item.href} text={item.name} />
