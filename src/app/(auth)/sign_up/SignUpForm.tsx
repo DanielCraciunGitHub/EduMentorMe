@@ -10,7 +10,6 @@ import type { z } from "zod"
 
 import type { Database } from "@/types/supabase"
 import { signUpFormSchema } from "@/lib/validations/form"
-import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import InputField from "@/components/InputField"
@@ -18,7 +17,6 @@ import InputField from "@/components/InputField"
 type Inputs = z.infer<typeof signUpFormSchema>
 
 const SignUpForm = () => {
-  const { toast } = useToast()
   const [isSigningUp, setIsSigningUp] = useState<boolean>(false)
 
   const supabase = createClientComponentClient<Database>()
@@ -32,6 +30,8 @@ const SignUpForm = () => {
     },
   })
   async function onSubmit(values: Inputs) {
+    const { toast } = await import("@/hooks/use-toast")
+
     setIsSigningUp(true)
 
     const { data: emailExists, error } = await supabase.rpc("email_exists", {

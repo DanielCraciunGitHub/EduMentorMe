@@ -11,7 +11,6 @@ import type { z } from "zod"
 
 import type { Database } from "@/types/supabase"
 import { loginFormSchema } from "@/lib/validations/form"
-import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import InputField from "@/components/InputField"
@@ -21,7 +20,6 @@ type Inputs = z.infer<typeof loginFormSchema>
 const LoginForm = () => {
   const supabase = createClientComponentClient<Database>()
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false)
-  const { toast } = useToast()
 
   const router = useRouter()
 
@@ -34,6 +32,8 @@ const LoginForm = () => {
   })
 
   async function onSubmit(values: Inputs) {
+    const { toast } = await import("@/hooks/use-toast")
+
     setIsLoggingIn(true)
 
     const { error } = await supabase.auth.signInWithPassword({

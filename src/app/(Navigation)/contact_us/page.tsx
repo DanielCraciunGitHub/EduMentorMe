@@ -3,16 +3,16 @@ import { notFound } from "next/navigation"
 import { allDocs } from "contentlayer/generated"
 
 import { staticMetadata } from "@/config/meta"
-import { Toaster } from "@/components/ui/toaster"
-import { Mdx } from "@/components/Mdx"
-
-import ContactForm from "./ContactForm"
 
 export const metadata: Metadata = {
   ...staticMetadata.contact_us,
 }
 
 const page = async () => {
+  const ContactForm = (await import("./ContactForm")).default
+  const { Toaster } = await import("@/components/ui/toaster")
+  const { Mdx } = await import("@/components/Mdx")
+
   const doc = allDocs.find((doc) => doc.slugAsParams === "contact_us")
 
   if (!doc) {
