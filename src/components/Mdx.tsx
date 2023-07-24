@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useMDXComponent } from "next-contentlayer/hooks"
 
 import { cn } from "@/lib/utils"
+import { MdxCard } from "@/components/mdx-card"
 
 const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -159,6 +160,7 @@ const components = {
     />
   ),
   Image,
+  Card: MdxCard,
 }
 
 interface MdxProps {

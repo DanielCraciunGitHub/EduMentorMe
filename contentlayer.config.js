@@ -34,10 +34,28 @@ export const Doc = defineDocumentType(() => ({
   },
   computedFields,
 }))
+export const Feature = defineDocumentType(() => ({
+  name: "Feature",
+  filePathPattern: `features/**/*.mdx`,
+  contentType: "mdx",
+  fields: {
+    title: {
+      type: "string",
+      required: true,
+    },
+    description: {
+      type: "string",
+    },
+    image: {
+      type: "string",
+    },
+  },
+  computedFields,
+}))
 
 export default makeSource({
   contentDirPath: "./src/content",
-  documentTypes: [Doc],
+  documentTypes: [Doc, Feature],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
