@@ -1,8 +1,8 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { allDocs } from "contentlayer/generated"
 
 import { staticMetadata } from "@/config/meta"
-import { getDocFromParams } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
 import { Mdx } from "@/components/Mdx"
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 const page = async () => {
-  const doc = await getDocFromParams("contact_us")
+  const doc = allDocs.find((doc) => doc.slugAsParams === "contact_us")
 
   if (!doc) {
     return notFound()

@@ -1,7 +1,5 @@
 import "./src/env.mjs"
 
-import { withContentlayer } from "next-contentlayer"
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -12,4 +10,4 @@ const nextConfig = {
   },
 }
 
-export default withContentlayer(nextConfig)
+export default nextConfig

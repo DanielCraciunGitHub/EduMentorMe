@@ -42,10 +42,7 @@ export function SearchForm({ resources }: SearchFormProps) {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-1/2 space-y-8 md:w-1/3"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="level"

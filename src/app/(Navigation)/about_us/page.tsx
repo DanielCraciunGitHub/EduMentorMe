@@ -1,9 +1,9 @@
 import { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
+import { allDocs } from "contentlayer/generated"
 
 import { staticMetadata } from "@/config/meta"
-import { getDocFromParams } from "@/lib/utils"
 import { Mdx } from "@/components/Mdx"
 
 export const metadata: Metadata = {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 const page = async () => {
-  const doc = await getDocFromParams("about_us")
+  const doc = allDocs.find((doc) => doc.slugAsParams === "about_us")
 
   if (!doc) {
     return notFound()

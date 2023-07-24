@@ -20,7 +20,7 @@ export function NavItem(props: NavItemProps) {
       <Button
         variant="ghost"
         className={cn(
-          "rounded text-slate-500 hover:bg-orange-500 hover:transition hover:ease-linear dark:text-gray-400",
+          "rounded text-slate-500 hover:text-orange-500 hover:transition hover:ease-linear dark:text-gray-400 dark:hover:text-orange-500",
           page.startsWith(`/${segment}`) ? "text-black dark:text-white" : "",
           className
         )}

@@ -68,6 +68,25 @@ export const baseMetadata: Metadata = {
 
 export const staticMetadata = {
   ...baseMetadata,
+  search: {
+    title: "Search",
+    description:
+      "Search through an abundance of high-quality educational resources.",
+    openGraph: {
+      ...baseMetadata.openGraph,
+      url: "/search",
+      title: "Search",
+      description:
+        "Search through an abundance of high-quality educational resources.",
+    },
+    twitter: {
+      ...baseMetadata.twitter,
+      title: "Search",
+      description:
+        "Search through an abundance of high-quality educational resources.",
+    },
+  } satisfies Metadata,
+  ...baseMetadata,
   login: {
     title: "Login",
     description: "Login to gain exclusive access to GCSE and A Level Resources",
