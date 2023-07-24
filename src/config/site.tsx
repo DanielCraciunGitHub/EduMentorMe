@@ -29,14 +29,6 @@ export const siteConfig = {
       name: "Account",
       href: "/account",
     },
-    {
-      name: "Login",
-      href: "/login",
-    },
-    {
-      name: "Sign Up",
-      href: "/sign_up",
-    },
   ] satisfies NavItem[],
   footer: [
     {

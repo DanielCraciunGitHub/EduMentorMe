@@ -6,7 +6,6 @@ import { resourcesConfig } from "@/config/resources"
 import { siteConfig } from "@/config/site"
 import { getFiles } from "@/lib/googleDrive"
 
-import ErrorPage from "./ErrorPage"
 import ResourceLinks from "./ResourceLinks"
 
 export const revalidate = 69
@@ -80,9 +79,8 @@ const page = async ({ params }: pageProps) => {
         <ResourceLinks files={extra} title="Extra Links" />
       </div>
     )
-  } else {
-    return <ErrorPage />
   }
+  throw new Error("No Resources Found | Try Again Later")
 }
 // NOTE: Make this an async function later on to not rely on constants
 export function generateStaticParams() {

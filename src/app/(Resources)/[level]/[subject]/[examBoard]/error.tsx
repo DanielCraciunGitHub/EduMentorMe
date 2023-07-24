@@ -1,13 +1,15 @@
+"use client"
+
 import Link from "next/link"
 
-const ErrorPage = () => {
+export default function Error({ error }: { error: Error }) {
   return (
     <div className="flex w-full flex-col items-center justify-center">
-      <div className="flex justify-center space-y-10 p-4 text-4xl">
+      <div className="flex justify-center space-y-10 p-4 text-4xl ">
         Error 😔
       </div>
       <div className="flex flex-col items-center justify-center space-y-4 text-xl">
-        No Resources Found | Try Again Later <br />
+        {error.message} <br />
         <Link href="/" className="text-blue-600 underline">
           Home
         </Link>
@@ -15,5 +17,3 @@ const ErrorPage = () => {
     </div>
   )
 }
-
-export default ErrorPage

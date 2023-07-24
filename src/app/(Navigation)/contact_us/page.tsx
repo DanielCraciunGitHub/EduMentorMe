@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { notFound } from "next/navigation"
 
 import { staticMetadata } from "@/config/meta"
 import { getDocFromParams } from "@/lib/utils"
@@ -13,6 +14,10 @@ export const metadata: Metadata = {
 
 const page = async () => {
   const doc = await getDocFromParams("contact_us")
+
+  if (!doc) {
+    return notFound()
+  }
 
   return (
     <div>
