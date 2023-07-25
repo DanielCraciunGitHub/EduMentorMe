@@ -22,12 +22,14 @@ export function MobileBar({ items }: MobileBarProps) {
         className="text-4xl text-black dark:text-white"
       />
       <Sheet>
-        <SheetTrigger className="flex w-full justify-end p-2">
-          <PanelRight className="dark:text-slate-300" />
-          <span className="sr-only">Open Mobile Menu</span>
-        </SheetTrigger>
+        <div className="flex w-full justify-end">
+          <SheetTrigger className="p-2">
+            <PanelRight className="dark:text-slate-300" />
+            <span className="sr-only">Open Mobile Menu</span>
+          </SheetTrigger>
+        </div>
         <SheetContent className="flex flex-col items-center" side="right">
-          {items.slice(1, 5).map((item) => (
+          {items.slice(1).map((item) => (
             <SheetClose asChild key={item.name}>
               <NavItem page={item.href} text={item.name} />
             </SheetClose>

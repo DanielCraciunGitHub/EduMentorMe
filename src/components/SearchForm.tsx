@@ -1,8 +1,10 @@
 "use client"
 
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { resources } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
@@ -31,12 +33,15 @@ interface SearchFormProps {
 }
 
 export function SearchForm({ resources }: SearchFormProps) {
+  const [isSearching, setIsSearching] = useState<boolean>(false)
+
   const router = useRouter()
   const form = useForm<Inputs>({
     resolver: zodResolver(searchFormSchema),
   })
 
   function onSubmit(data: Inputs) {
+    setIsSearching(true)
     router.push(`${data.level}/${data.subject}/${data.examboard}`)
   }
 
@@ -103,7 +108,7 @@ export function SearchForm({ resources }: SearchFormProps) {
                 <SelectContent>
                   {resources.examBoards.map((examboard) => (
                     <SelectItem value={examboard} key={examboard}>
-                      {capitalizeWords(examboard.toUpperCase())}
+                      {examboard.toUpperCase()}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -112,12 +117,12 @@ export function SearchForm({ resources }: SearchFormProps) {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          variant="outline"
-          className="w-full transition-none"
-        >
-          Search 🔍
+        <Button type="submit" variant="outline" className="w-full">
+          {isSearching ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <span>Search 🔍</span>
+          )}
         </Button>
       </form>
     </Form>

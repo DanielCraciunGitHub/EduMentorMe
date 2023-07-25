@@ -10,21 +10,20 @@ export function DesktopBar({ items }: DesktopBarProps) {
   return (
     <div className="hidden md:flex md:w-full md:justify-between md:p-6">
       <div className="flex items-center">
-        <NavItem
-          key={items[0].name}
-          page={items[0].href}
-          text={items[0].name}
-          className="text-4xl text-black dark:text-white"
-        />
-        {items.slice(1, 4).map((item) => (
-          <NavItem key={item.name} page={item.href} text={item.name} />
+        {items.slice(0, items.length - 1).map((item, index) => (
+          <NavItem
+            key={item.name}
+            page={item.href}
+            text={item.name}
+            className={index === 0 ? "text-4xl text-black dark:text-white" : ""}
+          />
         ))}
       </div>
       <div className="flex items-center">
         <NavItem
-          key={items[4].name}
-          page={items[4].href}
-          text={items[4].name}
+          key={items[items.length - 1].name}
+          page={items[items.length - 1].href}
+          text={items[items.length - 1].name}
         />
       </div>
     </div>

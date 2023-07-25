@@ -18,6 +18,7 @@ export interface resources {
   subjects: string[]
   examBoards: string[]
 }
+
 type File = z.infer<typeof googleDriveDataSchema>
 
 export type Files = File[]
