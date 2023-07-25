@@ -10,7 +10,6 @@ import type { z } from "zod"
 
 import { Database } from "@/types/supabase"
 import { contactFormSchema } from "@/lib/validations/form"
-import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import InputField from "@/components/InputField"
@@ -44,7 +43,6 @@ const ContactForm = () => {
   const supabase = createClientComponentClient<Database>()
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
-  const { toast } = useToast()
   const { executeRecaptcha } = useGoogleReCaptcha()
 
   const form = useForm<Inputs>({
@@ -56,6 +54,7 @@ const ContactForm = () => {
   })
 
   async function onSubmit(values: Inputs) {
+    const { toast } = await import("@/hooks/use-toast")
     setIsSubmitting(true)
 
     if (!executeRecaptcha) {

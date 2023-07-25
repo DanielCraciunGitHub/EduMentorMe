@@ -3,16 +3,15 @@ import { notFound } from "next/navigation"
 import { allDocs } from "contentlayer/generated"
 
 import { staticMetadata } from "@/config/meta"
+import { Toaster } from "@/components/ui/toaster"
+
+import ContactForm from "./ContactForm"
 
 export const metadata: Metadata = {
   ...staticMetadata.contact_us,
 }
 
 const page = async () => {
-  const ContactForm = (await import("./ContactForm")).default
-  const { Toaster } = await import("@/components/ui/toaster")
-  const { Mdx } = await import("@/components/Mdx")
-
   const doc = allDocs.find((doc) => doc.slugAsParams === "contact_us")
 
   if (!doc) {
@@ -25,7 +24,7 @@ const page = async () => {
         <h1 className="inline-block text-4xl leading-tight lg:text-5xl">
           {doc.title}
         </h1>
-        <Mdx code={doc.body.code} />
+        <div>{doc.description}</div>
         <ContactForm />
       </article>
       <Toaster />
