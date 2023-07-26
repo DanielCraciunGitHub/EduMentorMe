@@ -1,8 +1,7 @@
 import { siteConfig } from "@/config/site"
 import { Separator } from "@/components/ui/separator"
 import { DarkModeButton } from "@/components/DarkModeButton"
-
-import FooterItem from "./FooterItem"
+import FooterItem from "@/components/FooterItem"
 
 const Footer = () => {
   return (

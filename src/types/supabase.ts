@@ -9,6 +9,31 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      accounts: {
+        Row: {
+          email: string
+          id: string
+          resources: Json[] | null
+        }
+        Insert: {
+          email?: string
+          id: string
+          resources?: Json[] | null
+        }
+        Update: {
+          email?: string
+          id?: string
+          resources?: Json[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounts_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       feedback: {
         Row: {
           body: string | null

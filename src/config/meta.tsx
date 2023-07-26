@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
-import { resourcesConfig } from "./resources"
-import { siteConfig } from "./site"
+import { resourcesConfig } from "@/config/resources"
+import { siteConfig } from "@/config/site"
 
 export const baseMetadata: Metadata = {
   title: { default: "EduMentorMe", template: "%s | EduMentorMe" },

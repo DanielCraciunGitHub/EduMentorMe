@@ -1,5 +1,7 @@
+"use client"
+
 import Link from "next/link"
-import { Files } from "@/types"
+import { Files, resource } from "@/types"
 
 interface ResourceLinksProps {
   files: Files
@@ -7,16 +9,28 @@ interface ResourceLinksProps {
 }
 
 const ResourceLinks = ({ files, title }: ResourceLinksProps) => {
+  const handleClick = async (link: string, name: string) => {
+    const payload: resource = { link, name }
+    await fetch("/api/updateResources", {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    })
+  }
   return (
     <div className="flex flex-col items-center space-y-5 rounded outline outline-orange-500">
       <h1 className="text-4xl">{title}</h1>
       <ul className="flex w-3/4 list-disc flex-col space-y-2">
         {files.map((file) => (
-          <li key={file.link} className="break-all">
+          <li
+            key={file.link}
+            className="break-all"
+            onClick={() => handleClick(file.link, file.name)}
+          >
             <Link
               key={file.link}
               className="text-blue-600 underline"
               target="_blank"
+              rel="noopener noreferrer"
               href={file.link}
             >
               {file.name}
