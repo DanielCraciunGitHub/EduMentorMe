@@ -6,7 +6,7 @@ const Resources = async () => {
   const resources = await getUserResources()
 
   return (
-    <ul className="container flex list-decimal flex-col items-center space-y-2">
+    <ul className="container flex list-decimal flex-col space-y-2">
       {resources?.map((resource) => (
         <li key={resource.link} className="break-all">
           <Link

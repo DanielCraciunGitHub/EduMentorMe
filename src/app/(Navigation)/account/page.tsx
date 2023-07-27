@@ -15,14 +15,14 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div className="container flex flex-col justify-between">
-      <div className="flex flex-col items-center space-y-10">
+    <div className="container flex flex-col justify-between space-y-4">
+      <div className="flex flex-1 flex-col items-center space-y-8">
         <WelcomeUser />
         <div>
           <SignOutButton />
         </div>
-        <div className="flex w-full flex-grow flex-col items-center space-y-6">
-          <h1 className="text-3xl">Recently viewed resources:</h1>
+        <div className="container flex flex-grow flex-col items-center space-y-6 rounded border dark:border-gray-500">
+          <h1 className="text-2xl">Recently viewed resources ⬇️</h1>
           <Resources />
         </div>
       </div>
