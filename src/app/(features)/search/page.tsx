@@ -11,18 +11,18 @@ export const metadata: Metadata = {
   ...staticMetadata.search,
 }
 
-const page = async () => {
+const page = () => {
   const feature = allFeatures.find(
     (feature) => feature.slugAsParams === "search"
   )
+
   if (!feature) {
     return notFound()
   }
+
   return (
     <div className="container space-y-6 sm:w-1/2">
-      <div className="mt-2 inline-block text-4xl leading-tight lg:text-5xl">
-        {feature.title}
-      </div>
+      <div className="mt-2 text-4xl lg:text-5xl">{feature.title}</div>
       <Mdx code={feature.body.code} />
       <SearchForm resources={resourcesConfig} />
     </div>

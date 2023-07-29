@@ -2,7 +2,7 @@ import { resources } from "@/types"
 
 // Make sure to use lower casing and separate words using a dash
 export const resourcesConfig = {
-  levels: ["gcse", "a-level", "further-a-level"],
+  levels: ["gcse", "a-level"],
   subjects: [
     "biology",
     "chemistry",

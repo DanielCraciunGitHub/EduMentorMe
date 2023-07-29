@@ -3,7 +3,7 @@ import { allFeatures } from "contentlayer/generated"
 
 import { Mdx } from "@/components/Mdx"
 
-const page = async () => {
+const page = () => {
   const feature = allFeatures.find((feature) => feature.title === "EduMentorMe")
 
   if (!feature) {

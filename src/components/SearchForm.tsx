@@ -4,13 +4,11 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { resources } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
 import { capitalizeWords } from "@/lib/utils"
 import { searchFormSchema } from "@/lib/validations/form"
-import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -25,6 +23,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+
+import { SpinnerButton } from "./SpinnerButton"
 
 type Inputs = z.infer<typeof searchFormSchema>
 
@@ -117,13 +117,13 @@ export function SearchForm({ resources }: SearchFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" variant="outline" className="w-full">
-          {isSearching ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <span>Search 🔍</span>
-          )}
-        </Button>
+        <SpinnerButton
+          name="Search 🔍"
+          state={isSearching}
+          type="submit"
+          className="w-full"
+          variant="outline"
+        />
       </form>
     </Form>
   )

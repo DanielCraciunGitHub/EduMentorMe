@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   ...staticMetadata.about_us,
 }
 
-const page = async () => {
+const page = () => {
   const doc = allDocs.find((doc) => doc.slugAsParams === "about_us")
 
   if (!doc) {

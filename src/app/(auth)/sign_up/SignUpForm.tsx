@@ -4,15 +4,14 @@ import { useState } from "react"
 import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
-import { Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
 import type { Database } from "@/types/supabase"
 import { signUpFormSchema } from "@/lib/validations/form"
-import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import InputField from "@/components/InputField"
+import { SpinnerButton } from "@/components/SpinnerButton"
 
 type Inputs = z.infer<typeof signUpFormSchema>
 
@@ -71,12 +70,7 @@ const SignUpForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-1/2 flex-col justify-center space-y-8 md:w-1/3"
       >
-        <div className="space-y-2">
-          <h1 className="text-4xl">Sign Up</h1>
-          <p className="font-light">
-            Join a fast growing community of successful students
-          </p>
-        </div>
+        <FormHeaderText />
         <InputField
           name="name"
           label="Name"
@@ -103,16 +97,19 @@ const SignUpForm = () => {
             here
           </Link>
         </div>
-        <Button type="submit">
-          {isSigningUp ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <span>Sign Up</span>
-          )}
-        </Button>
+        <SpinnerButton name="Sign Up" state={isSigningUp} type="submit" />
       </form>
     </Form>
   )
 }
-
+const FormHeaderText = () => {
+  return (
+    <div className="space-y-2">
+      <h1 className="text-4xl">Sign Up</h1>
+      <p className="font-light">
+        Join a fast growing community of successful students
+      </p>
+    </div>
+  )
+}
 export default SignUpForm

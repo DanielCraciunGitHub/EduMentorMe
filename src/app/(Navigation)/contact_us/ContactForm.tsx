@@ -3,41 +3,18 @@
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
-import { Loader2 } from "lucide-react"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
 import { Database } from "@/types/supabase"
 import { contactFormSchema } from "@/lib/validations/form"
-import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import InputField from "@/components/InputField"
+import { SpinnerButton } from "@/components/SpinnerButton"
 import { verifyCaptchaAction } from "@/app/_actions/Captcha"
 
 type Inputs = z.infer<typeof contactFormSchema>
-
-const GoogleNotice = () => {
-  return (
-    <div>
-      This site is protected by reCAPTCHA and the Google{" "}
-      <a
-        href="https://policies.google.com/privacy"
-        className="text-blue-600 underline"
-      >
-        Privacy Policy
-      </a>{" "}
-      and{" "}
-      <a
-        href="https://policies.google.com/terms"
-        className="text-blue-600 underline"
-      >
-        Terms of Service
-      </a>{" "}
-      apply.
-    </div>
-  )
-}
 
 const ContactForm = () => {
   const supabase = createClientComponentClient<Database>()
@@ -107,15 +84,35 @@ const ContactForm = () => {
           control={form.control}
         />
         <GoogleNotice />
-        <Button type="submit">
-          {isSubmitting ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <span>Submit Feedback</span>
-          )}
-        </Button>
+        <SpinnerButton
+          name="Submit Feedback"
+          state={isSubmitting}
+          type="submit"
+        />
       </form>
     </Form>
+  )
+}
+
+const GoogleNotice = () => {
+  return (
+    <div>
+      This site is protected by reCAPTCHA and the Google{" "}
+      <a
+        href="https://policies.google.com/privacy"
+        className="text-blue-600 underline"
+      >
+        Privacy Policy
+      </a>{" "}
+      and{" "}
+      <a
+        href="https://policies.google.com/terms"
+        className="text-blue-600 underline"
+      >
+        Terms of Service
+      </a>{" "}
+      apply.
+    </div>
   )
 }
 

@@ -84,21 +84,18 @@ const page = async ({ params }: pageProps) => {
   return <ErrorPage />
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const { levels, subjects, examBoards } = resourcesConfig
   const combinations = []
 
   for (const level of levels) {
     for (const subject of subjects) {
       for (const examBoard of examBoards) {
-        const files = await getFiles(level, subject, examBoard)
-        if (files) {
-          combinations.push({
-            level,
-            subject,
-            examBoard,
-          })
-        }
+        combinations.push({
+          level,
+          subject,
+          examBoard,
+        })
       }
     }
   }

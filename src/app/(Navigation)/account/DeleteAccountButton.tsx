@@ -3,10 +3,8 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
-import { Loader2 } from "lucide-react"
 
 import type { Database } from "@/types/supabase"
-import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -15,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { SpinnerButton } from "@/components/SpinnerButton"
 
 export default function DeleteAccountButton() {
   const supabase = createClientComponentClient<Database>()
@@ -49,17 +48,13 @@ export default function DeleteAccountButton() {
             account and remove your data from our servers.
           </DialogDescription>
         </DialogHeader>
-        <Button
+        <SpinnerButton
+          state={isDeletingAccount}
+          name="Delete Account"
           variant="destructive"
-          onClick={handleDeleteAccount}
           type="submit"
-        >
-          {isDeletingAccount ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <span>Delete Account</span>
-          )}
-        </Button>
+          onClick={handleDeleteAccount}
+        />
       </DialogContent>
     </Dialog>
   )
