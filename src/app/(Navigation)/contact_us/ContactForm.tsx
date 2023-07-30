@@ -12,7 +12,6 @@ import { contactFormSchema } from "@/lib/validations/form"
 import { Form } from "@/components/ui/form"
 import InputField from "@/components/InputField"
 import { SpinnerButton } from "@/components/SpinnerButton"
-import { verifyCaptchaAction } from "@/app/_actions/Captcha"
 
 type Inputs = z.infer<typeof contactFormSchema>
 
@@ -31,17 +30,24 @@ const ContactForm = () => {
   })
 
   async function onSubmit(values: Inputs) {
-    const { toast } = await import("@/hooks/use-toast")
-    setIsSubmitting(true)
-
     if (!executeRecaptcha) {
       return
     }
+
+    const { toast } = await import("@/hooks/use-toast")
+    setIsSubmitting(true)
+
     // captcha verification
     const token = await executeRecaptcha("onSubmit")
-    const verified = await verifyCaptchaAction(token)
 
-    if (verified) {
+    const res = await fetch("/api/auth/captcha", {
+      method: "POST",
+      body: JSON.stringify(token),
+    })
+
+    const { success } = await res.json()
+
+    if (success) {
       // send feedback to the server
       await supabase
         .from("feedback")
