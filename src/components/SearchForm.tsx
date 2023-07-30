@@ -16,6 +16,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Select,
   SelectContent,
@@ -83,11 +84,13 @@ export function SearchForm({ resources }: SearchFormProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {resources.subjects.map((subject) => (
-                    <SelectItem value={subject} key={subject}>
-                      {capitalizeWords(subject)}
-                    </SelectItem>
-                  ))}
+                  <ScrollArea className="h-60">
+                    {resources.subjects.map((subject) => (
+                      <SelectItem value={subject} key={subject}>
+                        {capitalizeWords(subject)}
+                      </SelectItem>
+                    ))}
+                  </ScrollArea>
                 </SelectContent>
               </Select>
               <FormMessage />
