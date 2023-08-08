@@ -11,15 +11,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
 
 const subCardVariants = cva("", {
   variants: {
     theme: {
-      green: "dark:bg-green-500 bg-green-500",
-      orange: "bg-orange-500 dark:bg-orange-500",
-      red: "bg-red-500 dark:bg-red-500",
-      blue: "bg-blue-500 dark:bg-blue-500",
+      green:
+        "dark:border-green-500 border-green-500 bg-green-500 dark:bg-green-500",
+      orange:
+        "border-orange-500 dark:border-orange-500 bg-orange-500 dark:bg-orange-500",
+      red: "border-red-500 dark:border-red-500 bg-red-500 dark:bg-red-500",
+      blue: "border-blue-500 dark:border-blue-500 bg-blue-500 dark:bg-blue-500",
     },
     text: {
       green: "text-green-500",
@@ -53,9 +54,7 @@ const SubCard = ({
           <CardTitle className="flex justify-center">{title}</CardTitle>
           {icon}
         </div>
-        <Separator
-          className={cn(subCardVariants({ theme }), "h-[5px] rounded")}
-        />
+        <hr className={cn(subCardVariants({ theme }), "rounded")} />
       </CardHeader>
       <CardContent className="space-y-3">
         {features.map((feature) => (

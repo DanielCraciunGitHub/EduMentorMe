@@ -1,5 +1,4 @@
 import { siteConfig } from "@/config/site"
-import { Separator } from "@/components/ui/separator"
 import { DarkModeButton } from "@/components/DarkModeButton"
 import FooterItem from "@/components/FooterItem"
 
@@ -7,7 +6,7 @@ const Footer = () => {
   return (
     <footer>
       <div className="p-4 py-6">
-        <Separator className="my-4 bg-gray-300 dark:bg-gray-700" />
+        <hr className="my-4 border-gray-300 dark:border-gray-700" />
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex w-full flex-col space-y-3">
             <div className="flex justify-between">

@@ -2,7 +2,6 @@ import { Metadata } from "next"
 import { Crown, Rocket, Sun } from "lucide-react"
 
 import { staticMetadata } from "@/config/meta"
-import { Separator } from "@/components/ui/separator"
 
 import SubCard from "./SubCard"
 
@@ -14,7 +13,7 @@ function page() {
   return (
     <div className="flex flex-col items-center space-y-8">
       <div className="text-3xl">Products & Services</div>
-      <Separator />
+      <hr className="my-4 w-full border-gray-300 dark:border-gray-700" />
       <div className="flex flex-col flex-wrap items-center justify-center gap-5 md:flex-row">
         <SubCard
           icon={<Sun className="text-yellow-500" />}
