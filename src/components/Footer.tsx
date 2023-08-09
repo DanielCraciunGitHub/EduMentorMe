@@ -2,6 +2,8 @@ import { siteConfig } from "@/config/site"
 import { DarkModeButton } from "@/components/DarkModeButton"
 import FooterItem from "@/components/FooterItem"
 
+import { NavItem } from "./NavItem"
+
 const Footer = () => {
   return (
     <footer>
@@ -21,6 +23,11 @@ const Footer = () => {
                 ))}
               </div>
               <DarkModeButton />
+            </div>
+            <div className="flex flex-col items-center justify-center space-y-2 border border-gray-200 dark:border-gray-700 sm:flex-row sm:space-y-0 rounded">
+              {siteConfig.mainNav.slice(1).map((item) => (
+                <NavItem key={item.href} page={item.href} text={item.name} />
+              ))}
             </div>
             <span className="text-sm text-gray-500 dark:text-gray-400">
               © 2023 (EMM) EduMentorMe™. All Rights Reserved
