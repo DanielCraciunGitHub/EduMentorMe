@@ -5,6 +5,12 @@ import Image from "next/image"
 import { useMDXComponent } from "next-contentlayer/hooks"
 
 import { cn } from "@/lib/utils"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 import { MdxCard } from "@/components/mdx-card"
 
 const components = {
@@ -151,7 +157,7 @@ const components = {
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
       className={cn(
-        "relative rounded border px-[0.3rem] py-[0.2rem] font-mono text-sm dark:border-gray-700",
+        "relative font-mono text-sm dark:border-gray-700",
         className
       )}
       {...props}
@@ -159,6 +165,10 @@ const components = {
   ),
   Image,
   Card: MdxCard,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 }
 
 interface MdxProps {
