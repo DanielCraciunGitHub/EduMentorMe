@@ -27,7 +27,7 @@ const page = () => {
           src={doc.image}
           alt={doc.title}
           width={1200}
-          height={300}
+          height={1200}
           className="my-5 rounded-md"
           priority
         />
