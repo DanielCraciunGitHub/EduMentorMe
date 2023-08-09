@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Files, resource } from "@/types"
+import { File, Files } from "@/types"
 
 interface ResourceLinksProps {
   files: Files
@@ -10,14 +10,14 @@ interface ResourceLinksProps {
 
 const ResourceLinks = ({ files, title }: ResourceLinksProps) => {
   const handleClick = async (link: string, name: string) => {
-    const payload: resource = { link, name }
+    const payload: File = { link, name }
     await fetch("/api/updateResources", {
       method: "PATCH",
       body: JSON.stringify(payload),
     })
   }
   return (
-    <div className="flex flex-col items-center space-y-5 rounded outline outline-orange-500">
+    <div className="flex min-h-[12rem] flex-col items-center space-y-5 rounded border border-orange-500">
       <h1 className="text-4xl">{title}</h1>
       <ul className="flex w-3/4 list-disc flex-col space-y-2">
         {files.map((file) => (

@@ -21,7 +21,7 @@ const page = () => {
         <div>
           <SignOutButton />
         </div>
-        <div className="container flex flex-grow flex-col items-center space-y-6 rounded border dark:border-gray-500">
+        <div className="container flex min-h-[12rem] flex-grow flex-col items-center space-y-6 rounded border dark:border-gray-500">
           <h1 className="text-2xl">Recently viewed resources ⬇️</h1>
           <Resources />
         </div>

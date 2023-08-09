@@ -24,7 +24,7 @@ const Footer = () => {
               </div>
               <DarkModeButton />
             </div>
-            <div className="flex flex-col items-center justify-center space-y-2 border border-gray-200 dark:border-gray-700 sm:flex-row sm:space-y-0 rounded">
+            <div className="flex flex-col items-center justify-center space-y-2 rounded border border-gray-200 dark:border-gray-700 sm:flex-row sm:space-y-0">
               {siteConfig.mainNav.slice(1).map((item) => (
                 <NavItem key={item.href} page={item.href} text={item.name} />
               ))}
