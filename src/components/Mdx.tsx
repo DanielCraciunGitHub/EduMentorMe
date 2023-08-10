@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { MdxCard } from "@/components/mdx-card"
+import { ResponsiveGrid } from "@/components/mdx-grid"
 
 const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -165,6 +166,7 @@ const components = {
   ),
   Image,
   Card: MdxCard,
+  Grid: ResponsiveGrid,
   Accordion,
   AccordionContent,
   AccordionItem,
