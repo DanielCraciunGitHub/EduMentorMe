@@ -20,7 +20,7 @@ const page = async () => {
 
   return (
     <div>
-      <article className="container max-w-4xl space-y-6 py-6">
+      <article className="container mt-6 max-w-4xl space-y-6">
         <h1 className="inline-block text-4xl leading-tight lg:text-5xl">
           {doc.title}
         </h1>

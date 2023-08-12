@@ -1,98 +1,136 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTimer } from "react-timer-hook"
 
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
-import { Input } from "./ui/input"
-
-interface TimerProps {
-  expiryTimestamp: Date
+interface Time {
+  hours: number
+  minutes: number
+  seconds: number
 }
 
-export function Timer({ expiryTimestamp }: TimerProps) {
-  const [inputValue, setInputValue] = useState<string>("")
-  const [timerText, setTimerText] = useState<"Start" | "Pause">("Start")
-  const inputRef = useRef<HTMLInputElement>(null)
+export function Timer() {
+  const [inputValue, setInputValue] = useState("")
+  const [toggleText, setToggleText] = useState<"Start" | "Pause">("Start")
+  const [CountdownColor, setCountDownColor] = useState<"text-red-500" | "">("")
 
-  const {
-    seconds,
-    minutes,
-    hours,
-    isRunning,
-    start,
-    pause,
-    restart,
-    totalSeconds,
-  } = useTimer({
-    autoStart: false,
-    expiryTimestamp,
-    onExpire: () => setTimerText("Start"),
-  })
+  const alarmRef = useRef<HTMLAudioElement | undefined>()
+  useEffect(() => {
+    const alarm = new Audio("/timer-alarm.mp3")
+    alarmRef.current = alarm
 
-  const handleTimerButtonClick = () => {
-    if (isRunning) {
-      setTimerText("Start")
-      pause()
-    } else {
-      if (totalSeconds > 0) {
-        setTimerText("Pause")
-        start()
-      }
-    }
+    return () => alarmRef.current?.remove()
+  }, [])
+
+  const { seconds, minutes, hours, isRunning, resume, pause, restart } =
+    useTimer({
+      autoStart: false,
+      expiryTimestamp: new Date(),
+      onExpire: () => {
+        alarmRef.current?.play()
+        setToggleText("Start")
+        setCountDownColor("text-red-500")
+      },
+    })
+
+  const changeTime = (value: string): void => {
+    const validInput = validateInput(value)
+
+    if (!validInput) return
+
+    setInputValue(value)
+
+    const newTimeStamp = createNewTimeStamp(validInput)
+
+    restart(newTimeStamp, false)
   }
 
-  const handleResetButtonClick = () => {
-    const time = new Date()
+  const validateInput = (value: string): Time | undefined => {
+    const hours = Number(value.substring(0, 2))
+    const minutes = Number(value.substring(2, 4))
+    const seconds = Number(value.substring(4, 6))
 
-    restart(time, false)
-    setTimerText("Start")
-    setInputValue("")
+    const validInput =
+      /^\d{0,6}$/.test(value) && hours < 24 && minutes < 60 && seconds < 60
+
+    if (validInput) return { hours, minutes, seconds }
   }
 
-  const formatTimeUI = (value: number) => {
+  const createNewTimeStamp = ({ hours, minutes, seconds }: Time): Date => {
+    const totalSeconds = hours * 3600 + minutes * 60 + seconds
+    const newTimeStamp = new Date(Date.now() + totalSeconds * 1000)
+
+    return newTimeStamp
+  }
+
+  const CountdownText = (): React.JSX.Element => (
+    <div className={`text-[7rem] md:text-[11rem] ${CountdownColor}`}>
+      <span>{formatCountdownUI(hours)}</span>:
+      <span>{formatCountdownUI(minutes)}</span>:
+      <span>{formatCountdownUI(seconds)}</span>
+    </div>
+  )
+
+  const formatCountdownUI = (value: number): string => {
     return value.toString().padStart(2, "0")
   }
 
-  const changeTime = (value: string) => {
-    const seconds = Number(value.substring(0, 2))
-    const minutes = Number(value.substring(2, 4))
-    const hours = Number(value.substring(4, 6))
-
-    if (seconds > 59 || minutes > 59 || hours > 12) {
-      return
+  const toggleTimer = (): void => {
+    if (isRunning) {
+      setToggleText("Start")
+      pause()
+    } else {
+      setToggleText("Pause")
+      resume()
     }
-    const totalSeconds = hours * 3600 + minutes * 60 + seconds
-
-    const newTime = new Date()
-    newTime.setSeconds(newTime.getSeconds() + totalSeconds)
-
-    setInputValue(value)
-    restart(newTime, false)
   }
+
+  const resetTimer = (): void => {
+    const time = new Date()
+
+    restart(time, false)
+
+    alarmRef.current?.pause()
+    alarmRef.current!.currentTime = 0
+
+    setToggleText("Start")
+    setInputValue("")
+    setCountDownColor("")
+  }
+
   return (
     <div className="text-center">
       <div
-        className="text-[7rem] md:text-[11rem]"
-        onClick={() => inputRef.current?.focus()}
+        className={
+          isRunning || !alarmRef.current?.paused ? "invisible" : "visible"
+        }
       >
-        <span>{formatTimeUI(hours)}</span>:<span>{formatTimeUI(minutes)}</span>:
-        <span>{formatTimeUI(seconds)}</span>
+        <Input
+          value={inputValue}
+          onChange={(e) => changeTime(e.target.value)}
+          placeholder="hhmmss"
+          className="text-center text-2xl"
+        />
+        <p className="text-gray-500 dark:text-gray-500">Max: 23:59:59</p>
       </div>
-      <div className="mt-5 space-x-5">
-        <Button onClick={handleTimerButtonClick}>{timerText}</Button>
-        <Button onClick={handleResetButtonClick}>Reset</Button>
+      <CountdownText />
+      <div className="space-x-5">
+        <Button
+          onClick={toggleTimer}
+          className="focus:bg-orange-500 dark:focus:bg-orange-500"
+        >
+          {toggleText}
+        </Button>
+        <Button
+          onClick={resetTimer}
+          className="focus:bg-orange-500 dark:focus:bg-orange-500"
+        >
+          Reset
+        </Button>
       </div>
-      <Input
-        type="text"
-        ref={inputRef}
-        maxLength={6}
-        value={inputValue}
-        onChange={(e) => changeTime(e.target.value)}
-        className="opacity-0"
-        onFocus={() => inputRef.current?.select()}
-      />
     </div>
   )
 }
