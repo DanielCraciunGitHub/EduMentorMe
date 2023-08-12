@@ -86,6 +86,24 @@ export const staticMetadata = {
         "Search through an abundance of high-quality educational resources.",
     },
   } satisfies Metadata,
+  study_timer: {
+    title: "Study Timer",
+    description:
+      "Track your study time with our aesthetically pleasing study timer.",
+    openGraph: {
+      ...baseMetadata.openGraph,
+      url: "/study_timer",
+      title: "Study Timer",
+      description:
+        "Track your study time with our aesthetically pleasing study timer.",
+    },
+    twitter: {
+      ...baseMetadata.twitter,
+      title: "Study Timer",
+      description:
+        "Track your study time with our aesthetically pleasing study timer.",
+    },
+  } satisfies Metadata,
   ...baseMetadata,
   login: {
     title: "Login",

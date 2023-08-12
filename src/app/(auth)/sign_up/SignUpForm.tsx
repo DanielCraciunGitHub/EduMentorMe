@@ -29,9 +29,9 @@ const SignUpForm = () => {
     },
   })
   async function onSubmit(values: Inputs) {
-    const { toast } = await import("@/hooks/use-toast")
-
     setIsSigningUp(true)
+
+    const { toast } = await import("@/hooks/use-toast")
 
     const { data: emailExists, error } = await supabase.rpc("email_exists", {
       email_param: values.email,

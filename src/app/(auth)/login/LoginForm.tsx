@@ -30,12 +30,12 @@ const LoginForm = () => {
   })
 
   async function onSubmit(values: Inputs) {
+    setIsLoggingIn(true)
+
     const { error } = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
     })
-
-    setIsLoggingIn(true)
 
     if (error) {
       const { toast } = await import("@/hooks/use-toast")
