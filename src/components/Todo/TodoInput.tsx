@@ -7,7 +7,7 @@ interface TodoInputProps {}
 const TodoInput: FC<TodoInputProps> = ({}) => {
   return (
     <div>
-      <Input />
+      <Input maxLength={200} />
     </div>
   )
 }

@@ -1,7 +1,6 @@
 import { FC } from "react"
 
 import Checkbox from "./Checkbox"
-import Reminder from "./Reminder"
 import RemoveTodo from "./RemoveTodo"
 import TodoInput from "./TodoInput"
 
@@ -12,7 +11,6 @@ const Todo: FC<TodoProps> = ({}) => {
     <div className="flex flex-row space-x-4">
       <Checkbox />
       <TodoInput />
-      <Reminder />
       <RemoveTodo />
     </div>
   )

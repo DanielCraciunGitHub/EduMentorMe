@@ -2,6 +2,7 @@ import { z } from "zod"
 
 import { userPrivateMetadataSchema } from "@/lib/validations/auth"
 import { resourceSchema } from "@/lib/validations/resources"
+import { todosSchema } from "@/lib/validations/todos"
 
 export interface NavItem {
   name: string
@@ -21,5 +22,6 @@ export interface resources {
 
 export type File = z.infer<typeof resourceSchema>
 export type Files = File[]
+export type Todos = z.infer<typeof todosSchema>
 
 export type User = z.infer<typeof userPrivateMetadataSchema>

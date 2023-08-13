@@ -55,6 +55,31 @@ export interface Database {
         }
         Relationships: []
       }
+      todos: {
+        Row: {
+          email: string
+          id: string
+          todolist: Json[] | null
+        }
+        Insert: {
+          email: string
+          id: string
+          todolist?: Json[] | null
+        }
+        Update: {
+          email?: string
+          id?: string
+          todolist?: Json[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "todos_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           created_at: string | null
