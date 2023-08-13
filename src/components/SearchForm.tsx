@@ -9,13 +9,7 @@ import type { z } from "zod"
 
 import { capitalizeWords } from "@/lib/utils"
 import { searchFormSchema } from "@/lib/validations/form"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Select,
@@ -49,6 +43,16 @@ export function SearchForm({ resources }: SearchFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <div className="flex w-full justify-center">
+          <SpinnerButton
+            name="Search 🔍"
+            state={isSearching}
+            disabled={!form.formState.isValid}
+            type="submit"
+            className="w-1/2"
+            variant="outline"
+          />
+        </div>
         <FormField
           control={form.control}
           name="level"
@@ -68,7 +72,6 @@ export function SearchForm({ resources }: SearchFormProps) {
                   ))}
                 </SelectContent>
               </Select>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -93,7 +96,6 @@ export function SearchForm({ resources }: SearchFormProps) {
                   </ScrollArea>
                 </SelectContent>
               </Select>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -116,16 +118,8 @@ export function SearchForm({ resources }: SearchFormProps) {
                   ))}
                 </SelectContent>
               </Select>
-              <FormMessage />
             </FormItem>
           )}
-        />
-        <SpinnerButton
-          name="Search 🔍"
-          state={isSearching}
-          type="submit"
-          className="w-full"
-          variant="outline"
         />
       </form>
     </Form>
