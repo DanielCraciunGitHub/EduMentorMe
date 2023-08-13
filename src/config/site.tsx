@@ -30,6 +30,20 @@ export const siteConfig = {
       href: "/account",
     },
   ] satisfies NavItem[],
+  features: [
+    {
+      name: "Todos",
+      href: "/todos",
+    },
+    {
+      name: "Search",
+      href: "/search",
+    },
+    {
+      name: "Study Timer",
+      href: "/study_timer",
+    },
+  ] satisfies NavItem[],
   footer: [
     {
       name: "Facebook",

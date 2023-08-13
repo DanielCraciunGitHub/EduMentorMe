@@ -68,6 +68,24 @@ export const baseMetadata: Metadata = {
 
 export const staticMetadata = {
   ...baseMetadata,
+  todos: {
+    title: "Todos",
+    description:
+      "Always stay organised via this simple yet effective Todo List feature",
+    openGraph: {
+      ...baseMetadata.openGraph,
+      url: "/todos",
+      title: "Todos",
+      description:
+        "Always stay organised via this simple yet effective Todo List feature",
+    },
+    twitter: {
+      ...baseMetadata.twitter,
+      title: "Todos",
+      description:
+        "Always stay organised via this simple yet effective Todo List feature",
+    },
+  } satisfies Metadata,
   search: {
     title: "Search",
     description:

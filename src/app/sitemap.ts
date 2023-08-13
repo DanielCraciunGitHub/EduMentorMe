@@ -23,6 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: siteConfig.url + page.href,
       lastModified: new Date(),
     })),
+    ...siteConfig.features.map((page) => ({
+      url: siteConfig.url + page.href,
+      lastModified: new Date(),
+    })),
     ...resourceUrls,
   ]
 }

@@ -17,9 +17,12 @@ export async function middleware(req: NextRequest) {
   if (!user && req.nextUrl.pathname === "/account") {
     return NextResponse.redirect(new URL("/login", req.url))
   }
+  if (!user && req.nextUrl.pathname === "/todos") {
+    return NextResponse.redirect(new URL("/login", req.url))
+  }
   return res
 }
 
 export const config = {
-  matcher: ["/account", "/login", "/sign_up"],
+  matcher: ["/account", "/login", "/sign_up", "/todos"],
 }
