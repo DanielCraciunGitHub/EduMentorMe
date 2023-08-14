@@ -1,17 +1,29 @@
 import { FC } from "react"
+import { Todo as TodoType } from "@/types"
+
+import { useTodosStore } from "@/hooks/useTodosStore"
+import { Button } from "@/components/ui/button"
 
 import Checkbox from "./Checkbox"
-import RemoveTodo from "./RemoveTodo"
 import TodoInput from "./TodoInput"
 
-interface TodoProps {}
+interface TodoProps {
+  todo: TodoType
+}
 
-const Todo: FC<TodoProps> = ({}) => {
+const Todo: FC<TodoProps> = ({ todo }) => {
+  const { removeTodo } = useTodosStore()
+
   return (
     <div className="flex flex-row space-x-4">
-      <Checkbox />
-      <TodoInput />
-      <RemoveTodo />
+      <Checkbox todo={todo} />
+      <TodoInput todo={todo} />
+      <Button
+        className="text-red-500 dark:text-red-600"
+        onClick={() => removeTodo(todo.id)}
+      >
+        X
+      </Button>
     </div>
   )
 }

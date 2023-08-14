@@ -21,9 +21,6 @@ const page = () => {
   return (
     <div className="mt-5 space-y-20">
       <div className="flex flex-col items-center space-y-4">
-        <h1 className="text-4xl text-yellow-500 opacity-90 sm:text-5xl md:text-6xl lg:text-7xl">
-          {feature.title}
-        </h1>
         <Image
           src={feature.image!}
           alt="EduMentorMe Image"
@@ -32,9 +29,7 @@ const page = () => {
           className="rounded-md"
           priority
         />
-        <p className="text-xl text-gray-500 md:text-2xl">
-          {feature.description}
-        </p>
+        <p className="text-xl md:text-2xl">{feature.description}</p>
       </div>
       <div>
         <Mdx code={feature.body.code} />

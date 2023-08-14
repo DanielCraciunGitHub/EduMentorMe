@@ -22,6 +22,12 @@ export interface resources {
 
 export type File = z.infer<typeof resourceSchema>
 export type Files = File[]
+
 export type Todos = z.infer<typeof todosSchema>
+export type Todo = {
+  id: string
+  text: string
+  checked: boolean
+}
 
 export type User = z.infer<typeof userPrivateMetadataSchema>
