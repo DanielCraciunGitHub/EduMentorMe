@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 }
 
 const page = async () => {
-  const { email } = await getCurrentUser()
+  const { id } = await getCurrentUser()
 
-  return <TodoComponent email={email} />
+  return <TodoComponent userId={id} />
 }
 
 export default page

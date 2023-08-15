@@ -53,7 +53,6 @@ export async function PATCH(req: NextRequest) {
     }
     return NextResponse.json({ status: 404 })
   } catch (err: unknown) {
-    console.log(err)
     return NextResponse.json({ err })
   }
 }

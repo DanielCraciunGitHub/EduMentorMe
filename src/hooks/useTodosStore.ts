@@ -1,6 +1,8 @@
-import { Todos } from "@/types"
+import { Todo } from "@/types"
 import { v4 as uuid } from "uuid"
 import { create } from "zustand"
+
+type Todos = Todo[] | null
 
 interface TodosState {
   todos: Todos
@@ -22,9 +24,10 @@ export const useTodosStore = create<TodosState>((set) => ({
   addTodo: () =>
     set(({ todos }) => {
       const newTodo = { id: uuid(), text: "", checked: false }
-      if (todos && todos.length < 10) {
+      const todoCount = todos!.length
+      if (todoCount < 10) {
         return { todos: [...todos!, newTodo] }
-      } else if (todos?.length === 10) {
+      } else if (todoCount === 10) {
         return { todos }
       }
 
@@ -59,5 +62,3 @@ export const useTodosStore = create<TodosState>((set) => ({
       return { todos: updatedTodos }
     }),
 }))
-// updateTodoChecked
-// updateTodoText

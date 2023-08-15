@@ -24,8 +24,8 @@ const page = () => {
         <Image
           src={feature.image!}
           alt="EduMentorMe Image"
-          width="1000"
-          height="400"
+          width="1200"
+          height="630"
           className="rounded-md"
           priority
         />

@@ -26,8 +26,8 @@ const page = () => {
         <Image
           src={doc.image}
           alt={doc.title}
-          width={1200}
-          height={1200}
+          width="1200"
+          height="630"
           className="my-5 rounded-md"
           priority
         />

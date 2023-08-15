@@ -3,6 +3,7 @@
 import { FC, useEffect } from "react"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { debounce } from "lodash"
+import { Loader2 } from "lucide-react"
 
 import { Database } from "@/types/supabase"
 import { todosSchema } from "@/lib/validations/todos"
@@ -12,46 +13,66 @@ import { Button } from "@/components/ui/button"
 import Todo from "./Todo"
 
 interface TodoComponentProps {
-  email: string
+  userId: string
 }
 
-const TodoComponent: FC<TodoComponentProps> = ({ email }) => {
+const TodoComponent: FC<TodoComponentProps> = ({ userId }) => {
   const supabase = createClientComponentClient<Database>()
   const { todos, setTodos, addTodo } = useTodosStore()
 
   useEffect(() => {
-    const getTodos = async () => {
-      const { data } = await supabase
-        .from("todos")
-        .select("todolist")
-        .eq("email", email)
-        .single()
+    setTimeout(() => {
+      const getTodos = async () => {
+        const { data } = await supabase
+          .from("todos")
+          .select("todolist")
+          .eq("id", userId)
+          .single()
 
-      const parsedData = todosSchema.parse(data?.todolist)
+        const parsedData = todosSchema.parse(data?.todolist)
 
-      setTodos(parsedData)
-    }
-    getTodos()
-  }, [setTodos, email, supabase])
+        if (parsedData) {
+          setTodos(parsedData)
+        } else {
+          setTodos([])
+        }
+      }
+      getTodos()
+    }, 300)
+  }, [setTodos, userId, supabase])
 
-  debouncedSyncTodosWithDb(todos, email)
+  debouncedSyncTodosWithDb(todos, userId)
 
   return (
     <div className="mt-4 flex flex-col space-y-2">
-      <div className="flex flex-col space-y-4">
-        {todos?.map((todo) => <Todo key={todo.id} todo={todo} />)}
-      </div>
-      <div className="flex justify-end">
-        <Button onClick={addTodo}>Add Todo +</Button>
-      </div>
+      {todos ? (
+        <>
+          <div className="flex flex-col space-y-4">
+            {todos.map((todo) => (
+              <Todo key={todo.id} todo={todo} />
+            ))}
+          </div>
+          <div className="flex justify-end">
+            <Button onClick={addTodo}>Add Todo +</Button>
+          </div>
+        </>
+      ) : (
+        <div className="flex">
+          <Loader2 className="h-24 w-24 animate-spin" />
+        </div>
+      )}
     </div>
   )
 }
 
-const debouncedSyncTodosWithDb = debounce(async (todos, email) => {
+const debouncedSyncTodosWithDb = debounce(async (todos, userId) => {
   const supabase = createClientComponentClient<Database>()
 
-  await supabase.from("todos").update({ todolist: todos }).eq("email", email)
+  await supabase
+    .from("todos")
+    .update({ todolist: todos })
+    .eq("id", userId)
+    .single()
 }, 600)
 
 export default TodoComponent
