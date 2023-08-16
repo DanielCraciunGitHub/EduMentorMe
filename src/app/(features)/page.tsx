@@ -9,6 +9,14 @@ import { Mdx } from "@/components/Mdx"
 export const metadata: Metadata = {
   ...baseMetadata,
   title: { absolute: "EduMentorMe" },
+  openGraph: {
+    ...baseMetadata.openGraph,
+    title: { absolute: "EduMentorMe" },
+  },
+  twitter: {
+    ...baseMetadata.twitter,
+    title: { absolute: "EduMentorMe" },
+  },
 }
 
 const page = () => {

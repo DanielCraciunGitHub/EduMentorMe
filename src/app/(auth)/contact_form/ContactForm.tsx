@@ -2,12 +2,10 @@
 
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
-import { Database } from "@/types/supabase"
 import { contactFormSchema } from "@/lib/validations/form"
 import { Form } from "@/components/ui/form"
 import InputField from "@/components/InputField"
@@ -16,7 +14,6 @@ import { SpinnerButton } from "@/components/SpinnerButton"
 type Inputs = z.infer<typeof contactFormSchema>
 
 const ContactForm = () => {
-  const supabase = createClientComponentClient<Database>()
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
   const { executeRecaptcha } = useGoogleReCaptcha()
@@ -37,38 +34,43 @@ const ContactForm = () => {
     const { toast } = await import("@/hooks/use-toast")
     setIsSubmitting(true)
 
-    // captcha verification
-    const token = await executeRecaptcha("onSubmit")
+    try {
+      const token = await executeRecaptcha()
 
-    const res = await fetch("/api/auth/captcha", {
-      method: "POST",
-      body: JSON.stringify(token),
-    })
+      const captchaRes = await fetch("/api/auth/captcha", {
+        method: "POST",
+        body: JSON.stringify(token),
+      })
 
-    const { success } = await res.json()
+      if (!captchaRes.ok) {
+        throw new Error("ReCaptcha verification failed")
+      }
 
-    if (success) {
-      // send feedback to the server
-      await supabase
-        .from("feedback")
-        .insert({ email: values.email, body: values.feedback })
+      const emailRes = await fetch("/api/email", {
+        method: "POST",
+        body: JSON.stringify(values),
+      })
 
-      // reset the form state to allow for new submissions
-      form.reset()
+      if (!emailRes.ok) {
+        throw new Error("Failed to send email")
+      }
+
       toast({
         title: "Success",
         description:
           "We appreciate you taking your time to fill in this form, we will get back to you shortly.",
         variant: "constructive",
       })
-    } else {
+    } catch {
       toast({
         title: "Error",
         description: "Something went wrong! Please try again later.",
         variant: "destructive",
       })
+    } finally {
+      form.reset()
+      setIsSubmitting(false)
     }
-    setIsSubmitting(false)
   }
   return (
     <Form {...form}>

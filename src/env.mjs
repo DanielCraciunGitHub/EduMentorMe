@@ -15,6 +15,9 @@ export const env = createEnv({
 
     GOOGLE_DRIVE_API_PRIVATE_KEY: z.string().min(1),
     SERVICE_ACCOUNT_EMAIL: z.string().email(),
+
+    NODEMAILER_EMAIL: z.string(),
+    NODEMAILER_PASSWORD: z.string(),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

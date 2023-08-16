@@ -38,7 +38,7 @@ const GenericFormField = ({
           <FormDescription>{description}</FormDescription>
           <FormControl>
             {type === "textarea" ? (
-              <Textarea placeholder={placeholder} {...field} />
+              <Textarea placeholder={placeholder} rows={10} {...field} />
             ) : (
               <Input placeholder={placeholder} type={type} {...field} />
             )}
