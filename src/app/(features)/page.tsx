@@ -39,9 +39,7 @@ const page = () => {
         />
         <p className="text-xl md:text-2xl">{feature.description}</p>
       </div>
-      <div>
-        <Mdx code={feature.body.code} />
-      </div>
+      <Mdx code={feature.body.code} />
     </div>
   )
 }

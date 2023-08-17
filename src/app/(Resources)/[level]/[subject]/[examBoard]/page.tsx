@@ -80,8 +80,9 @@ const page = async ({ params }: pageProps) => {
         <ResourceLinks files={extra} title="Extra Links" />
       </div>
     )
+  } else {
+    return <ErrorPage />
   }
-  return <ErrorPage />
 }
 
 export function generateStaticParams() {

@@ -1,16 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server"
 import { env } from "@/env.mjs"
-import { Logger } from "@/Logger"
 import nodemailer from "nodemailer"
 import Mail from "nodemailer/lib/mailer"
 
 import { contactFormSchema } from "@/lib/validations/form"
+import { sendError } from "@/app/_actions/discord"
 
 export async function POST(request: NextRequest) {
   try {
     const { email, feedback } = contactFormSchema.parse(await request.json())
-
-    Logger.debug(email, feedback)
 
     const transport = nodemailer.createTransport({
       service: "gmail",
@@ -29,8 +27,8 @@ export async function POST(request: NextRequest) {
     await transport.sendMail(mailOptions)
 
     return NextResponse.json({})
-  } catch (err: unknown) {
-    Logger.debug(err)
+  } catch (err: any) {
+    await sendError({ location: "api/email", errMsg: err.message })
     throw new Error("failed to send email!")
   }
 }

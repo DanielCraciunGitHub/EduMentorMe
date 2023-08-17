@@ -3,13 +3,12 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
-import { Loader2 } from "lucide-react"
 
-import { type Database } from "@/types/supabase"
-import { Button } from "@/components/ui/button"
+import { SpinnerButton } from "@/components/SpinnerButton"
+import { sendError } from "@/app/_actions/discord"
 
 const SignOutButton = () => {
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createClientComponentClient()
   const [isSigningOut, setIsSigningOut] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
 
@@ -26,18 +25,25 @@ const SignOutButton = () => {
       await supabase.auth.signOut()
       router.refresh()
       router.push("/login")
-    } catch {
+    } catch (err: any) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      await sendError({
+        location: "SignOutButton()",
+        errMsg: err.message,
+        userId: user?.id,
+      })
       setIsError(true)
     }
   }
   return (
-    <Button type="submit" onClick={handleSignOut}>
-      {isSigningOut ? (
-        <Loader2 className="h-4 w-4 animate-spin" />
-      ) : (
-        <span>Sign out</span>
-      )}
-    </Button>
+    <SpinnerButton
+      name="Sign out"
+      state={isSigningOut}
+      onClick={handleSignOut}
+      type="submit"
+    />
   )
 }
 

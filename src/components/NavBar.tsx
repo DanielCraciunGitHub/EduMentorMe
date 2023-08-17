@@ -8,7 +8,7 @@ interface NavBarProps {
 }
 export default function NavBar({ items }: NavBarProps) {
   return (
-    <nav>
+    <nav className="sticky top-0 z-50 bg-background">
       <MobileBar items={items} />
       <DesktopBar items={items} />
     </nav>

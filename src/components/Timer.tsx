@@ -85,9 +85,8 @@ export function Timer() {
     const validateInput = (field: TimerInput, value: string) => {
       // The regex is used to limit the input to a max of two integers
       const isValid =
-        ((field === "hours" && Number(value) < 24) ||
-          (field !== "hours" && Number(value) < 60)) &&
-        /^\d{0,2}$/.test(value)
+        (field === "hours" && Number(value) < 24) ||
+        (field !== "hours" && Number(value) < 60)
 
       return isValid
     }

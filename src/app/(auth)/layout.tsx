@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         href="/"
         className={cn(
           buttonVariants({ variant: "outline" }),
-          "ml-4 mt-8 w-fit text-black no-underline dark:text-white"
+          "ml-4 mt-8 w-fit"
         )}
       >
         <ChevronLeft className="h-4 w-4" /> Back

@@ -19,7 +19,8 @@ const Todo: FC<TodoProps> = ({ todo }) => {
       <Checkbox todo={todo} />
       <TodoInput todo={todo} />
       <Button
-        className="text-red-500 dark:text-red-600"
+        className="text-destructive"
+        variant="outline"
         onClick={() => removeTodo(todo.id)}
       >
         X

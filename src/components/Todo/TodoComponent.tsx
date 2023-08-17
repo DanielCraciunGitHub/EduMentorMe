@@ -41,7 +41,9 @@ const TodoComponent: FC<TodoComponentProps> = ({ userId }) => {
     }, 300)
   }, [setTodos, userId, supabase])
 
-  debouncedSyncTodosWithDb(todos, userId)
+  useEffect(() => {
+    debouncedSyncTodosWithDb(todos, userId)
+  }, [todos, userId])
 
   return (
     <div className="mt-4 flex flex-col space-y-2">

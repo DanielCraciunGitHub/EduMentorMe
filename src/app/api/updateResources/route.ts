@@ -5,6 +5,7 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 import { Database } from "@/types/supabase"
 import { getCurrentUser } from "@/lib/getCurrentUser"
 import { resourceSchema, resourcesSchema } from "@/lib/validations/resources"
+import { sendError } from "@/app/_actions/discord"
 
 export async function PATCH(req: NextRequest) {
   const supabase = createRouteHandlerClient<Database>({ cookies })
@@ -52,7 +53,8 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ status: 200 })
     }
     return NextResponse.json({ status: 404 })
-  } catch (err: unknown) {
+  } catch (err: any) {
+    await sendError({ location: "api/updateResources", errMsg: err.message })
     return NextResponse.json({ err })
   }
 }

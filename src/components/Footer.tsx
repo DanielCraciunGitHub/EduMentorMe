@@ -7,7 +7,7 @@ import { NavItem } from "./NavItem"
 const Footer = () => {
   return (
     <footer className="p-4 py-6">
-      <hr className="my-4 border-gray-300 dark:border-gray-700" />
+      <hr className="my-4 border-muted-foreground/50" />
       <div className="sm:flex sm:items-center sm:justify-between">
         <div className="flex w-full flex-col space-y-3">
           <div className="flex justify-between">
@@ -28,7 +28,7 @@ const Footer = () => {
               <NavItem key={item.href} page={item.href} text={item.name} />
             ))}
           </div>
-          <span className="text-sm text-gray-500 dark:text-gray-400">
+          <span className="text-sm text-foreground/50">
             © 2023 (EMM) EduMentorMe™. All Rights Reserved
           </span>
         </div>

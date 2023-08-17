@@ -6,14 +6,17 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
 import type { Database } from "@/types/supabase"
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
 } from "@/components/ui/dialog"
 import { SpinnerButton } from "@/components/SpinnerButton"
+import { sendError } from "@/app/_actions/discord"
 
 export default function DeleteAccountButton() {
   const supabase = createClientComponentClient<Database>()
@@ -31,31 +34,43 @@ export default function DeleteAccountButton() {
     setIsDeletingAccount(true)
     try {
       await supabase.rpc("delete_user")
+      await supabase.auth.signOut()
       router.refresh()
       router.replace("/login")
-    } catch {
+    } catch (err: any) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      await sendError({
+        location: "DeleteAccountButton()",
+        errMsg: err.message,
+        userId: user?.id,
+      })
       setIsError(true)
     }
   }
   return (
-    <Dialog>
-      <DialogTrigger>Delete Account</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-          <DialogDescription>
+    <AlertDialog>
+      <AlertDialogTrigger>Delete Account</AlertDialogTrigger>
+      <AlertDialogContent className="border-muted-foreground/50">
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you sure absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
-          </DialogDescription>
-        </DialogHeader>
-        <SpinnerButton
-          state={isDeletingAccount}
-          name="Delete Account"
-          variant="destructive"
-          type="submit"
-          onClick={handleDeleteAccount}
-        />
-      </DialogContent>
-    </Dialog>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <SpinnerButton
+            state={isDeletingAccount}
+            name="Delete Account"
+            variant="destructive"
+            type="submit"
+            onClick={handleDeleteAccount}
+          />
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }

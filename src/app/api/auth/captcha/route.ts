@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { env } from "@/env.mjs"
-import { Logger } from "@/Logger"
 
 import { googleReCaptchaSchema } from "@/lib/validations/auth"
+import { sendError } from "@/app/_actions/discord"
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,8 +21,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({})
     }
     throw new Error("ReCaptcha verification failed")
-  } catch (err: unknown) {
-    Logger.debug(err)
+  } catch (err: any) {
+    await sendError({ location: "api/auth/captcha", errMsg: err.message })
 
     throw new Error("Internal server error")
   }

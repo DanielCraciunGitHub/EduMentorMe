@@ -13,23 +13,25 @@ interface MobileBarProps {
   items: navItem[]
 }
 export function MobileBar({ items }: MobileBarProps) {
+  const [mainItem, ...navItems] = items
+
   return (
     <div className="flex flex-col items-center py-2 md:hidden">
       <NavItem
-        key={items[0].name}
-        page={items[0].href}
-        text={items[0].name}
-        className="text-4xl text-black dark:text-white"
+        key={mainItem.name}
+        page={mainItem.href}
+        text={mainItem.name}
+        className="text-4xl text-foreground"
       />
       <Sheet>
         <div className="flex w-full justify-end">
           <SheetTrigger className="p-2">
-            <PanelRight className="dark:text-slate-300" />
+            <PanelRight />
             <span className="sr-only">Open Mobile Menu</span>
           </SheetTrigger>
         </div>
         <SheetContent className="flex flex-col items-center" side="right">
-          {items.slice(1).map((item) => (
+          {navItems.map((item) => (
             <SheetClose asChild key={item.name}>
               <NavItem page={item.href} text={item.name} />
             </SheetClose>

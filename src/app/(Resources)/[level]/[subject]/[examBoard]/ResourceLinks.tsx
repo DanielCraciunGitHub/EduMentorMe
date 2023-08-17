@@ -9,7 +9,7 @@ interface ResourceLinksProps {
 }
 
 const ResourceLinks = ({ files, title }: ResourceLinksProps) => {
-  const handleClick = async (link: string, name: string) => {
+  const saveResourceToAccount = async (link: string, name: string) => {
     const payload: File = { link, name }
     await fetch("/api/updateResources", {
       method: "PATCH",
@@ -24,7 +24,7 @@ const ResourceLinks = ({ files, title }: ResourceLinksProps) => {
           <li
             key={file.link}
             className="break-all"
-            onClick={() => handleClick(file.link, file.name)}
+            onClick={() => saveResourceToAccount(file.link, file.name)}
           >
             <Link
               key={file.link}

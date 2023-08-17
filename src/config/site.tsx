@@ -30,6 +30,20 @@ export const siteConfig = {
       href: "/account",
     },
   ] satisfies NavItem[],
+  authPages: [
+    {
+      name: "Account",
+      href: "/account",
+    },
+    {
+      name: "Login",
+      href: "/login",
+    },
+    {
+      name: "Sign Up",
+      href: "/sign_up",
+    },
+  ] satisfies NavItem[],
   features: [
     {
       name: "Todos",

@@ -27,7 +27,7 @@ const components = {
   h2: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
       className={cn(
-        "mt-10 scroll-m-20 border-b pb-1 text-3xl font-semibold tracking-tight first:mt-0 dark:border-gray-700",
+        "mt-10 scroll-m-20 border-b border-muted-foreground/50 pb-1 text-3xl font-semibold tracking-tight first:mt-0",
         className
       )}
       {...props}
@@ -96,7 +96,7 @@ const components = {
   }: React.BlockquoteHTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
       className={cn(
-        "[&>*]:text-muted-foreground mt-6 border-l-2 pl-6 italic",
+        "mt-6 border-l-2 pl-6 italic [&>*]:text-muted-foreground",
         className
       )}
       {...props}
@@ -118,7 +118,7 @@ const components = {
   ),
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
-      className={cn("even:bg-muted m-0 border-t p-0", className)}
+      className={cn("m-0 border-t p-0 even:bg-muted", className)}
       {...props}
     />
   ),
@@ -182,7 +182,7 @@ export function Mdx({ code }: MdxProps) {
 
   return (
     <div className="mdx">
-      <Component components={components as any} />
+      <Component components={components} />
     </div>
   )
 }

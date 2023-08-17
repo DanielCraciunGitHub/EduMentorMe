@@ -87,7 +87,7 @@ export function SearchForm({ resources }: SearchFormProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <ScrollArea className="h-60">
+                  <ScrollArea className="h-40">
                     {resources.subjects.map((subject) => (
                       <SelectItem value={subject} key={subject}>
                         {capitalizeWords(subject)}

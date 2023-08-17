@@ -1,22 +1,60 @@
-# emm
+# EMM - EduMentorMe
+
+Framework: Next.js 13
+
+## About this project
+
+This project is designed as a hub of many different features. Each feature is unique and serves a common purpose, which is to boost the grades of all UK students.
+
+## Features
+
+- Blazingly fast performance.
+- UI styled with `tailwind CSS`.
+- Fully accessible; contains screen reader support.
+- Dark mode using the `shadcn-ui` library.
+- Data validation using `zod`.
+- Protected routes using `middleware`.
+- `Google Drive API` used to store and manage resource links.
+- `MDX content` in the main page, about us page, and contact us page via `contentlayer`.
+- Website protected using `reCAPTCHA v3`.
+- Search feature with dynamic routing, using `ISR` for each resource page.
+- Todo feature uses `zustand` to manage the todos' state, and `Supabase` to sync these todos in a database.
+- Simple study timer feature that implements `react-timer-hook`.
+- FAQ section on contact us page.
+- Contact form uses `nodemailer` to receive user feedback.
+- Login and sign-up feature with email verification using `Supabase`.
+- Account page that shows the recently viewed educational resources from the `/search` page.
+
+## Goals
+
+- [x] ~Use `CSS variables` to easily allow changes in global theme.~
+- [ ] Add a `custom SMTP` provider when working with `Supabase`.
+- [ ] Implement the `OpenAI` API to create a custom chatbot.
+- [ ] Monetize website features using `Stripe`.
+
+## Known issues
+
+- [ ] Opengraph images don't work on `WhatsApp`
+- [x] ~Search form selections not registering properly on mobile.~
+- [ ] Large bundle size for the `login`, `sign up` and `contact us` pages.
+- [ ] Todos do not save after adding a todo then switching tab promptly.
 
 ## How to work on the repo yourself
 
-1. run the following command in your terminal in the directory where you want the project to be stored:
-   `git clone https://github.com/DanielCraciunGitHub/emm.git`
+1. Install dependencies using pnpm:
 
-2. run `npm install` in order to download all of the dependencies.
+```sh
+pnpm install
+```
 
-3. run `git pull origin master` before working on your code to sync with the remote repository
+2. Copy `.env.example` to `.env.local` and update the variables.
 
-4. run `git branch (your-branch-name)` to create a branch, followed by `git checkout (your-branch-name)` to enter your
-   branch environment
+```sh
+cp .env.example .env.local
+```
 
-5. Whenever you add/edit/delete files, run `git status` which gives you a breakdown of the changes you made, followed by
-   running `git add .` to add all of your changes to a staging area.
+3. Start the development server:
 
-6. Once you are happy with your changes, run ```git commit -m "(write-a-message-here)" to commit your changes (sort of
-   like a checkpoint)
-
-7. Finally you can push the changes to the remote using `git push origin (your-branch-name)` where it can be reviewed
-   and actually be implemented into the website.
+```sh
+pnpm dev
+```

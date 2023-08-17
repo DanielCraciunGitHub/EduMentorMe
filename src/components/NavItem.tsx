@@ -4,9 +4,9 @@ import Link from "next/link"
 import { useSelectedLayoutSegment } from "next/navigation"
 
 import { cn } from "@/lib/utils"
-import { Button, ButtonProps } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 
-interface NavItemProps extends ButtonProps {
+interface NavItemProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   page: string
   text: string
 }
@@ -16,18 +16,17 @@ export function NavItem(props: NavItemProps) {
 
   const { page, text, className, ...restProps } = props
   return (
-    <Link href={page}>
-      <Button
-        variant="ghost"
-        className={cn(
-          "rounded text-slate-500 hover:text-orange-500 hover:transition hover:ease-linear dark:text-gray-400 dark:hover:text-orange-500",
-          page.startsWith(`/${segment}`) ? "text-black dark:text-white" : "",
-          className
-        )}
-        {...restProps}
-      >
-        {text}
-      </Button>
+    <Link
+      href={page}
+      className={cn(
+        buttonVariants({ variant: "ghost" }),
+        "rounded text-muted-foreground hover:text-primary hover:transition hover:ease-linear dark:hover:text-primary",
+        page.startsWith(`/${segment}`) ? "text-primary dark:text-primary" : "",
+        className
+      )}
+      {...restProps}
+    >
+      {text}
     </Link>
   )
 }
