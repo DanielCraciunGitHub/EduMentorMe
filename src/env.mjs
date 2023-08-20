@@ -10,7 +10,7 @@ export const env = createEnv({
   },
   server: {
     RECAPTCHA_SECRET_KEY: z.string().min(1),
-    DISCORD_WEBHOOK_URL: z.string().min(1),
+
     NEXT_PRIVATE_SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
 
     GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: z.string().min(1),
@@ -18,6 +18,11 @@ export const env = createEnv({
 
     NODEMAILER_EMAIL: z.string(),
     NODEMAILER_PASSWORD: z.string(),
+
+    DISCORD_WEBHOOK_URL: z.string().min(1),
+
+    UPSTASH_REDIS_REST_URL: z.string().min(1),
+    UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

@@ -1,14 +1,30 @@
-import { NextResponse, type NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { env } from "@/env.mjs"
+import { Ratelimit } from "@upstash/ratelimit"
+import { Redis } from "@upstash/redis"
 import nodemailer from "nodemailer"
 import Mail from "nodemailer/lib/mailer"
 
 import { contactFormSchema } from "@/lib/validations/form"
 import { sendError } from "@/app/_actions/discord"
 
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(1, "60 m"),
+})
+
 export async function POST(request: NextRequest) {
   try {
     const { email, feedback } = contactFormSchema.parse(await request.json())
+
+    const ip = request.headers.get("x-forwarded-for") ?? ""
+    const { success } = await ratelimit.limit(ip)
+
+    if (!success) {
+      return new NextResponse("You can only send feedback once every hour.", {
+        status: 429,
+      })
+    }
 
     const transport = nodemailer.createTransport({
       service: "gmail",
@@ -29,6 +45,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({})
   } catch (err: any) {
     await sendError({ location: "api/email", errMsg: err.message })
-    throw new Error("failed to send email!")
+    throw new Error("Failed to send email!")
   }
 }

@@ -43,7 +43,7 @@ const ContactForm = () => {
       })
 
       if (!captchaRes.ok) {
-        throw new Error("ReCaptcha verification failed")
+        throw new Error("Failed to send email! Please try again later.")
       }
 
       const emailRes = await fetch("/api/email", {
@@ -52,7 +52,11 @@ const ContactForm = () => {
       })
 
       if (!emailRes.ok) {
-        throw new Error("Failed to send email")
+        if (emailRes.status === 429) {
+          throw new Error("You can only send feedback once every hour.")
+        } else {
+          throw new Error("Failed to send email! Please try again later.")
+        }
       }
 
       toast({
@@ -61,10 +65,10 @@ const ContactForm = () => {
           "We appreciate you taking your time to fill in this form, we will get back to you shortly.",
         variant: "constructive",
       })
-    } catch {
+    } catch (err: any) {
       toast({
         title: "Error",
-        description: "Something went wrong! Please try again later.",
+        description: err.message,
         variant: "destructive",
       })
     } finally {
