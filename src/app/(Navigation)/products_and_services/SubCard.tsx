@@ -1,3 +1,5 @@
+"use client"
+
 import { HTMLAttributes } from "react"
 import { cva, VariantProps } from "class-variance-authority"
 import { CheckCircle } from "lucide-react"
@@ -11,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { stripeAction } from "@/app/_actions/stripe"
 
 const subCardVariants = cva("", {
   variants: {
@@ -47,6 +50,14 @@ const SubCard = ({
   theme,
   text = theme,
 }: SubCardProps) => {
+  const onSubmit = async () => {
+    const url = await stripeAction()
+
+    if (url) {
+      window.location.href = url
+    }
+  }
+
   return (
     <Card className="flex w-[20rem] flex-col space-y-2">
       <CardHeader className="space-y-4">
@@ -69,7 +80,11 @@ const SubCard = ({
           <h1 className={cn(subCardVariants({ text }), "text-4xl")}>{price}</h1>
           <p className="text-xs">/Month</p>
         </div>
-        <Button type="submit" className={subCardVariants({ theme })}>
+        <Button
+          type="submit"
+          className={subCardVariants({ theme })}
+          onClick={onSubmit}
+        >
           Purchase
         </Button>
       </CardFooter>

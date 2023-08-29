@@ -49,6 +49,7 @@
     "react-hook-form": "^7.45.4",
     "react-timer-hook": "^3.0.7",
     "sharp": "^0.32.5",
+    "stripe": "^13.3.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.6",

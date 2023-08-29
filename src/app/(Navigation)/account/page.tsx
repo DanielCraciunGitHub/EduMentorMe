@@ -3,6 +3,7 @@ import { Metadata } from "next"
 import { staticMetadata } from "@/config/meta"
 
 import DeleteAccountButton from "./DeleteAccountButton"
+import ManageSubscriptions from "./ManageSubscriptions"
 import Resources from "./Resources"
 import SignOutButton from "./SignOutButton"
 import WelcomeUser from "./WelcomeUser"
@@ -26,7 +27,8 @@ const page = () => {
           <Resources />
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex flex-col justify-center space-y-6">
+        <ManageSubscriptions />
         <DeleteAccountButton />
       </div>
     </div>

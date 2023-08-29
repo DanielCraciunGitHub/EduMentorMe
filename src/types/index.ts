@@ -27,5 +27,16 @@ export type Todo = {
   text: string
   checked: boolean
 }
+export type SubscriptionPlan = {
+  name: string
+  description: string
+  stripePriceId: string
+}
 
 export type User = z.infer<typeof userPrivateMetadataSchema>
+
+export type UserSubscriptionPlan = SubscriptionPlan &
+  Pick<User, "stripe_customer_id" | "stripe_subscription_id"> & {
+    stripeCurrentPeriodEnd: number
+    isOnPlan: boolean
+  }

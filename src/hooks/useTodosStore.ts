@@ -10,7 +10,7 @@ interface TodosState {
   updateTodoChecked: (id: string) => void
   updateTodoText: (id: string, text: string) => void
   removeTodo: (id: string) => void
-  addTodo: () => void
+  addTodo: (todosLimit: number) => void
 }
 
 export const useTodosStore = create<TodosState>((set) => ({
@@ -21,11 +21,12 @@ export const useTodosStore = create<TodosState>((set) => ({
       const updatedTodos = todos!.filter((todo) => todo.id !== id)
       return { todos: updatedTodos }
     }),
-  addTodo: () =>
+  addTodo: (todosLimit) =>
     set(({ todos }) => {
       const newTodo = { id: uuid(), text: "", checked: false }
       const todoCount = todos!.length
-      if (todoCount < 10) {
+
+      if (todoCount < todosLimit) {
         return { todos: [...todos!, newTodo] }
       } else if (todoCount === 10) {
         return { todos }

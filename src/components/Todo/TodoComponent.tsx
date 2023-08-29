@@ -14,9 +14,10 @@ import Todo from "./Todo"
 
 interface TodoComponentProps {
   userId: string
+  todosLimit: number
 }
 
-const TodoComponent: FC<TodoComponentProps> = ({ userId }) => {
+const TodoComponent: FC<TodoComponentProps> = ({ userId, todosLimit }) => {
   const supabase = createClientComponentClient<Database>()
   const { todos, setTodos, addTodo } = useTodosStore()
 
@@ -55,7 +56,7 @@ const TodoComponent: FC<TodoComponentProps> = ({ userId }) => {
             ))}
           </div>
           <div className="flex justify-end">
-            <Button onClick={addTodo}>Add Todo +</Button>
+            <Button onClick={() => addTodo(todosLimit)}>Add Todo +</Button>
           </div>
         </>
       ) : (

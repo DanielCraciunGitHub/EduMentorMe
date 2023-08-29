@@ -34,27 +34,6 @@ export interface Database {
           },
         ]
       }
-      feedback: {
-        Row: {
-          body: string | null
-          created_at: string | null
-          email: string | null
-          id: string
-        }
-        Insert: {
-          body?: string | null
-          created_at?: string | null
-          email?: string | null
-          id?: string
-        }
-        Update: {
-          body?: string | null
-          created_at?: string | null
-          email?: string | null
-          id?: string
-        }
-        Relationships: []
-      }
       todos: {
         Row: {
           email: string
@@ -87,6 +66,10 @@ export interface Database {
           id: string
           is_admin: boolean | null
           name: string | null
+          stripe_current_period_end: string
+          stripe_customer_id: string | null
+          stripe_price_id: string | null
+          stripe_subscription_id: string | null
         }
         Insert: {
           created_at?: string | null
@@ -94,6 +77,10 @@ export interface Database {
           id: string
           is_admin?: boolean | null
           name?: string | null
+          stripe_current_period_end?: string
+          stripe_customer_id?: string | null
+          stripe_price_id?: string | null
+          stripe_subscription_id?: string | null
         }
         Update: {
           created_at?: string | null
@@ -101,6 +88,10 @@ export interface Database {
           id?: string
           is_admin?: boolean | null
           name?: string | null
+          stripe_current_period_end?: string
+          stripe_customer_id?: string | null
+          stripe_price_id?: string | null
+          stripe_subscription_id?: string | null
         }
         Relationships: [
           {

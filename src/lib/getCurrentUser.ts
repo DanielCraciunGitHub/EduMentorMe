@@ -10,10 +10,7 @@ export async function getCurrentUser() {
   const supabase = createServerComponentClient<Database>({ cookies })
 
   try {
-    const { data } = await supabase
-      .from("users")
-      .select("id, email, name, is_admin")
-      .single()
+    const { data } = await supabase.from("users").select("*").single()
 
     const parsedData = userPrivateMetadataSchema.parse(data)
     return parsedData
