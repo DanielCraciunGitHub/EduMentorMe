@@ -1,6 +1,6 @@
 import { NavItem as navItem } from "@/types"
 
-import { NavItem } from "@/components/NavItem"
+import { NavItem } from "@/components/Navigation/NavItem"
 
 interface DesktopBarProps {
   items: navItem[]

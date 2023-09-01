@@ -11,8 +11,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
-import { MdxCard } from "@/components/mdx-card"
-import { ResponsiveGrid } from "@/components/mdx-grid"
+import { MdxCard } from "@/components/Markdown/mdx-card"
+import { ResponsiveGrid } from "@/components/Markdown/mdx-grid"
 
 const components = {
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (

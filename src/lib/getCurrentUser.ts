@@ -12,8 +12,7 @@ export async function getCurrentUser() {
   try {
     const { data } = await supabase.from("users").select("*").single()
 
-    const parsedData = userPrivateMetadataSchema.parse(data)
-    return parsedData
+    return userPrivateMetadataSchema.parse(data)
   } catch (err: any) {
     if (err instanceof ZodError) {
       return

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { useForm } from "react-hook-form"
@@ -10,7 +10,7 @@ import type { z } from "zod"
 
 import { loginFormSchema } from "@/lib/validations/form"
 import { Form } from "@/components/ui/form"
-import InputField from "@/components/InputField"
+import InputField from "@/components/Forms/InputField"
 import { SpinnerButton } from "@/components/SpinnerButton"
 
 type Inputs = z.infer<typeof loginFormSchema>
@@ -20,6 +20,7 @@ const LoginForm = () => {
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false)
 
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const form = useForm<Inputs>({
     resolver: zodResolver(loginFormSchema),
@@ -49,7 +50,7 @@ const LoginForm = () => {
       setIsLoggingIn(false)
     } else {
       router.refresh()
-      router.push("/account")
+      router.push(searchParams.get("from") ?? "/account")
     }
   }
   return (

@@ -3,7 +3,13 @@ import { User, UserSubscriptionPlan } from "@/types"
 import { freePlan, standardPlan } from "@/config/subscriptions"
 
 export async function getUserSubscriptionPlan(
-  user: User
+  user: Pick<
+    User,
+    | "stripe_current_period_end"
+    | "stripe_price_id"
+    | "stripe_customer_id"
+    | "stripe_subscription_id"
+  >
 ): Promise<UserSubscriptionPlan> {
   let isOnPlan: boolean
 

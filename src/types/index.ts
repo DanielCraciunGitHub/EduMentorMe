@@ -13,7 +13,7 @@ export interface FooterButton {
   href: string
 }
 
-export interface resources {
+export interface resourceParams {
   levels: string[]
   subjects: string[]
   examBoards: string[]

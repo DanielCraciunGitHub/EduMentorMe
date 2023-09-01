@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import { allDocs } from "contentlayer/generated"
 
 import { staticMetadata } from "@/config/meta"
-import { Mdx } from "@/components/Mdx"
+import { Mdx } from "@/components/Markdown/Mdx"
 
 export const metadata: Metadata = {
   ...staticMetadata.about_us,

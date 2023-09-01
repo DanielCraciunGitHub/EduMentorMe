@@ -32,5 +32,5 @@ export const signUpFormSchema = z.object({
 export const searchFormSchema = z.object({
   level: z.string(),
   subject: z.string(),
-  examboard: z.string(),
+  examBoard: z.string(),
 })

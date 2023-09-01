@@ -5,7 +5,7 @@ import { Database } from "@/types/supabase"
 import { resourcesSchema } from "@/lib/validations/resources"
 import { sendError } from "@/app/_actions/discord"
 
-export async function getUserResources() {
+export async function getRecentlyViewedResources() {
   const supabase = createServerComponentClient<Database>({ cookies })
 
   try {
@@ -14,8 +14,7 @@ export async function getUserResources() {
       .select("resources")
       .single()
 
-    const parsedData = resourcesSchema.parse(data?.resources)
-    return parsedData
+    return resourcesSchema.parse(data?.resources)
   } catch (err: any) {
     await sendError({ location: "getUserResources()", errMsg: err.message })
   }

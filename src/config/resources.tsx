@@ -1,4 +1,4 @@
-import { resources } from "@/types"
+import { resourceParams } from "@/types"
 
 // Make sure to use lower casing and separate words using a dash
 export const resourcesConfig = {
@@ -16,6 +16,6 @@ export const resourcesConfig = {
     "physics",
   ],
   examBoards: ["aqa", "edexcel", "ocr"],
-} satisfies resources
+} satisfies resourceParams
 
 export type ResourcesConfig = typeof resourcesConfig

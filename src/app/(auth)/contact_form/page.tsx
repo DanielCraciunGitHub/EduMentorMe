@@ -1,8 +1,7 @@
 import { Metadata } from "next"
 
 import { staticMetadata } from "@/config/meta"
-
-import ContactForm from "./ContactForm"
+import ContactForm from "@/components/Forms/ContactForm"
 
 export const metadata: Metadata = {
   ...staticMetadata.contact_us,

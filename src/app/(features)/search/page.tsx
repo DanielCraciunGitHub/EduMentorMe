@@ -4,8 +4,8 @@ import { allFeatures } from "contentlayer/generated"
 
 import { staticMetadata } from "@/config/meta"
 import { resourcesConfig } from "@/config/resources"
-import { Mdx } from "@/components/Mdx"
-import { SearchForm } from "@/components/SearchForm"
+import { SearchForm } from "@/components/Forms/SearchForm"
+import { Mdx } from "@/components/Markdown/Mdx"
 
 export const metadata: Metadata = {
   ...staticMetadata.search,
@@ -24,7 +24,7 @@ const page = () => {
     <div className="container space-y-6 sm:w-1/2">
       <div className="mt-2 text-4xl lg:text-5xl">{feature.title}</div>
       <Mdx code={feature.body.code} />
-      <SearchForm resources={resourcesConfig} />
+      <SearchForm {...resourcesConfig} />
     </div>
   )
 }

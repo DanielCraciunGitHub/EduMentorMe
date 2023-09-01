@@ -7,7 +7,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { NavItem } from "@/components/NavItem"
+import { NavItem } from "@/components/Navigation/NavItem"
 
 interface MobileBarProps {
   items: navItem[]

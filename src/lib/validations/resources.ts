@@ -5,10 +5,4 @@ export const resourceSchema = z.object({
   link: z.string(),
 })
 
-export const resourcesSchema = z
-  .object({
-    name: z.string(),
-    link: z.string(),
-  })
-  .array()
-  .nullable()
+export const resourcesSchema = resourceSchema.array().nullable()

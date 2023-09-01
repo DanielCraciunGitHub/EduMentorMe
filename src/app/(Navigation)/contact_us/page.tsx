@@ -5,7 +5,7 @@ import { allDocs } from "contentlayer/generated"
 
 import { staticMetadata } from "@/config/meta"
 import { Toaster } from "@/components/ui/toaster"
-import { Mdx } from "@/components/Mdx"
+import { Mdx } from "@/components/Markdown/Mdx"
 
 export const metadata: Metadata = {
   ...staticMetadata.contact_us,

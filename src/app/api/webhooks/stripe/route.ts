@@ -5,6 +5,7 @@ import Stripe from "stripe"
 
 import { Database } from "@/types/supabase"
 import { stripe } from "@/lib/stripe"
+import { formatDateSupabase } from "@/lib/utils"
 
 export async function POST(req: Request) {
   const supabase = createRouteHandlerClient<Database>(
@@ -40,14 +41,11 @@ export async function POST(req: Request) {
         stripe_subscription_id: subscription.id,
         stripe_customer_id: subscription.customer as string,
         stripe_price_id: subscription.items.data[0].price.id,
-        stripe_current_period_end: new Date(
-          subscription.current_period_end * 1000
-        )
-          .toISOString()
-          .replace("T", " ")
-          .replace("Z", "+00"),
+        stripe_current_period_end: formatDateSupabase(
+          subscription.current_period_end
+        ),
       })
-      .eq("id", session?.metadata?.userId)
+      .eq("id", session?.metadata?.userId!)
       .single()
   }
 
@@ -60,12 +58,9 @@ export async function POST(req: Request) {
       .from("users")
       .update({
         stripe_price_id: subscription.items.data[0].price.id,
-        stripe_current_period_end: new Date(
-          subscription.current_period_end * 1000
-        )
-          .toISOString()
-          .replace("T", " ")
-          .replace("Z", "+00"),
+        stripe_current_period_end: formatDateSupabase(
+          subscription.current_period_end
+        ),
       })
       .eq("stripe_subscription_id", subscription.id)
       .single()

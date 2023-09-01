@@ -1,6 +1,6 @@
 import { siteConfig } from "@/config/site"
 import { DarkModeButton } from "@/components/DarkModeButton"
-import FooterItem from "@/components/FooterItem"
+import FooterItem from "@/components/Navigation/FooterItem"
 
 import { NavItem } from "./NavItem"
 

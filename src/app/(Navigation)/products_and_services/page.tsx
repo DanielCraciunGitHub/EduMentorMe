@@ -1,9 +1,8 @@
 import { Metadata } from "next"
-import { Crown, Rocket, Sun } from "lucide-react"
+import { Sun } from "lucide-react"
 
 import { staticMetadata } from "@/config/meta"
-
-import SubCard from "./SubCard"
+import SubscriptionCard from "@/components/SubscriptionCard"
 
 export const metadata: Metadata = {
   ...staticMetadata.products_and_services,
@@ -15,26 +14,16 @@ function page() {
       <div className="text-3xl">Products & Services</div>
       <hr className="my-4 w-full border-gray-300 dark:border-gray-700" />
       <div className="flex flex-col flex-wrap items-center justify-center gap-5 md:flex-row">
-        <SubCard
+        <SubscriptionCard
           icon={<Sun className="text-yellow-500" />}
           theme="green"
-          title="Basic Plan"
-          features={["this feature", "that feature", "xyz feature"]}
+          title="Standard Plan"
+          features={[
+            "24/7 Q/A support from our staff",
+            "1,000 todos limit",
+            "Premium A-Level and GCSE resources",
+          ]}
           price="£19.99"
-        />
-        <SubCard
-          icon={<Rocket className="text-orange-500" />}
-          theme="orange"
-          title="Advanced Plan"
-          features={["this feature", "that feature", "xyz feature"]}
-          price="£39.99"
-        />
-        <SubCard
-          icon={<Crown className="text-yellow-500" />}
-          theme="red"
-          title="Master Plan"
-          features={["this feature", "that feature", "xyz feature"]}
-          price="£99.99"
         />
       </div>
     </div>

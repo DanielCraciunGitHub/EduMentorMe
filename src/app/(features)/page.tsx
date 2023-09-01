@@ -4,7 +4,7 @@ import { notFound } from "next/navigation"
 import { allFeatures } from "contentlayer/generated"
 
 import { baseMetadata } from "@/config/meta"
-import { Mdx } from "@/components/Mdx"
+import { Mdx } from "@/components/Markdown/Mdx"
 
 export const metadata: Metadata = {
   ...baseMetadata,

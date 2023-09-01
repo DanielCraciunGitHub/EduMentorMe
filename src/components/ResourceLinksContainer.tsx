@@ -5,10 +5,10 @@ import { File, Files } from "@/types"
 
 interface ResourceLinksProps {
   files: Files
-  title: string
+  title?: string
 }
 
-const ResourceLinks = ({ files, title }: ResourceLinksProps) => {
+const ResourceLinksContainer = ({ files, title }: ResourceLinksProps) => {
   const saveResourceToAccount = async (link: string, name: string) => {
     const payload: File = { link, name }
     await fetch("/api/updateResources", {
@@ -17,7 +17,7 @@ const ResourceLinks = ({ files, title }: ResourceLinksProps) => {
     })
   }
   return (
-    <div className="flex min-h-[12rem] flex-col items-center space-y-5 rounded border border-orange-500">
+    <div className="flex min-h-[14rem] flex-col items-center space-y-5 rounded border border-primary">
       <h1 className="text-4xl">{title}</h1>
       <ul className="flex w-3/4 list-disc flex-col space-y-2">
         {files.map((file) => (
@@ -42,4 +42,4 @@ const ResourceLinks = ({ files, title }: ResourceLinksProps) => {
   )
 }
 
-export default ResourceLinks
+export default ResourceLinksContainer

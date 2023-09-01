@@ -1,7 +1,7 @@
 import { NavItem } from "@/types"
 
-import { DesktopBar } from "@/components/DesktopBar"
-import { MobileBar } from "@/components/MobileBar"
+import { DesktopBar } from "@/components/Navigation/DesktopBar"
+import { MobileBar } from "@/components/Navigation/MobileBar"
 
 interface NavBarProps {
   items: NavItem[]

@@ -8,7 +8,7 @@ import type { z } from "zod"
 
 import { contactFormSchema } from "@/lib/validations/form"
 import { Form } from "@/components/ui/form"
-import InputField from "@/components/InputField"
+import InputField from "@/components/Forms/InputField"
 import { SpinnerButton } from "@/components/SpinnerButton"
 
 type Inputs = z.infer<typeof contactFormSchema>

@@ -5,7 +5,6 @@ import { cva, VariantProps } from "class-variance-authority"
 import { CheckCircle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -13,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { stripeAction } from "@/app/_actions/stripe"
+import StripeButton from "@/components/StripeButton"
 
 const subCardVariants = cva("", {
   variants: {
@@ -33,7 +32,7 @@ const subCardVariants = cva("", {
     },
   },
 })
-interface SubCardProps
+interface SubscriptionCardProps
   extends VariantProps<typeof subCardVariants>,
     HTMLAttributes<HTMLDivElement> {
   title: string
@@ -42,24 +41,16 @@ interface SubCardProps
   icon: React.ReactNode
 }
 
-const SubCard = ({
+const SubscriptionCard = ({
   title,
   features,
   price,
   icon,
   theme,
   text = theme,
-}: SubCardProps) => {
-  const onSubmit = async () => {
-    const url = await stripeAction()
-
-    if (url) {
-      window.location.href = url
-    }
-  }
-
+}: SubscriptionCardProps) => {
   return (
-    <Card className="flex w-[20rem] flex-col space-y-2">
+    <Card className="flex w-[22rem] flex-col space-y-2">
       <CardHeader className="space-y-4">
         <div className="flex flex-row justify-between">
           <CardTitle className="flex justify-center">{title}</CardTitle>
@@ -80,15 +71,9 @@ const SubCard = ({
           <h1 className={cn(subCardVariants({ text }), "text-4xl")}>{price}</h1>
           <p className="text-xs">/Month</p>
         </div>
-        <Button
-          type="submit"
-          className={subCardVariants({ theme })}
-          onClick={onSubmit}
-        >
-          Purchase
-        </Button>
+        <StripeButton className={subCardVariants({ theme })} name="Purchase" />
       </CardFooter>
     </Card>
   )
 }
-export default SubCard
+export default SubscriptionCard

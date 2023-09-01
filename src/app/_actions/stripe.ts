@@ -1,5 +1,7 @@
 "use server"
 
+import { Logger } from "@/Logger"
+
 import { standardPlan } from "@/config/subscriptions"
 import { getCurrentUser } from "@/lib/getCurrentUser"
 import { stripe } from "@/lib/stripe"
@@ -15,7 +17,6 @@ export async function stripeAction(): Promise<undefined | string> {
     const user = await getCurrentUser()
 
     if (!user) {
-      console.log("no user logged in")
       return undefined
     }
 
@@ -49,6 +50,6 @@ export async function stripeAction(): Promise<undefined | string> {
     })
     return stripeSession.url!
   } catch (err: any) {
-    console.log(err.message)
+    Logger.debug(err.message)
   }
 }

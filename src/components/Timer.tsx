@@ -113,7 +113,7 @@ export function Timer() {
     return newTimeStamp
   }
 
-  const CountdownText = ({ hours, minutes, seconds }: Time) => (
+  const FormattedCountdown = ({ hours, minutes, seconds }: Time) => (
     <div className={`text-6xl md:text-9xl ${timerColor}`}>
       <span>{hours.padStart(2, "0")}</span>:
       <span>{minutes.padStart(2, "0")}</span>:
@@ -191,7 +191,7 @@ export function Timer() {
         </div>
         <p className="text-gray-500 dark:text-gray-500">Max: 23:59:59</p>
       </div>
-      <CountdownText
+      <FormattedCountdown
         hours={String(hours)}
         minutes={String(minutes)}
         seconds={String(seconds)}

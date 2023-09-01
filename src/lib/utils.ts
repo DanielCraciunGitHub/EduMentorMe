@@ -14,3 +14,9 @@ export function capitalizeWords(str: string): string {
   )
   return capitalizedWords.join(" ")
 }
+export function formatDateSupabase(periodEndInSeconds: number) {
+  return new Date(periodEndInSeconds * 1000)
+    .toISOString()
+    .replace("T", " ")
+    .replace("Z", "+00")
+}

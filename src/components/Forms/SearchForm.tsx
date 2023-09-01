@@ -2,11 +2,11 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { resources } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import type { z } from "zod"
 
+import { ResourcesConfig } from "@/config/resources"
 import { capitalizeWords } from "@/lib/utils"
 import { searchFormSchema } from "@/lib/validations/form"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
@@ -18,16 +18,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-import { SpinnerButton } from "./SpinnerButton"
+import { SpinnerButton } from "@/components/SpinnerButton"
 
 type Inputs = z.infer<typeof searchFormSchema>
 
-interface SearchFormProps {
-  resources: resources
-}
-
-export function SearchForm({ resources }: SearchFormProps) {
+export function SearchForm({ examBoards, levels, subjects }: ResourcesConfig) {
   const [isSearching, setIsSearching] = useState<boolean>(false)
 
   const router = useRouter()
@@ -35,9 +30,9 @@ export function SearchForm({ resources }: SearchFormProps) {
     resolver: zodResolver(searchFormSchema),
   })
 
-  function onSubmit(data: Inputs) {
+  function onSubmit({ level, subject, examBoard }: Inputs) {
     setIsSearching(true)
-    router.push(`${data.level}/${data.subject}/${data.examboard}`)
+    router.push(`${level}/${subject}/${examBoard}`)
   }
 
   return (
@@ -65,7 +60,7 @@ export function SearchForm({ resources }: SearchFormProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {resources.levels.map((level) => (
+                  {levels.map((level) => (
                     <SelectItem value={level} key={level}>
                       {capitalizeWords(level)}
                     </SelectItem>
@@ -88,7 +83,7 @@ export function SearchForm({ resources }: SearchFormProps) {
                 </FormControl>
                 <SelectContent>
                   <ScrollArea className="h-40">
-                    {resources.subjects.map((subject) => (
+                    {subjects.map((subject) => (
                       <SelectItem value={subject} key={subject}>
                         {capitalizeWords(subject)}
                       </SelectItem>
@@ -101,7 +96,7 @@ export function SearchForm({ resources }: SearchFormProps) {
         />
         <FormField
           control={form.control}
-          name="examboard"
+          name="examBoard"
           render={({ field }) => (
             <FormItem>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -111,9 +106,9 @@ export function SearchForm({ resources }: SearchFormProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {resources.examBoards.map((examboard) => (
-                    <SelectItem value={examboard} key={examboard}>
-                      {examboard.toUpperCase()}
+                  {examBoards.map((examBoard) => (
+                    <SelectItem value={examBoard} key={examBoard}>
+                      {examBoard.toUpperCase()}
                     </SelectItem>
                   ))}
                 </SelectContent>

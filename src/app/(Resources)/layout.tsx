@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site"
-import Footer from "@/components/Footer"
-import NavBar from "@/components/NavBar"
-import ScrollToTopButton from "@/components/ScrollToTopButton"
+import Footer from "@/components/Navigation/Footer"
+import NavBar from "@/components/Navigation/NavBar"
+import ScrollToTopButton from "@/components/Navigation/ScrollToTopButton"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

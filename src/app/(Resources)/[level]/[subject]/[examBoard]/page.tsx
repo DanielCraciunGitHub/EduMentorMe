@@ -5,9 +5,9 @@ import { baseMetadata } from "@/config/meta"
 import { resourcesConfig } from "@/config/resources"
 import { siteConfig } from "@/config/site"
 import { getFiles } from "@/lib/googleDrive"
+import ResourceLinksContainer from "@/components/ResourceLinksContainer"
 
 import ErrorPage from "./ErrorPage"
-import ResourceLinks from "./ResourceLinks"
 
 export const revalidate = 69
 
@@ -75,9 +75,9 @@ const page = async ({ params }: pageProps) => {
 
     return (
       <div className="grid w-full md:grid-cols-3">
-        <ResourceLinks files={worksheets} title="Worksheets" />
-        <ResourceLinks files={answers} title="Answers" />
-        <ResourceLinks files={extra} title="Extra Links" />
+        <ResourceLinksContainer files={worksheets} title="Worksheets" />
+        <ResourceLinksContainer files={answers} title="Answers" />
+        <ResourceLinksContainer files={extra} title="Extra Links" />
       </div>
     )
   } else {
