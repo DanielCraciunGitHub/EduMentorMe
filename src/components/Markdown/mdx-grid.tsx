@@ -1,6 +1,6 @@
-import { HTMLAttributes } from "react"
+import { cn } from "@/lib/utils"
 
-interface GridProps extends HTMLAttributes<HTMLDivElement> {}
+interface GridProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export const ResponsiveGrid = ({
   className,
@@ -8,7 +8,10 @@ export const ResponsiveGrid = ({
   ...props
 }: GridProps) => {
   return (
-    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" {...props}>
+    <div
+      className={cn(className, "mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4")}
+      {...props}
+    >
       {children}
     </div>
   )

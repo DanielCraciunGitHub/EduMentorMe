@@ -26,7 +26,10 @@ export function MdxCard({
       <div className="space-y-2 [&>h3]:!mt-0">{children}</div>
 
       {href && (
-        <Link href={disabled ? "#" : href} className="absolute inset-0">
+        <Link
+          href={disabled ? "#" : href}
+          className="absolute inset-0 rounded ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
           <span className="sr-only">View</span>
         </Link>
       )}

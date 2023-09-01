@@ -25,7 +25,10 @@ const page = async () => {
           {doc.title}
         </h1>
         <div>
-          <Link href="contact_form" className="text-xl text-blue-600">
+          <Link
+            href="contact_form"
+            className="rounded text-xl text-blue-600 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
             Contact Form ✉️
           </Link>
         </div>
