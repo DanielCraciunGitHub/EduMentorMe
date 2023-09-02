@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       >
         <ChevronLeft className="h-4 w-4" /> Back
       </Link>
-      <main className="flex flex-grow justify-center">{children}</main>
+      <main className="flex grow justify-center">{children}</main>
       <Toaster />
     </>
   )

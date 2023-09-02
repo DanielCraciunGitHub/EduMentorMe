@@ -22,8 +22,8 @@ const page = () => {
         <div>
           <SignOutButton />
         </div>
-        <div className="container flex min-h-[12rem] flex-grow flex-col items-center space-y-6 ">
-          <h1 className="text-md md:text-2xl">
+        <div className="container flex min-h-[12rem] grow flex-col items-center space-y-6 ">
+          <h1 className="text-base md:text-2xl">
             Recently viewed{" "}
             <Link href="/search" className="text-blue-500 underline">
               resources

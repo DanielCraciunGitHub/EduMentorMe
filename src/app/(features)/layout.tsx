@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Navbar items={siteConfig.mainNav} />
-      <main className="container flex flex-grow items-center justify-center">
+      <main className="container flex grow items-center justify-center">
         {children}
       </main>
       <Footer />

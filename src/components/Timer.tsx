@@ -59,7 +59,7 @@ export function Timer() {
       }),
       false
     )
-  }, [hoursInput, minutesInput, secondsInput])
+  }, [hoursInput, minutesInput, secondsInput, restart])
 
   // Makes sure the timer state is visible in the browser tab
   useEffect(() => {
