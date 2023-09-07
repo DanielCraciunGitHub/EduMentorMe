@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
   const resourceUrls: { url: string; lastModified: Date }[] = combinations.map(
-    (url) => ({ url: siteConfig.url + url, lastModified: new Date() })
+    (slug) => ({ url: siteConfig.url + slug, lastModified: new Date() })
   )
 
   return [
@@ -24,6 +24,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     })),
     ...siteConfig.features.map((page) => ({
+      url: siteConfig.url + page.href,
+      lastModified: new Date(),
+    })),
+    ...siteConfig.authPages.map((page) => ({
       url: siteConfig.url + page.href,
       lastModified: new Date(),
     })),

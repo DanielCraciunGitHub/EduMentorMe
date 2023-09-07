@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
+import { siteConfig } from "@/config/site"
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -19,4 +21,9 @@ export function formatDateSupabase(periodEndInSeconds: number) {
     .toISOString()
     .replace("T", " ")
     .replace("Z", "+00")
+}
+export function baseUrl() {
+  return process.env.NODE_ENV === "production"
+    ? siteConfig.url
+    : "http://localhost:3000"
 }

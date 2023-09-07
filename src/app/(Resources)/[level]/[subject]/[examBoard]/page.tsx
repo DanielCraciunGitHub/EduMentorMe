@@ -4,7 +4,7 @@ import { Files } from "@/types"
 import { baseMetadata } from "@/config/meta"
 import { resourcesConfig } from "@/config/resources"
 import { siteConfig } from "@/config/site"
-import { getFiles } from "@/lib/googleDrive"
+import { getFiles } from "@/lib/getDriveFiles"
 import ResourceLinksContainer from "@/components/ResourceLinksContainer"
 
 import ErrorPage from "./ErrorPage"

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-import { stripeAction } from "@/app/_actions/stripe"
+import { trpc } from "@/app/_trpc/client"
 
 import { SpinnerButton } from "./SpinnerButton"
 import { ButtonProps } from "./ui/button"
@@ -16,9 +16,13 @@ const StripeButton = ({ className, name }: StripeButtonProps) => {
   const router = useRouter()
   const [isPurchasing, setIsPurchasing] = useState(false)
 
+  const { refetch } = trpc.paymentRouter.getStripeUrl.useQuery(undefined, {
+    enabled: false,
+  })
+
   const onSubmit = async () => {
     setIsPurchasing(true)
-    const url = await stripeAction()
+    const { data: url } = await refetch()
 
     if (url) {
       router.push(url)

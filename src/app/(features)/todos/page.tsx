@@ -16,9 +16,9 @@ const page = async () => {
   const user = await getCurrentUser()
 
   if (user) {
-    const subscriptionPlan = await getUserSubscriptionPlan(user)
+    const subscriptionPlan = getUserSubscriptionPlan(user)
 
-    let isCanceled = false
+    let isCanceled = true
     if (subscriptionPlan.isOnPlan && subscriptionPlan.stripe_subscription_id) {
       const stripePlan = await stripe.subscriptions.retrieve(
         subscriptionPlan.stripe_subscription_id

@@ -1,7 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { File, Files } from "@/types"
+import { Files } from "@/types"
+
+import { trpc } from "@/app/_trpc/client"
 
 interface ResourceLinksProps {
   files: Files
@@ -9,13 +11,9 @@ interface ResourceLinksProps {
 }
 
 const ResourceLinksContainer = ({ files, title }: ResourceLinksProps) => {
-  const saveResourceToAccount = async (link: string, name: string) => {
-    const payload: File = { link, name }
-    await fetch("/api/updateResources", {
-      method: "PATCH",
-      body: JSON.stringify(payload),
-    })
-  }
+  const saveResourceToAccount =
+    trpc.resourceRouter.saveResourceToAccount.useMutation()
+
   return (
     <div className="flex min-h-[14rem] flex-col items-center space-y-5 rounded border border-primary">
       <h1 className="text-4xl">{title}</h1>
@@ -24,7 +22,12 @@ const ResourceLinksContainer = ({ files, title }: ResourceLinksProps) => {
           <li
             key={file.link}
             className="break-all"
-            onClick={() => saveResourceToAccount(file.link, file.name)}
+            onClick={() =>
+              saveResourceToAccount.mutate({
+                link: file.link,
+                name: file.name,
+              })
+            }
           >
             <Link
               key={file.link}
