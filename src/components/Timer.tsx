@@ -5,6 +5,7 @@ import { useTimer } from "react-timer-hook"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { trpc } from "@/app/_trpc/client"
 
 type TimerInput = "hours" | "minutes" | "seconds"
 
@@ -21,6 +22,8 @@ interface TimerButtonFunctions {
 }
 
 export function Timer() {
+  const { mutate } = trpc.timerRouter.setLeaderboardData.useMutation()
+
   const [hoursInput, setHoursInput] = useState("")
   const [minutesInput, setMinutesInput] = useState("")
   const [secondsInput, setSecondsInput] = useState("")
@@ -30,16 +33,29 @@ export function Timer() {
 
   const alarmRef = useRef<HTMLAudioElement | undefined>()
 
-  const { seconds, minutes, hours, isRunning, resume, pause, restart } =
-    useTimer({
-      autoStart: false,
-      expiryTimestamp: new Date(),
-      onExpire: () => {
-        alarmRef.current!.play()
-        setToggleText("Start")
-        setTimerColor("text-red-500")
-      },
-    })
+  const {
+    seconds,
+    minutes,
+    hours,
+    isRunning,
+    resume,
+    pause,
+    restart,
+    totalSeconds,
+  } = useTimer({
+    autoStart: false,
+    expiryTimestamp: new Date(),
+    onExpire: () => {
+      alarmRef.current!.play()
+
+      setToggleText("Start")
+      setTimerColor("text-red-500")
+
+      const totalMinutes = Number(hoursInput) * 60 + Number(minutesInput)
+
+      totalMinutes > 0 ? mutate({ minutes: totalMinutes }) : null
+    },
+  })
 
   // Defines the alarm object instance and reference on component mount
   useEffect(() => {
@@ -126,7 +142,7 @@ export function Timer() {
       if (isRunning) {
         setToggleText("Start")
         pause()
-      } else {
+      } else if (totalSeconds > 0) {
         setToggleText("Pause")
         resume()
       }

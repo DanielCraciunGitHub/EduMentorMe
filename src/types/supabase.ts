@@ -34,6 +34,31 @@ export interface Database {
           },
         ]
       }
+      leaderboard: {
+        Row: {
+          id: string
+          leaderboard_time: string | null
+          name: string | null
+        }
+        Insert: {
+          id: string
+          leaderboard_time?: string | null
+          name?: string | null
+        }
+        Update: {
+          id?: string
+          leaderboard_time?: string | null
+          name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leaderboard_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       todos: {
         Row: {
           email: string
