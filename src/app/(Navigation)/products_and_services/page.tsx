@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { Sun } from "lucide-react"
 
 import { staticMetadata } from "@/config/meta"
+import TutorForm from "@/components/Forms/TutorForm"
 import SubscriptionCard from "@/components/SubscriptionCard"
 
 export const metadata: Metadata = {
@@ -10,9 +11,15 @@ export const metadata: Metadata = {
 
 function page() {
   return (
-    <div className="flex flex-col items-center space-y-8">
-      <div className="text-3xl">Products & Services</div>
-      <hr className="my-4 w-full border-gray-300 dark:border-gray-700" />
+    <div className="container flex flex-col items-center space-y-8">
+      <div className="text-3xl">1:1 Tutoring Services</div>
+      <hr className="my-4 w-full border-muted-foreground dark:border-muted-foreground" />
+      <TutorForm />
+
+      <div className="text-3xl">
+        <i>Grade-Boosting</i> Subscription Plans
+      </div>
+      <hr className="my-4 w-full border-muted-foreground dark:border-muted-foreground" />
       <div className="flex flex-col flex-wrap items-center justify-center gap-5 md:flex-row">
         <SubscriptionCard
           icon={<Sun className="text-yellow-500" />}

@@ -34,6 +34,39 @@ export interface Database {
           },
         ]
       }
+      bookings: {
+        Row: {
+          created_at: string
+          date: string | null
+          email: string
+          id: string
+          name: string | null
+          phone_number: string
+          surname: string | null
+          time: string | null
+        }
+        Insert: {
+          created_at?: string
+          date?: string | null
+          email?: string
+          id?: string
+          name?: string | null
+          phone_number?: string
+          surname?: string | null
+          time?: string | null
+        }
+        Update: {
+          created_at?: string
+          date?: string | null
+          email?: string
+          id?: string
+          name?: string | null
+          phone_number?: string
+          surname?: string | null
+          time?: string | null
+        }
+        Relationships: []
+      }
       leaderboard: {
         Row: {
           id: string

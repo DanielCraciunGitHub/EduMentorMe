@@ -34,3 +34,22 @@ export const searchFormSchema = z.object({
   subject: z.string(),
   examBoard: z.string(),
 })
+export const tutorFormSchema = z.object({
+  name: z
+    .string()
+    .min(1, { message: "Enter Your Name." })
+    .max(50, { message: "Please Enter A Shorter Name." }),
+  surname: z
+    .string()
+    .min(1, { message: "Enter Your Surname." })
+    .max(50, { message: "Please Enter A Shorter Surname." }),
+  email: z.string().email({ message: "Invalid Email." }),
+  phone: z.string().regex(/^(?:\+44|0)[1-9]\d{8,12}$/, {
+    message: "Invalid UK Phone Number.",
+  }),
+  booking_date: z.date({
+    required_error: "A Booking Date Is Required.",
+    coerce: true,
+  }),
+  booking_time: z.string(),
+})
