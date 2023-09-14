@@ -14,16 +14,19 @@ export interface Database {
           email: string
           id: string
           resources: Json[] | null
+          subjects_and_times: Json[] | null
         }
         Insert: {
           email?: string
           id: string
           resources?: Json[] | null
+          subjects_and_times?: Json[] | null
         }
         Update: {
           email?: string
           id?: string
           resources?: Json[] | null
+          subjects_and_times?: Json[] | null
         }
         Relationships: [
           {

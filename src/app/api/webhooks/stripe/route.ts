@@ -7,6 +7,8 @@ import { Database } from "@/types/supabase"
 import { stripe } from "@/lib/stripe"
 import { formatDateSupabase } from "@/lib/utils"
 
+export const dynamic = "force-dynamic"
+
 export async function POST(req: Request) {
   const supabase = createRouteHandlerClient<Database>(
     { cookies },

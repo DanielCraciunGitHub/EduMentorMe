@@ -10,6 +10,8 @@ import { sendError } from "@/app/_actions/discord"
 
 import { publicProcedure, router } from "../trpc"
 
+export const dynamic = "force-dynamic"
+
 export const resourceRouter = router({
   saveResourceToAccount: publicProcedure
     .input(z.object({ link: z.string(), name: z.string() }))

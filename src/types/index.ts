@@ -1,6 +1,7 @@
 import { z } from "zod"
 
 import { userPrivateMetadataSchema } from "@/lib/validations/auth"
+import { subjectArraySchema } from "@/lib/validations/form"
 import { resourceSchema } from "@/lib/validations/resources"
 
 export interface NavItem {
@@ -40,3 +41,7 @@ export type UserSubscriptionPlan = SubscriptionPlan &
     stripeCurrentPeriodEnd: number
     isOnPlan: boolean
   }
+
+export interface initialSubjectData {
+  subjectData: z.infer<typeof subjectArraySchema> | undefined
+}

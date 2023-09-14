@@ -1,3 +1,4 @@
+import { setTimeout } from "timers/promises"
 import { Metadata } from "next"
 
 import { staticMetadata } from "@/config/meta"
@@ -13,33 +14,38 @@ import {
 import { Timer } from "@/components/Timer"
 import { serverClient } from "@/app/_trpc/serverClient"
 
-export const revalidate = 40
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   ...staticMetadata.study_timer,
 }
 
-const page = () => {
+const page = async () => {
+  const subjectData = await serverClient.timerRouter.getSubjectsAndTimes()
+  await setTimeout(150)
+
   return (
-    <div className="flex flex-col space-y-4">
-      <Timer />
+    <div className="flex flex-col items-center space-y-4 pt-16">
+      <Timer subjectData={subjectData} />
       <Leaderboard />
     </div>
   )
 }
 const Leaderboard = async () => {
-  const { data } = await serverClient.timerRouter.getLeaderboardData()
+  const { data: leaderBoardData } =
+    await serverClient.timerRouter.getLeaderboardData()
+
   return (
     <Table className="w-screen">
       <TableCaption className="text-lg">Leaderboard 🏆</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
-          <TableHead>Time 🕒</TableHead>
+          <TableHead>Total Time 🕒</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data?.map((user, i) => (
+        {leaderBoardData?.map((user, i) => (
           <TableRow key={i}>
             <TableCell>{user.name}</TableCell>
             <TableCell>{user.leaderboard_time} Minutes</TableCell>

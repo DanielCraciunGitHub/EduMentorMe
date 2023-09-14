@@ -5,6 +5,8 @@ import { Database } from "@/types/supabase"
 import { resourcesSchema } from "@/lib/validations/resources"
 import { sendError } from "@/app/_actions/discord"
 
+export const dynamic = "force-dynamic"
+
 export async function getRecentlyViewedResources() {
   const supabase = createServerComponentClient<Database>({ cookies })
 

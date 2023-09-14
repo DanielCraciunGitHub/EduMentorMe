@@ -2,18 +2,22 @@ import { resourceParams } from "@/types"
 
 // Make sure to use lower casing and separate words using a dash
 export const resourcesConfig = {
-  levels: ["gcse", "a-level"],
+  levels: ["gcse", "a-level", "btec"],
   subjects: [
     "biology",
+    "business",
     "chemistry",
     "computer-science",
     "economics",
-    "english-language",
-    "english-literature",
+    "english",
     "geography",
+    "history",
     "maths",
-    "psychology",
     "physics",
+    "politics",
+    "psychology",
+    "rs",
+    "sociology",
   ],
   examBoards: ["aqa", "edexcel", "ocr"],
 } satisfies resourceParams

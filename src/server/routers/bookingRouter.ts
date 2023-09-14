@@ -11,6 +11,8 @@ import { tutorFormSchema } from "@/lib/validations/form"
 
 import { publicProcedure, router } from "../trpc"
 
+export const dynamic = "force-dynamic"
+
 export const bookingRouter = router({
   sendBookingDataToDatabase: publicProcedure
     .input(tutorFormSchema)

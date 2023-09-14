@@ -53,3 +53,16 @@ export const tutorFormSchema = z.object({
   }),
   booking_time: z.string(),
 })
+export const subjectFormSchema = z.object({
+  resources: z.array(z.string()).refine((value) => value.some((item) => item), {
+    message: "You have to select at least one item.",
+  }),
+})
+export const subjectArraySchema = z
+  .array(
+    z.object({
+      subject: z.string(),
+      time: z.string(),
+    })
+  )
+  .nullish()

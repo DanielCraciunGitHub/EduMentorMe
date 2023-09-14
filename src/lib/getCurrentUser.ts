@@ -6,6 +6,8 @@ import { Database } from "@/types/supabase"
 import { userPrivateMetadataSchema } from "@/lib/validations/auth"
 import { sendError } from "@/app/_actions/discord"
 
+export const dynamic = "force-dynamic"
+
 export async function getCurrentUser() {
   const supabase = createServerComponentClient<Database>({ cookies })
 

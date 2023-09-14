@@ -1,10 +1,19 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { initialSubjectData } from "@/types"
 import { useTimer } from "react-timer-hook"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { trpc } from "@/app/_trpc/client"
 
 type TimerInput = "hours" | "minutes" | "seconds"
@@ -21,12 +30,17 @@ interface TimerButtonFunctions {
   clearTimer: () => void
 }
 
-export function Timer() {
-  const { mutate } = trpc.timerRouter.setLeaderboardData.useMutation()
+export function Timer({ subjectData }: initialSubjectData) {
+  const { mutate: setLeaderboardData } =
+    trpc.timerRouter.setLeaderboardData.useMutation()
+  const { mutate: updateSubjectTime } =
+    trpc.timerRouter.updateSubjectTime.useMutation()
 
   const [hoursInput, setHoursInput] = useState("")
   const [minutesInput, setMinutesInput] = useState("")
   const [secondsInput, setSecondsInput] = useState("")
+
+  const [subject, setSubject] = useState("")
 
   const [toggleText, setToggleText] = useState<"Start" | "Pause">("Start")
   const [timerColor, setTimerColor] = useState<"text-red-500" | "">("")
@@ -53,7 +67,15 @@ export function Timer() {
 
       const totalMinutes = Number(hoursInput) * 60 + Number(minutesInput)
 
-      totalMinutes > 0 ? mutate({ minutes: totalMinutes }) : null
+      totalMinutes > 0 ? setLeaderboardData({ minutes: totalMinutes }) : null
+
+      subject !== "" && totalMinutes > 0
+        ? updateSubjectTime({
+            subject,
+            time: totalMinutes,
+            subjectData: subjectData!,
+          })
+        : null
     },
   })
 
@@ -176,7 +198,29 @@ export function Timer() {
 
   return (
     <div className="space-y-10 text-center">
-      <div className={isRunning || timerColor !== "" ? "hidden" : "visible"}>
+      <div
+        className={
+          isRunning || timerColor !== ""
+            ? "hidden"
+            : "visible flex flex-col items-center justify-center space-y-4"
+        }
+      >
+        {subjectData && (
+          <Select onValueChange={(value) => setSubject(value)}>
+            <SelectTrigger className="flex w-fit">
+              <SelectValue placeholder="Select a Subject" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {subjectData.map(({ subject }) => (
+                  <SelectItem key={subject} value={subject}>
+                    {subject}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
         <div className="flex justify-center">
           <div className="flex w-3/4 space-x-4 md:w-1/3">
             <Input
